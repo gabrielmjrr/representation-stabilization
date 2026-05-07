@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "PowerShell(Get-ChildItem \"c:\\\\Users\\\\gabri\\\\Documents\\\\thesisrep\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName)",
+      "Bash(python -c ' *)"
+    ]
+  }
+}
