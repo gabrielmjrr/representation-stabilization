@@ -183,7 +183,6 @@ def train_logistic_regression(
     clf = LogisticRegression(
         C=C,
         solver="lbfgs",
-        multi_class="multinomial",
         max_iter=max_iter,
         random_state=seed,
         verbose=0,
