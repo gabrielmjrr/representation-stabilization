@@ -61,6 +61,6 @@ surrogates:
 
 # Paths
 paths:
-  checkpoints: checkpoints/
-  activations: activations/
-  results: results/
+  checkpoints: /local/data/gme101/checkpoints/
+  activations: /local/data/gme101/activations/
+  results: /local/data/gme101/results/
