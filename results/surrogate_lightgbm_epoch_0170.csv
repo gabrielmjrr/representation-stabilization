@@ -1,0 +1,2 @@
+epoch,surrogate_type,surrogate_train_acc,surrogate_test_acc,network_test_acc,accuracy_gap,n_estimators,num_leaves,learning_rate
+170,lightgbm,1.0,0.9486,0.9503,0.0017,200,31,0.1

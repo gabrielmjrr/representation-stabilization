@@ -1,0 +1,2 @@
+epoch,surrogate_type,surrogate_train_acc,surrogate_test_acc,network_test_acc,accuracy_gap,n_estimators,max_features
+170,random_forest,1.0,0.9518,0.9503,-0.0015,200,sqrt
