@@ -1,8 +1,8 @@
 """
-metrics/cka.py — Compute temporal CKA between consecutive checkpoint epochs.
+metrics/cka.py — Compute temporal CKA between checkpoint epochs.
 
 Reads pre-extracted activation .npy files (produced by train.py) from activations/
-and computes linear CKA between every consecutive pair of checkpoint epochs.
+and computes linear CKA between epoch pairs.
 
 We measure within-network temporal CKA: CKA(X_t, X_{t-prev}) where t-prev is the
 preceding checkpoint epoch. This is NOT cross-network CKA (Kapoor et al. 2025) — we
@@ -11,12 +11,18 @@ are measuring how much the same network's representations change over training t
 Reference: Kornblith et al. (2019), "Similarity of Neural Network Representations
 Revisited."
 
+Modes:
+    consecutive (default) — CKA between each adjacent pair of checkpoints.
+                            Output: results/cka_results.csv
+    pairwise              — CKA between ALL epoch pairs (full epoch × epoch matrix).
+                            Required by analysis/plot_cka_heatmap.py.
+                            Output: results/cka_pairwise_results.csv
+                            Loads all activation files into memory at once to avoid
+                            redundant disk reads.
+
 Usage:
     python metrics/cka.py --config configs/resnet18_cifar10.yaml
-
-Output:
-    results/cka_results.csv   — one row per consecutive epoch pair
-    results/cka.log           — computation log
+    python metrics/cka.py --config configs/resnet18_cifar10.yaml --mode pairwise
 """
 
 import argparse
@@ -177,7 +183,7 @@ def compute_cka(
 
 
 # ---------------------------------------------------------------------------
-# Main computation loop
+# Main computation loops
 # ---------------------------------------------------------------------------
 
 def run_cka_computation(
@@ -261,6 +267,90 @@ def run_cka_computation(
     )
 
 
+def run_cka_pairwise_computation(
+    activations_dir: str,
+    results_dir: str,
+    config: dict,
+    logger: logging.Logger,
+) -> None:
+    """
+    Load all activation files and compute CKA for ALL epoch pairs.
+    Produces the full epoch × epoch matrix required by plot_cka_heatmap.py.
+
+    Stores only the upper triangle (epoch_a <= epoch_b) because CKA is symmetric.
+    The diagonal (epoch_a == epoch_b) is always 1.0 by definition and is included
+    so that plot_cka_heatmap.py can reconstruct the complete n × n matrix.
+
+    Memory note: all activation files are loaded once into RAM before the pair loop
+    to avoid O(n²) redundant disk reads. For 40 checkpoints × 2040 × 512 float32
+    this is ~170 MB — well within the cluster's available memory.
+    """
+    epoch_path_pairs = find_activation_files(activations_dir)
+    n_files          = len(epoch_path_pairs)
+
+    if n_files < 2:
+        logger.error(
+            f"Need at least 2 activation files to compute CKA. "
+            f"Found only {n_files}. Run train.py first."
+        )
+        return
+
+    n_pairs_upper_triangle = n_files * (n_files + 1) // 2
+    logger.info(f"Found {n_files} activation files.")
+    logger.info(f"Computing {n_pairs_upper_triangle} pairs (upper triangle + diagonal).")
+
+    # Load all activations into memory once
+    logger.info("Loading all activation files into memory...")
+    all_activations = []
+    for epoch, path in epoch_path_pairs:
+        activations = np.load(path)   # shape (n_samples, n_features)
+        all_activations.append((epoch, activations))
+        logger.info(f"  Loaded epoch {epoch:4d}  shape = {activations.shape}")
+
+    result_rows = []
+    pair_count  = 0
+
+    for i in range(n_files):
+        epoch_a, activations_a = all_activations[i]
+
+        for j in range(i, n_files):
+            epoch_b, activations_b = all_activations[j]
+
+            if i == j:
+                # Diagonal: a representation is always identical to itself
+                cka_value = 1.0
+            else:
+                cka_value = compute_cka(activations_a, activations_b)
+
+            pair_count += 1
+            logger.info(
+                f"  Pair {pair_count:4d}/{n_pairs_upper_triangle}"
+                f"  ({epoch_a:4d}, {epoch_b:4d})"
+                f"  CKA = {cka_value:.4f}"
+            )
+
+            result_rows.append({
+                "epoch_a":   epoch_a,
+                "epoch_b":   epoch_b,
+                "cka_value": round(cka_value, 6),
+            })
+
+    os.makedirs(results_dir, exist_ok=True)
+    output_path = os.path.join(results_dir, "cka_pairwise_results.csv")
+
+    fieldnames = ["epoch_a", "epoch_b", "cka_value"]
+    with open(output_path, "w", newline="") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(result_rows)
+
+    logger.info("-" * 70)
+    logger.info(f"Saved {len(result_rows)} pairwise CKA values to: {output_path}")
+    logger.info(
+        f"Use 'python analysis/plot_cka_heatmap.py' to visualise the matrix."
+    )
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
@@ -268,7 +358,7 @@ def run_cka_computation(
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Compute temporal linear CKA between consecutive checkpoint epochs. "
+            "Compute temporal linear CKA between checkpoint epochs. "
             "Run train.py first to generate activation .npy files."
         )
     )
@@ -289,6 +379,16 @@ def main() -> None:
         type=str,
         default=None,
         help="Override the results directory from config.",
+    )
+    parser.add_argument(
+        "--mode",
+        type=str,
+        choices=["consecutive", "pairwise"],
+        default="consecutive",
+        help=(
+            "consecutive (default): CKA between adjacent checkpoint pairs only. "
+            "pairwise: CKA between ALL epoch pairs — required for the heatmap."
+        ),
     )
     args = parser.parse_args()
 
@@ -311,13 +411,22 @@ def main() -> None:
     seed = config["seed"]
     set_seed(seed)
     logger.info(f"Seed: {seed}")
+    logger.info(f"Mode: {args.mode}")
 
-    run_cka_computation(
-        activations_dir=activations_dir,
-        results_dir=results_dir,
-        config=config,
-        logger=logger,
-    )
+    if args.mode == "consecutive":
+        run_cka_computation(
+            activations_dir=activations_dir,
+            results_dir=results_dir,
+            config=config,
+            logger=logger,
+        )
+    else:
+        run_cka_pairwise_computation(
+            activations_dir=activations_dir,
+            results_dir=results_dir,
+            config=config,
+            logger=logger,
+        )
 
     logger.info("=" * 70)
     logger.info("CKA computation complete.")

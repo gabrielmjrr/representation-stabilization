@@ -457,6 +457,7 @@ DRS is expensive: compute every 10 epochs in the primary run.
 
 ## What Not To Do
 
+- **NEVER read, write, modify, delete, or overwrite any file under `results/`** — this directory contains results from real experiments. It must remain completely untouched under any circumstance, including cleanup, refactoring, or any other task.
 - Do not use Adam for the primary experiment (first-layer artifact, noisy phases)
 - Do not compute CKA on the full training set — use a fixed held-out subset
 - Do not tune τ per run — fix it across all conditions
