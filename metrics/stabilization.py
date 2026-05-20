@@ -458,12 +458,35 @@ def main() -> None:
         default=None,
         help="Override path to drs_results.csv (default: from config paths.results).",
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help=(
+            "Override the seed from config. Input/output paths are routed to "
+            "seed-specific subdirectories (e.g. results/seed_42/)."
+        ),
+    )
     args = parser.parse_args()
 
     # ------------------------------------------------------------------
     # 2. Load config
     # ------------------------------------------------------------------
     config = load_config(args.config)
+
+    # --seed routes all paths to a seed-specific subdirectory so
+    # concurrent seed runs don't collide.
+    if args.seed is not None:
+        config["seed"] = args.seed
+        config["paths"]["checkpoints"] = os.path.join(
+            config["paths"]["checkpoints"], f"seed_{args.seed}"
+        )
+        config["paths"]["activations"] = os.path.join(
+            config["paths"]["activations"], f"seed_{args.seed}"
+        )
+        config["paths"]["results"] = os.path.join(
+            config["paths"]["results"], f"seed_{args.seed}"
+        )
 
     results_dir = config["paths"]["results"]
     tau = config["tau"]

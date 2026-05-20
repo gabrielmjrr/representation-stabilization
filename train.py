@@ -536,6 +536,15 @@ def main() -> None:
         default=None,
         help="Path to a checkpoint .pt file to resume training from.",
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help=(
+            "Override the seed from config. Output files are saved to "
+            "seed-specific subdirectories (e.g. checkpoints/seed_42/)."
+        ),
+    )
     args = parser.parse_args()
 
     # ------------------------------------------------------------------
@@ -543,17 +552,32 @@ def main() -> None:
     # ------------------------------------------------------------------
     config = load_config(args.config)
 
+    # --seed overrides the random seed and routes all outputs to a
+    # seed-specific subdirectory so concurrent seed runs don't collide.
+    if args.seed is not None:
+        config["seed"] = args.seed
+        config["paths"]["checkpoints"] = os.path.join(
+            config["paths"]["checkpoints"], f"seed_{args.seed}"
+        )
+        config["paths"]["activations"] = os.path.join(
+            config["paths"]["activations"], f"seed_{args.seed}"
+        )
+        config["paths"]["results"] = os.path.join(
+            config["paths"]["results"], f"seed_{args.seed}"
+        )
+
     checkpoint_dir = config["paths"]["checkpoints"]
     activations_dir = config["paths"]["activations"]
+    results_dir = config["paths"]["results"]
 
     os.makedirs(checkpoint_dir, exist_ok=True)
     os.makedirs(activations_dir, exist_ok=True)
-    os.makedirs("results/", exist_ok=True)
+    os.makedirs(results_dir, exist_ok=True)
 
     # ------------------------------------------------------------------
     # 3. Set up logging
     # ------------------------------------------------------------------
-    log_path = os.path.join("results", "train.log")
+    log_path = os.path.join(results_dir, "train.log")
     logger = setup_logging(log_path)
 
     logger.info("=" * 70)

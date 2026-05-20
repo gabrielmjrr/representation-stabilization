@@ -15,7 +15,7 @@ lr_scheduler: cosine
 lr_warmup_epochs: 0
 
 # Training duration
-epochs: 200
+epochs: 300
 batch_size: 128
 seed: 42
 

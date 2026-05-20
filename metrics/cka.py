@@ -390,9 +390,32 @@ def main() -> None:
             "pairwise: CKA between ALL epoch pairs — required for the heatmap."
         ),
     )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help=(
+            "Override the seed from config. Input/output paths are routed to "
+            "seed-specific subdirectories (e.g. activations/seed_42/)."
+        ),
+    )
     args = parser.parse_args()
 
     config = load_config(args.config)
+
+    # --seed overrides the random seed and routes all paths to a
+    # seed-specific subdirectory so concurrent seed runs don't collide.
+    if args.seed is not None:
+        config["seed"] = args.seed
+        config["paths"]["checkpoints"] = os.path.join(
+            config["paths"]["checkpoints"], f"seed_{args.seed}"
+        )
+        config["paths"]["activations"] = os.path.join(
+            config["paths"]["activations"], f"seed_{args.seed}"
+        )
+        config["paths"]["results"] = os.path.join(
+            config["paths"]["results"], f"seed_{args.seed}"
+        )
 
     activations_dir = args.activations_dir or config["paths"]["activations"]
     results_dir = args.results_dir or config["paths"]["results"]
