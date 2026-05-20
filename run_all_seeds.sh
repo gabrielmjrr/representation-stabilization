@@ -12,6 +12,8 @@
 # Or to run interactively:
 #   bash run_all_seeds.sh
 
+conda activate /local/data/gme101/thesis_env/
+
 CONFIG="configs/resnet18_cifar10.yaml"
 SEEDS="42 0 1 2 3"
 BASE_RESULTS="/local/data/gme101/results"
