@@ -1,8 +1,8 @@
-2026-05-20 11:38:44  INFO  ======================================================================
-2026-05-20 11:38:44  INFO  Representation Stabilization — Training Run
-2026-05-20 11:38:44  INFO  ======================================================================
-2026-05-20 11:38:44  INFO  Config: configs/resnet18_cifar10.yaml
-2026-05-20 11:38:44  INFO  Config contents:
+2026-05-21 09:21:12  INFO  ======================================================================
+2026-05-21 09:21:12  INFO  Representation Stabilization — Training Run
+2026-05-21 09:21:12  INFO  ======================================================================
+2026-05-21 09:21:12  INFO  Config: configs/resnet18_cifar10.yaml
+2026-05-21 09:21:12  INFO  Config contents:
 K: 5
 batch_size: 128
 checkpoint_freq: 5
@@ -46,445 +46,445 @@ surrogates:
 tau: 0.02
 weight_decay: 0.0005
 
-2026-05-20 11:38:44  INFO  Device: cuda
-2026-05-20 11:38:44  INFO  GPU: NVIDIA L4
-2026-05-20 11:38:44  INFO  CUDA version: 12.1
-2026-05-20 11:38:44  INFO  VRAM: 23.7 GB
-2026-05-20 11:38:44  INFO  PyTorch version: 2.5.1+cu121
-2026-05-20 11:38:44  INFO  Seed: 0
-2026-05-20 11:38:44  INFO  Building data loaders...
-2026-05-20 11:38:46  INFO  Train batches: 391
-2026-05-20 11:38:46  INFO  Test batches:  79
-2026-05-20 11:38:46  INFO  Extraction samples: 2048
-2026-05-20 11:38:46  INFO  Building ResNet-18 (CIFAR-10 stem)...
-2026-05-20 11:38:46  INFO  Trainable parameters: 11,173,962
-2026-05-20 11:38:46  INFO  Optimizer: SGD  lr=0.1  momentum=0.9  wd=0.0005
-2026-05-20 11:38:46  INFO  Scheduler: cosine  T_max=300
-2026-05-20 11:38:46  INFO  Starting training: epochs 1 to 300
-2026-05-20 11:38:46  INFO  ----------------------------------------------------------------------
-2026-05-20 11:39:04  INFO  Epoch    1/300  train_loss=1.9635  train_acc=0.3162  test_loss=1.5169  test_acc=0.4338  lr=0.099997  time=18.2s
-2026-05-20 11:39:23  INFO  Epoch    2/300  train_loss=1.3827  train_acc=0.4953  test_loss=1.2346  test_acc=0.5589  lr=0.099989  time=18.1s
-2026-05-20 11:39:41  INFO  Epoch    3/300  train_loss=1.1032  train_acc=0.6041  test_loss=0.9707  test_acc=0.6545  lr=0.099975  time=18.2s
-2026-05-20 11:39:59  INFO  Epoch    4/300  train_loss=0.8872  train_acc=0.6862  test_loss=0.8796  test_acc=0.7039  lr=0.099956  time=18.2s
-2026-05-20 11:40:17  INFO  Epoch    5/300  train_loss=0.7221  train_acc=0.7498  test_loss=0.8395  test_acc=0.7164  lr=0.099931  time=18.2s
-2026-05-20 11:40:17  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0005.pt
-2026-05-20 11:40:17  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0005.npy
-2026-05-20 11:40:36  INFO  Epoch    6/300  train_loss=0.6317  train_acc=0.7815  test_loss=0.7061  test_acc=0.7574  lr=0.099901  time=18.2s
-2026-05-20 11:40:54  INFO  Epoch    7/300  train_loss=0.5764  train_acc=0.8003  test_loss=0.5764  test_acc=0.8063  lr=0.099866  time=18.2s
-2026-05-20 11:41:12  INFO  Epoch    8/300  train_loss=0.5360  train_acc=0.8152  test_loss=0.6485  test_acc=0.7884  lr=0.099825  time=18.2s
-2026-05-20 11:41:30  INFO  Epoch    9/300  train_loss=0.5080  train_acc=0.8257  test_loss=0.6141  test_acc=0.7945  lr=0.099778  time=18.2s
-2026-05-20 11:41:48  INFO  Epoch   10/300  train_loss=0.4917  train_acc=0.8327  test_loss=0.5249  test_acc=0.8226  lr=0.099726  time=18.2s
-2026-05-20 11:41:48  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0010.pt
-2026-05-20 11:41:49  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0010.npy
-2026-05-20 11:42:07  INFO  Epoch   11/300  train_loss=0.4721  train_acc=0.8388  test_loss=0.5711  test_acc=0.8096  lr=0.099669  time=18.2s
-2026-05-20 11:42:25  INFO  Epoch   12/300  train_loss=0.4596  train_acc=0.8422  test_loss=0.6403  test_acc=0.7835  lr=0.099606  time=18.2s
-2026-05-20 11:42:43  INFO  Epoch   13/300  train_loss=0.4455  train_acc=0.8469  test_loss=0.6342  test_acc=0.7942  lr=0.099537  time=18.2s
-2026-05-20 11:43:01  INFO  Epoch   14/300  train_loss=0.4363  train_acc=0.8513  test_loss=0.5407  test_acc=0.8294  lr=0.099464  time=18.2s
-2026-05-20 11:43:20  INFO  Epoch   15/300  train_loss=0.4258  train_acc=0.8542  test_loss=0.6588  test_acc=0.7889  lr=0.099384  time=18.2s
-2026-05-20 11:43:20  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0015.pt
-2026-05-20 11:43:20  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0015.npy
-2026-05-20 11:43:38  INFO  Epoch   16/300  train_loss=0.4172  train_acc=0.8584  test_loss=0.4642  test_acc=0.8384  lr=0.099300  time=18.2s
-2026-05-20 11:43:56  INFO  Epoch   17/300  train_loss=0.4028  train_acc=0.8612  test_loss=0.4992  test_acc=0.8331  lr=0.099210  time=18.2s
-2026-05-20 11:44:15  INFO  Epoch   18/300  train_loss=0.4040  train_acc=0.8608  test_loss=0.5197  test_acc=0.8280  lr=0.099114  time=18.2s
-2026-05-20 11:44:33  INFO  Epoch   19/300  train_loss=0.4033  train_acc=0.8627  test_loss=0.4866  test_acc=0.8380  lr=0.099014  time=18.2s
-2026-05-20 11:44:51  INFO  Epoch   20/300  train_loss=0.3862  train_acc=0.8689  test_loss=0.4964  test_acc=0.8350  lr=0.098907  time=18.2s
-2026-05-20 11:44:51  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0020.pt
-2026-05-20 11:44:51  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0020.npy
-2026-05-20 11:45:09  INFO  Epoch   21/300  train_loss=0.3837  train_acc=0.8689  test_loss=0.5234  test_acc=0.8294  lr=0.098796  time=18.2s
-2026-05-20 11:45:28  INFO  Epoch   22/300  train_loss=0.3829  train_acc=0.8704  test_loss=0.4665  test_acc=0.8456  lr=0.098679  time=18.2s
-2026-05-20 11:45:46  INFO  Epoch   23/300  train_loss=0.3744  train_acc=0.8727  test_loss=0.5431  test_acc=0.8231  lr=0.098557  time=18.3s
-2026-05-20 11:46:04  INFO  Epoch   24/300  train_loss=0.3749  train_acc=0.8711  test_loss=0.6034  test_acc=0.8127  lr=0.098429  time=18.2s
-2026-05-20 11:46:22  INFO  Epoch   25/300  train_loss=0.3648  train_acc=0.8763  test_loss=0.5259  test_acc=0.8297  lr=0.098296  time=18.2s
-2026-05-20 11:46:22  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0025.pt
-2026-05-20 11:46:23  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0025.npy
-2026-05-20 11:46:41  INFO  Epoch   26/300  train_loss=0.3585  train_acc=0.8778  test_loss=0.5053  test_acc=0.8311  lr=0.098158  time=18.2s
-2026-05-20 11:46:59  INFO  Epoch   27/300  train_loss=0.3575  train_acc=0.8792  test_loss=0.4751  test_acc=0.8395  lr=0.098015  time=18.2s
-2026-05-20 11:47:17  INFO  Epoch   28/300  train_loss=0.3541  train_acc=0.8795  test_loss=0.5058  test_acc=0.8265  lr=0.097866  time=18.2s
-2026-05-20 11:47:35  INFO  Epoch   29/300  train_loss=0.3565  train_acc=0.8778  test_loss=0.4586  test_acc=0.8501  lr=0.097712  time=18.2s
-2026-05-20 11:47:54  INFO  Epoch   30/300  train_loss=0.3501  train_acc=0.8812  test_loss=0.4487  test_acc=0.8460  lr=0.097553  time=18.2s
-2026-05-20 11:47:54  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0030.pt
-2026-05-20 11:47:54  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0030.npy
-2026-05-20 11:48:12  INFO  Epoch   31/300  train_loss=0.3472  train_acc=0.8806  test_loss=0.5474  test_acc=0.8101  lr=0.097388  time=18.2s
-2026-05-20 11:48:30  INFO  Epoch   32/300  train_loss=0.3431  train_acc=0.8832  test_loss=0.5221  test_acc=0.8308  lr=0.097219  time=18.2s
-2026-05-20 11:48:48  INFO  Epoch   33/300  train_loss=0.3501  train_acc=0.8809  test_loss=0.4115  test_acc=0.8616  lr=0.097044  time=18.2s
-2026-05-20 11:49:07  INFO  Epoch   34/300  train_loss=0.3458  train_acc=0.8824  test_loss=0.5028  test_acc=0.8385  lr=0.096864  time=18.2s
-2026-05-20 11:49:25  INFO  Epoch   35/300  train_loss=0.3404  train_acc=0.8845  test_loss=0.6065  test_acc=0.8106  lr=0.096679  time=18.2s
-2026-05-20 11:49:25  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0035.pt
-2026-05-20 11:49:25  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0035.npy
-2026-05-20 11:49:43  INFO  Epoch   36/300  train_loss=0.3395  train_acc=0.8848  test_loss=0.7561  test_acc=0.7781  lr=0.096489  time=18.2s
-2026-05-20 11:50:02  INFO  Epoch   37/300  train_loss=0.3412  train_acc=0.8839  test_loss=0.4287  test_acc=0.8599  lr=0.096294  time=18.2s
-2026-05-20 11:50:20  INFO  Epoch   38/300  train_loss=0.3356  train_acc=0.8855  test_loss=0.4893  test_acc=0.8386  lr=0.096093  time=18.2s
-2026-05-20 11:50:38  INFO  Epoch   39/300  train_loss=0.3288  train_acc=0.8887  test_loss=0.4095  test_acc=0.8617  lr=0.095888  time=18.2s
-2026-05-20 11:50:56  INFO  Epoch   40/300  train_loss=0.3297  train_acc=0.8879  test_loss=0.4766  test_acc=0.8438  lr=0.095677  time=18.2s
-2026-05-20 11:50:56  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0040.pt
-2026-05-20 11:50:56  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0040.npy
-2026-05-20 11:51:15  INFO  Epoch   41/300  train_loss=0.3297  train_acc=0.8875  test_loss=0.4425  test_acc=0.8500  lr=0.095462  time=18.2s
-2026-05-20 11:51:33  INFO  Epoch   42/300  train_loss=0.3323  train_acc=0.8870  test_loss=0.5223  test_acc=0.8241  lr=0.095241  time=18.2s
-2026-05-20 11:51:51  INFO  Epoch   43/300  train_loss=0.3304  train_acc=0.8870  test_loss=0.5127  test_acc=0.8410  lr=0.095016  time=18.2s
-2026-05-20 11:52:09  INFO  Epoch   44/300  train_loss=0.3203  train_acc=0.8909  test_loss=0.5101  test_acc=0.8366  lr=0.094786  time=18.2s
-2026-05-20 11:52:27  INFO  Epoch   45/300  train_loss=0.3255  train_acc=0.8891  test_loss=0.4550  test_acc=0.8486  lr=0.094550  time=18.2s
-2026-05-20 11:52:27  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0045.pt
-2026-05-20 11:52:28  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0045.npy
-2026-05-20 11:52:46  INFO  Epoch   46/300  train_loss=0.3237  train_acc=0.8890  test_loss=0.5660  test_acc=0.8191  lr=0.094310  time=18.2s
-2026-05-20 11:53:04  INFO  Epoch   47/300  train_loss=0.3206  train_acc=0.8902  test_loss=0.5241  test_acc=0.8365  lr=0.094065  time=18.2s
-2026-05-20 11:53:22  INFO  Epoch   48/300  train_loss=0.3196  train_acc=0.8918  test_loss=0.4191  test_acc=0.8659  lr=0.093815  time=18.2s
-2026-05-20 11:53:40  INFO  Epoch   49/300  train_loss=0.3160  train_acc=0.8924  test_loss=0.4372  test_acc=0.8544  lr=0.093561  time=18.2s
-2026-05-20 11:53:59  INFO  Epoch   50/300  train_loss=0.3113  train_acc=0.8935  test_loss=0.3941  test_acc=0.8671  lr=0.093301  time=18.2s
-2026-05-20 11:53:59  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0050.pt
-2026-05-20 11:53:59  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0050.npy
-2026-05-20 11:54:17  INFO  Epoch   51/300  train_loss=0.3097  train_acc=0.8956  test_loss=0.4783  test_acc=0.8445  lr=0.093037  time=18.2s
-2026-05-20 11:54:35  INFO  Epoch   52/300  train_loss=0.3160  train_acc=0.8917  test_loss=0.4420  test_acc=0.8547  lr=0.092768  time=18.2s
-2026-05-20 11:54:53  INFO  Epoch   53/300  train_loss=0.3137  train_acc=0.8922  test_loss=0.6029  test_acc=0.8064  lr=0.092495  time=18.2s
-2026-05-20 11:55:12  INFO  Epoch   54/300  train_loss=0.3147  train_acc=0.8929  test_loss=0.3885  test_acc=0.8665  lr=0.092216  time=18.2s
-2026-05-20 11:55:30  INFO  Epoch   55/300  train_loss=0.3087  train_acc=0.8953  test_loss=0.4130  test_acc=0.8612  lr=0.091934  time=18.2s
-2026-05-20 11:55:30  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0055.pt
-2026-05-20 11:55:30  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0055.npy
-2026-05-20 11:55:48  INFO  Epoch   56/300  train_loss=0.3092  train_acc=0.8950  test_loss=0.5610  test_acc=0.8180  lr=0.091646  time=18.2s
-2026-05-20 11:56:06  INFO  Epoch   57/300  train_loss=0.3062  train_acc=0.8963  test_loss=0.4120  test_acc=0.8633  lr=0.091354  time=18.2s
-2026-05-20 11:56:25  INFO  Epoch   58/300  train_loss=0.3031  train_acc=0.8969  test_loss=0.5399  test_acc=0.8246  lr=0.091057  time=18.2s
-2026-05-20 11:56:43  INFO  Epoch   59/300  train_loss=0.3057  train_acc=0.8956  test_loss=0.4471  test_acc=0.8507  lr=0.090756  time=18.1s
-2026-05-20 11:57:01  INFO  Epoch   60/300  train_loss=0.3021  train_acc=0.8982  test_loss=0.4325  test_acc=0.8596  lr=0.090451  time=18.2s
-2026-05-20 11:57:01  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0060.pt
-2026-05-20 11:57:01  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0060.npy
-2026-05-20 11:57:19  INFO  Epoch   61/300  train_loss=0.3027  train_acc=0.8968  test_loss=0.4718  test_acc=0.8466  lr=0.090141  time=18.2s
-2026-05-20 11:57:38  INFO  Epoch   62/300  train_loss=0.3034  train_acc=0.8957  test_loss=0.4843  test_acc=0.8422  lr=0.089826  time=18.1s
-2026-05-20 11:57:56  INFO  Epoch   63/300  train_loss=0.3003  train_acc=0.8976  test_loss=0.4618  test_acc=0.8540  lr=0.089508  time=18.2s
-2026-05-20 11:58:14  INFO  Epoch   64/300  train_loss=0.2975  train_acc=0.8972  test_loss=0.4518  test_acc=0.8529  lr=0.089185  time=18.2s
-2026-05-20 11:58:32  INFO  Epoch   65/300  train_loss=0.3002  train_acc=0.8978  test_loss=0.5225  test_acc=0.8320  lr=0.088857  time=18.2s
-2026-05-20 11:58:32  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0065.pt
-2026-05-20 11:58:32  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0065.npy
-2026-05-20 11:58:50  INFO  Epoch   66/300  train_loss=0.3020  train_acc=0.8973  test_loss=0.4802  test_acc=0.8445  lr=0.088526  time=18.1s
-2026-05-20 11:59:09  INFO  Epoch   67/300  train_loss=0.2900  train_acc=0.9020  test_loss=0.4864  test_acc=0.8435  lr=0.088190  time=18.2s
-2026-05-20 11:59:27  INFO  Epoch   68/300  train_loss=0.2960  train_acc=0.8993  test_loss=0.4555  test_acc=0.8487  lr=0.087850  time=18.2s
-2026-05-20 11:59:45  INFO  Epoch   69/300  train_loss=0.2905  train_acc=0.9007  test_loss=0.6006  test_acc=0.8177  lr=0.087506  time=18.2s
-2026-05-20 12:00:03  INFO  Epoch   70/300  train_loss=0.2985  train_acc=0.8991  test_loss=0.4674  test_acc=0.8494  lr=0.087157  time=18.2s
-2026-05-20 12:00:03  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0070.pt
-2026-05-20 12:00:03  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0070.npy
-2026-05-20 12:00:22  INFO  Epoch   71/300  train_loss=0.2883  train_acc=0.9033  test_loss=0.4220  test_acc=0.8664  lr=0.086805  time=18.2s
-2026-05-20 12:00:40  INFO  Epoch   72/300  train_loss=0.2915  train_acc=0.8997  test_loss=0.4701  test_acc=0.8499  lr=0.086448  time=18.1s
-2026-05-20 12:00:58  INFO  Epoch   73/300  train_loss=0.2922  train_acc=0.8996  test_loss=0.4326  test_acc=0.8591  lr=0.086088  time=18.2s
-2026-05-20 12:01:16  INFO  Epoch   74/300  train_loss=0.2902  train_acc=0.9008  test_loss=0.5403  test_acc=0.8291  lr=0.085724  time=18.2s
-2026-05-20 12:01:34  INFO  Epoch   75/300  train_loss=0.2842  train_acc=0.9026  test_loss=0.4466  test_acc=0.8578  lr=0.085355  time=18.1s
-2026-05-20 12:01:34  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0075.pt
-2026-05-20 12:01:34  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0075.npy
-2026-05-20 12:01:53  INFO  Epoch   76/300  train_loss=0.2857  train_acc=0.9024  test_loss=0.4801  test_acc=0.8468  lr=0.084983  time=18.2s
-2026-05-20 12:02:11  INFO  Epoch   77/300  train_loss=0.2883  train_acc=0.9007  test_loss=0.4186  test_acc=0.8589  lr=0.084607  time=18.2s
-2026-05-20 12:02:29  INFO  Epoch   78/300  train_loss=0.2848  train_acc=0.9029  test_loss=0.4075  test_acc=0.8646  lr=0.084227  time=18.1s
-2026-05-20 12:02:47  INFO  Epoch   79/300  train_loss=0.2782  train_acc=0.9060  test_loss=0.4396  test_acc=0.8567  lr=0.083844  time=18.1s
-2026-05-20 12:03:05  INFO  Epoch   80/300  train_loss=0.2778  train_acc=0.9038  test_loss=0.4508  test_acc=0.8567  lr=0.083457  time=18.2s
-2026-05-20 12:03:05  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0080.pt
-2026-05-20 12:03:06  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0080.npy
-2026-05-20 12:03:24  INFO  Epoch   81/300  train_loss=0.2810  train_acc=0.9043  test_loss=0.5183  test_acc=0.8362  lr=0.083066  time=18.2s
-2026-05-20 12:03:42  INFO  Epoch   82/300  train_loss=0.2821  train_acc=0.9046  test_loss=0.4418  test_acc=0.8536  lr=0.082671  time=18.2s
-2026-05-20 12:04:00  INFO  Epoch   83/300  train_loss=0.2765  train_acc=0.9064  test_loss=0.4143  test_acc=0.8650  lr=0.082273  time=18.2s
-2026-05-20 12:04:18  INFO  Epoch   84/300  train_loss=0.2712  train_acc=0.9067  test_loss=0.4072  test_acc=0.8692  lr=0.081871  time=18.1s
-2026-05-20 12:04:36  INFO  Epoch   85/300  train_loss=0.2774  train_acc=0.9043  test_loss=0.3711  test_acc=0.8728  lr=0.081466  time=18.2s
-2026-05-20 12:04:36  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0085.pt
-2026-05-20 12:04:37  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0085.npy
-2026-05-20 12:04:55  INFO  Epoch   86/300  train_loss=0.2719  train_acc=0.9065  test_loss=0.4290  test_acc=0.8591  lr=0.081057  time=18.2s
-2026-05-20 12:05:13  INFO  Epoch   87/300  train_loss=0.2672  train_acc=0.9099  test_loss=0.5205  test_acc=0.8298  lr=0.080645  time=18.2s
-2026-05-20 12:05:31  INFO  Epoch   88/300  train_loss=0.2775  train_acc=0.9036  test_loss=0.4581  test_acc=0.8437  lr=0.080230  time=18.1s
-2026-05-20 12:05:49  INFO  Epoch   89/300  train_loss=0.2739  train_acc=0.9072  test_loss=0.4075  test_acc=0.8663  lr=0.079811  time=18.1s
-2026-05-20 12:06:07  INFO  Epoch   90/300  train_loss=0.2674  train_acc=0.9083  test_loss=0.4537  test_acc=0.8549  lr=0.079389  time=18.1s
-2026-05-20 12:06:07  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0090.pt
-2026-05-20 12:06:08  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0090.npy
-2026-05-20 12:06:26  INFO  Epoch   91/300  train_loss=0.2680  train_acc=0.9078  test_loss=0.3715  test_acc=0.8792  lr=0.078964  time=18.2s
-2026-05-20 12:06:44  INFO  Epoch   92/300  train_loss=0.2626  train_acc=0.9116  test_loss=0.4222  test_acc=0.8615  lr=0.078536  time=18.1s
-2026-05-20 12:07:02  INFO  Epoch   93/300  train_loss=0.2650  train_acc=0.9094  test_loss=0.4242  test_acc=0.8604  lr=0.078104  time=18.2s
-2026-05-20 12:07:20  INFO  Epoch   94/300  train_loss=0.2655  train_acc=0.9077  test_loss=0.4211  test_acc=0.8634  lr=0.077670  time=18.1s
-2026-05-20 12:07:38  INFO  Epoch   95/300  train_loss=0.2600  train_acc=0.9114  test_loss=0.4246  test_acc=0.8565  lr=0.077232  time=18.1s
-2026-05-20 12:07:38  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0095.pt
-2026-05-20 12:07:39  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0095.npy
-2026-05-20 12:07:57  INFO  Epoch   96/300  train_loss=0.2584  train_acc=0.9120  test_loss=0.3435  test_acc=0.8845  lr=0.076791  time=18.1s
-2026-05-20 12:08:15  INFO  Epoch   97/300  train_loss=0.2576  train_acc=0.9128  test_loss=0.5129  test_acc=0.8347  lr=0.076348  time=18.2s
-2026-05-20 12:08:33  INFO  Epoch   98/300  train_loss=0.2615  train_acc=0.9102  test_loss=0.3334  test_acc=0.8878  lr=0.075901  time=18.1s
-2026-05-20 12:08:51  INFO  Epoch   99/300  train_loss=0.2574  train_acc=0.9135  test_loss=0.4292  test_acc=0.8601  lr=0.075452  time=18.1s
-2026-05-20 12:09:09  INFO  Epoch  100/300  train_loss=0.2534  train_acc=0.9148  test_loss=0.3671  test_acc=0.8810  lr=0.075000  time=18.1s
-2026-05-20 12:09:09  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0100.pt
-2026-05-20 12:09:10  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0100.npy
-2026-05-20 12:09:28  INFO  Epoch  101/300  train_loss=0.2618  train_acc=0.9110  test_loss=0.3765  test_acc=0.8776  lr=0.074545  time=18.1s
-2026-05-20 12:09:46  INFO  Epoch  102/300  train_loss=0.2482  train_acc=0.9152  test_loss=0.4228  test_acc=0.8652  lr=0.074088  time=18.2s
-2026-05-20 12:10:04  INFO  Epoch  103/300  train_loss=0.2596  train_acc=0.9110  test_loss=0.4591  test_acc=0.8576  lr=0.073628  time=18.1s
-2026-05-20 12:10:22  INFO  Epoch  104/300  train_loss=0.2491  train_acc=0.9149  test_loss=0.4218  test_acc=0.8652  lr=0.073165  time=18.1s
-2026-05-20 12:10:40  INFO  Epoch  105/300  train_loss=0.2485  train_acc=0.9142  test_loss=0.4198  test_acc=0.8636  lr=0.072700  time=18.1s
-2026-05-20 12:10:40  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0105.pt
-2026-05-20 12:10:41  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0105.npy
-2026-05-20 12:10:59  INFO  Epoch  106/300  train_loss=0.2474  train_acc=0.9171  test_loss=0.4558  test_acc=0.8554  lr=0.072232  time=18.1s
-2026-05-20 12:11:17  INFO  Epoch  107/300  train_loss=0.2482  train_acc=0.9162  test_loss=0.4098  test_acc=0.8662  lr=0.071762  time=18.1s
-2026-05-20 12:11:35  INFO  Epoch  108/300  train_loss=0.2431  train_acc=0.9156  test_loss=0.4786  test_acc=0.8505  lr=0.071289  time=18.2s
-2026-05-20 12:11:53  INFO  Epoch  109/300  train_loss=0.2436  train_acc=0.9168  test_loss=0.4106  test_acc=0.8655  lr=0.070814  time=18.1s
-2026-05-20 12:12:11  INFO  Epoch  110/300  train_loss=0.2391  train_acc=0.9187  test_loss=0.4280  test_acc=0.8630  lr=0.070337  time=18.1s
-2026-05-20 12:12:11  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0110.pt
-2026-05-20 12:12:12  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0110.npy
-2026-05-20 12:12:30  INFO  Epoch  111/300  train_loss=0.2389  train_acc=0.9183  test_loss=0.3815  test_acc=0.8751  lr=0.069857  time=18.1s
-2026-05-20 12:12:48  INFO  Epoch  112/300  train_loss=0.2481  train_acc=0.9155  test_loss=0.3717  test_acc=0.8733  lr=0.069376  time=18.2s
-2026-05-20 12:13:06  INFO  Epoch  113/300  train_loss=0.2387  train_acc=0.9186  test_loss=0.3709  test_acc=0.8815  lr=0.068892  time=18.2s
-2026-05-20 12:13:24  INFO  Epoch  114/300  train_loss=0.2330  train_acc=0.9194  test_loss=0.3702  test_acc=0.8876  lr=0.068406  time=18.2s
-2026-05-20 12:13:42  INFO  Epoch  115/300  train_loss=0.2375  train_acc=0.9195  test_loss=0.3358  test_acc=0.8921  lr=0.067918  time=18.2s
-2026-05-20 12:13:42  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0115.pt
-2026-05-20 12:13:43  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0115.npy
-2026-05-20 12:14:01  INFO  Epoch  116/300  train_loss=0.2396  train_acc=0.9181  test_loss=0.4418  test_acc=0.8607  lr=0.067429  time=18.2s
-2026-05-20 12:14:19  INFO  Epoch  117/300  train_loss=0.2304  train_acc=0.9215  test_loss=0.4915  test_acc=0.8471  lr=0.066937  time=18.1s
-2026-05-20 12:14:37  INFO  Epoch  118/300  train_loss=0.2351  train_acc=0.9200  test_loss=0.3728  test_acc=0.8823  lr=0.066443  time=18.1s
-2026-05-20 12:14:55  INFO  Epoch  119/300  train_loss=0.2321  train_acc=0.9211  test_loss=0.3675  test_acc=0.8793  lr=0.065948  time=18.2s
-2026-05-20 12:15:13  INFO  Epoch  120/300  train_loss=0.2276  train_acc=0.9222  test_loss=0.3813  test_acc=0.8779  lr=0.065451  time=18.2s
-2026-05-20 12:15:14  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0120.pt
-2026-05-20 12:15:14  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0120.npy
-2026-05-20 12:15:32  INFO  Epoch  121/300  train_loss=0.2292  train_acc=0.9218  test_loss=0.4876  test_acc=0.8440  lr=0.064952  time=18.2s
-2026-05-20 12:15:50  INFO  Epoch  122/300  train_loss=0.2297  train_acc=0.9214  test_loss=0.4187  test_acc=0.8649  lr=0.064452  time=18.1s
-2026-05-20 12:16:08  INFO  Epoch  123/300  train_loss=0.2220  train_acc=0.9243  test_loss=0.3937  test_acc=0.8750  lr=0.063950  time=18.1s
-2026-05-20 12:16:26  INFO  Epoch  124/300  train_loss=0.2241  train_acc=0.9228  test_loss=0.4134  test_acc=0.8696  lr=0.063446  time=18.1s
-2026-05-20 12:16:44  INFO  Epoch  125/300  train_loss=0.2234  train_acc=0.9233  test_loss=0.3444  test_acc=0.8863  lr=0.062941  time=18.1s
-2026-05-20 12:16:45  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0125.pt
-2026-05-20 12:16:45  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0125.npy
-2026-05-20 12:17:03  INFO  Epoch  126/300  train_loss=0.2222  train_acc=0.9239  test_loss=0.3150  test_acc=0.8934  lr=0.062434  time=18.2s
-2026-05-20 12:17:21  INFO  Epoch  127/300  train_loss=0.2142  train_acc=0.9276  test_loss=0.3463  test_acc=0.8853  lr=0.061927  time=18.1s
-2026-05-20 12:17:39  INFO  Epoch  128/300  train_loss=0.2163  train_acc=0.9267  test_loss=0.3638  test_acc=0.8857  lr=0.061418  time=18.1s
-2026-05-20 12:17:57  INFO  Epoch  129/300  train_loss=0.2143  train_acc=0.9262  test_loss=0.3249  test_acc=0.8946  lr=0.060907  time=18.1s
-2026-05-20 12:18:16  INFO  Epoch  130/300  train_loss=0.2154  train_acc=0.9266  test_loss=0.5131  test_acc=0.8424  lr=0.060396  time=18.2s
-2026-05-20 12:18:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0130.pt
-2026-05-20 12:18:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0130.npy
-2026-05-20 12:18:34  INFO  Epoch  131/300  train_loss=0.2120  train_acc=0.9285  test_loss=0.5086  test_acc=0.8462  lr=0.059883  time=18.2s
-2026-05-20 12:18:52  INFO  Epoch  132/300  train_loss=0.2103  train_acc=0.9291  test_loss=0.3788  test_acc=0.8810  lr=0.059369  time=18.1s
-2026-05-20 12:19:10  INFO  Epoch  133/300  train_loss=0.2038  train_acc=0.9295  test_loss=0.3818  test_acc=0.8800  lr=0.058854  time=18.2s
-2026-05-20 12:19:28  INFO  Epoch  134/300  train_loss=0.2042  train_acc=0.9307  test_loss=0.3677  test_acc=0.8822  lr=0.058338  time=18.1s
-2026-05-20 12:19:47  INFO  Epoch  135/300  train_loss=0.2092  train_acc=0.9281  test_loss=0.3391  test_acc=0.8884  lr=0.057822  time=18.1s
-2026-05-20 12:19:47  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0135.pt
-2026-05-20 12:19:47  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0135.npy
-2026-05-20 12:20:05  INFO  Epoch  136/300  train_loss=0.1993  train_acc=0.9316  test_loss=0.3692  test_acc=0.8822  lr=0.057304  time=18.1s
-2026-05-20 12:20:23  INFO  Epoch  137/300  train_loss=0.2105  train_acc=0.9284  test_loss=0.4108  test_acc=0.8697  lr=0.056786  time=18.1s
-2026-05-20 12:20:41  INFO  Epoch  138/300  train_loss=0.2027  train_acc=0.9310  test_loss=0.3656  test_acc=0.8790  lr=0.056267  time=18.1s
-2026-05-20 12:20:59  INFO  Epoch  139/300  train_loss=0.1960  train_acc=0.9324  test_loss=0.3661  test_acc=0.8828  lr=0.055747  time=18.1s
-2026-05-20 12:21:17  INFO  Epoch  140/300  train_loss=0.1928  train_acc=0.9342  test_loss=0.3498  test_acc=0.8901  lr=0.055226  time=18.1s
-2026-05-20 12:21:18  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0140.pt
-2026-05-20 12:21:18  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0140.npy
-2026-05-20 12:21:36  INFO  Epoch  141/300  train_loss=0.1997  train_acc=0.9311  test_loss=0.4209  test_acc=0.8721  lr=0.054705  time=18.2s
-2026-05-20 12:21:54  INFO  Epoch  142/300  train_loss=0.1973  train_acc=0.9317  test_loss=0.3633  test_acc=0.8870  lr=0.054184  time=18.1s
-2026-05-20 12:22:12  INFO  Epoch  143/300  train_loss=0.1916  train_acc=0.9345  test_loss=0.3446  test_acc=0.8868  lr=0.053662  time=18.2s
-2026-05-20 12:22:30  INFO  Epoch  144/300  train_loss=0.1933  train_acc=0.9341  test_loss=0.3710  test_acc=0.8824  lr=0.053140  time=18.2s
-2026-05-20 12:22:48  INFO  Epoch  145/300  train_loss=0.1915  train_acc=0.9361  test_loss=0.3343  test_acc=0.8937  lr=0.052617  time=18.1s
-2026-05-20 12:22:49  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0145.pt
-2026-05-20 12:22:49  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0145.npy
-2026-05-20 12:23:07  INFO  Epoch  146/300  train_loss=0.1897  train_acc=0.9354  test_loss=0.3141  test_acc=0.9010  lr=0.052094  time=18.1s
-2026-05-20 12:23:25  INFO  Epoch  147/300  train_loss=0.1906  train_acc=0.9350  test_loss=0.3264  test_acc=0.8952  lr=0.051571  time=18.1s
-2026-05-20 12:23:43  INFO  Epoch  148/300  train_loss=0.1827  train_acc=0.9384  test_loss=0.3414  test_acc=0.8908  lr=0.051047  time=18.1s
-2026-05-20 12:24:01  INFO  Epoch  149/300  train_loss=0.1828  train_acc=0.9377  test_loss=0.3583  test_acc=0.8864  lr=0.050524  time=18.1s
-2026-05-20 12:24:19  INFO  Epoch  150/300  train_loss=0.1801  train_acc=0.9379  test_loss=0.3052  test_acc=0.9020  lr=0.050000  time=18.2s
-2026-05-20 12:24:20  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0150.pt
-2026-05-20 12:24:20  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0150.npy
-2026-05-20 12:24:38  INFO  Epoch  151/300  train_loss=0.1821  train_acc=0.9383  test_loss=0.3153  test_acc=0.8935  lr=0.049476  time=18.1s
-2026-05-20 12:24:56  INFO  Epoch  152/300  train_loss=0.1754  train_acc=0.9410  test_loss=0.3210  test_acc=0.8966  lr=0.048953  time=18.1s
-2026-05-20 12:25:14  INFO  Epoch  153/300  train_loss=0.1754  train_acc=0.9406  test_loss=0.3227  test_acc=0.8987  lr=0.048429  time=18.1s
-2026-05-20 12:25:32  INFO  Epoch  154/300  train_loss=0.1758  train_acc=0.9399  test_loss=0.3805  test_acc=0.8822  lr=0.047906  time=18.1s
-2026-05-20 12:25:50  INFO  Epoch  155/300  train_loss=0.1723  train_acc=0.9413  test_loss=0.3793  test_acc=0.8791  lr=0.047383  time=18.2s
-2026-05-20 12:25:51  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0155.pt
-2026-05-20 12:25:51  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0155.npy
-2026-05-20 12:26:09  INFO  Epoch  156/300  train_loss=0.1707  train_acc=0.9425  test_loss=0.3225  test_acc=0.8987  lr=0.046860  time=18.2s
-2026-05-20 12:26:27  INFO  Epoch  157/300  train_loss=0.1785  train_acc=0.9394  test_loss=0.3225  test_acc=0.8967  lr=0.046338  time=18.1s
-2026-05-20 12:26:45  INFO  Epoch  158/300  train_loss=0.1690  train_acc=0.9418  test_loss=0.3346  test_acc=0.8956  lr=0.045816  time=18.1s
-2026-05-20 12:27:03  INFO  Epoch  159/300  train_loss=0.1664  train_acc=0.9434  test_loss=0.3612  test_acc=0.8907  lr=0.045295  time=18.1s
-2026-05-20 12:27:21  INFO  Epoch  160/300  train_loss=0.1692  train_acc=0.9418  test_loss=0.3439  test_acc=0.8940  lr=0.044774  time=18.1s
-2026-05-20 12:27:22  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0160.pt
-2026-05-20 12:27:22  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0160.npy
-2026-05-20 12:27:40  INFO  Epoch  161/300  train_loss=0.1599  train_acc=0.9446  test_loss=0.3827  test_acc=0.8808  lr=0.044253  time=18.1s
-2026-05-20 12:27:58  INFO  Epoch  162/300  train_loss=0.1589  train_acc=0.9450  test_loss=0.3742  test_acc=0.8848  lr=0.043733  time=18.1s
-2026-05-20 12:28:16  INFO  Epoch  163/300  train_loss=0.1603  train_acc=0.9456  test_loss=0.3198  test_acc=0.9000  lr=0.043214  time=18.1s
-2026-05-20 12:28:34  INFO  Epoch  164/300  train_loss=0.1588  train_acc=0.9465  test_loss=0.3727  test_acc=0.8860  lr=0.042696  time=18.1s
-2026-05-20 12:28:52  INFO  Epoch  165/300  train_loss=0.1559  train_acc=0.9479  test_loss=0.3061  test_acc=0.8995  lr=0.042178  time=18.1s
-2026-05-20 12:28:52  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0165.pt
-2026-05-20 12:28:53  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0165.npy
-2026-05-20 12:29:11  INFO  Epoch  166/300  train_loss=0.1567  train_acc=0.9465  test_loss=0.2678  test_acc=0.9116  lr=0.041662  time=18.1s
-2026-05-20 12:29:29  INFO  Epoch  167/300  train_loss=0.1518  train_acc=0.9479  test_loss=0.3052  test_acc=0.9011  lr=0.041146  time=18.1s
-2026-05-20 12:29:47  INFO  Epoch  168/300  train_loss=0.1524  train_acc=0.9480  test_loss=0.3307  test_acc=0.8954  lr=0.040631  time=18.2s
-2026-05-20 12:30:05  INFO  Epoch  169/300  train_loss=0.1451  train_acc=0.9506  test_loss=0.3049  test_acc=0.9025  lr=0.040117  time=18.2s
-2026-05-20 12:30:23  INFO  Epoch  170/300  train_loss=0.1457  train_acc=0.9505  test_loss=0.3685  test_acc=0.8847  lr=0.039604  time=18.2s
-2026-05-20 12:30:23  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0170.pt
-2026-05-20 12:30:24  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0170.npy
-2026-05-20 12:30:42  INFO  Epoch  171/300  train_loss=0.1456  train_acc=0.9499  test_loss=0.3052  test_acc=0.9026  lr=0.039093  time=18.1s
-2026-05-20 12:31:00  INFO  Epoch  172/300  train_loss=0.1433  train_acc=0.9508  test_loss=0.3056  test_acc=0.9005  lr=0.038582  time=18.2s
-2026-05-20 12:31:18  INFO  Epoch  173/300  train_loss=0.1365  train_acc=0.9540  test_loss=0.3093  test_acc=0.9002  lr=0.038073  time=18.1s
-2026-05-20 12:31:36  INFO  Epoch  174/300  train_loss=0.1380  train_acc=0.9540  test_loss=0.2935  test_acc=0.9048  lr=0.037566  time=18.1s
-2026-05-20 12:31:54  INFO  Epoch  175/300  train_loss=0.1384  train_acc=0.9528  test_loss=0.3061  test_acc=0.9019  lr=0.037059  time=18.1s
-2026-05-20 12:31:54  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0175.pt
-2026-05-20 12:31:55  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0175.npy
-2026-05-20 12:32:13  INFO  Epoch  176/300  train_loss=0.1371  train_acc=0.9533  test_loss=0.3325  test_acc=0.8990  lr=0.036554  time=18.1s
-2026-05-20 12:32:31  INFO  Epoch  177/300  train_loss=0.1373  train_acc=0.9535  test_loss=0.3328  test_acc=0.8919  lr=0.036050  time=18.1s
-2026-05-20 12:32:49  INFO  Epoch  178/300  train_loss=0.1296  train_acc=0.9556  test_loss=0.3120  test_acc=0.9054  lr=0.035548  time=18.1s
-2026-05-20 12:33:07  INFO  Epoch  179/300  train_loss=0.1301  train_acc=0.9562  test_loss=0.3105  test_acc=0.9039  lr=0.035048  time=18.2s
-2026-05-20 12:33:25  INFO  Epoch  180/300  train_loss=0.1279  train_acc=0.9560  test_loss=0.3524  test_acc=0.8904  lr=0.034549  time=18.2s
-2026-05-20 12:33:25  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0180.pt
-2026-05-20 12:33:26  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0180.npy
-2026-05-20 12:33:44  INFO  Epoch  181/300  train_loss=0.1233  train_acc=0.9583  test_loss=0.3363  test_acc=0.8968  lr=0.034052  time=18.1s
-2026-05-20 12:34:02  INFO  Epoch  182/300  train_loss=0.1261  train_acc=0.9579  test_loss=0.3389  test_acc=0.8958  lr=0.033557  time=18.1s
-2026-05-20 12:34:20  INFO  Epoch  183/300  train_loss=0.1260  train_acc=0.9572  test_loss=0.3813  test_acc=0.8871  lr=0.033063  time=18.1s
-2026-05-20 12:34:38  INFO  Epoch  184/300  train_loss=0.1209  train_acc=0.9590  test_loss=0.3068  test_acc=0.9056  lr=0.032571  time=18.1s
-2026-05-20 12:34:56  INFO  Epoch  185/300  train_loss=0.1170  train_acc=0.9602  test_loss=0.3135  test_acc=0.8998  lr=0.032082  time=18.1s
-2026-05-20 12:34:56  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0185.pt
-2026-05-20 12:34:57  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0185.npy
-2026-05-20 12:35:15  INFO  Epoch  186/300  train_loss=0.1188  train_acc=0.9594  test_loss=0.2874  test_acc=0.9112  lr=0.031594  time=18.1s
-2026-05-20 12:35:33  INFO  Epoch  187/300  train_loss=0.1182  train_acc=0.9597  test_loss=0.3244  test_acc=0.9037  lr=0.031108  time=18.1s
-2026-05-20 12:35:51  INFO  Epoch  188/300  train_loss=0.1181  train_acc=0.9594  test_loss=0.3179  test_acc=0.9005  lr=0.030624  time=18.1s
-2026-05-20 12:36:09  INFO  Epoch  189/300  train_loss=0.1075  train_acc=0.9641  test_loss=0.2648  test_acc=0.9181  lr=0.030143  time=18.1s
-2026-05-20 12:36:27  INFO  Epoch  190/300  train_loss=0.1115  train_acc=0.9622  test_loss=0.2616  test_acc=0.9181  lr=0.029663  time=18.1s
-2026-05-20 12:36:27  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0190.pt
-2026-05-20 12:36:27  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0190.npy
-2026-05-20 12:36:46  INFO  Epoch  191/300  train_loss=0.1045  train_acc=0.9652  test_loss=0.3034  test_acc=0.9091  lr=0.029186  time=18.1s
-2026-05-20 12:37:04  INFO  Epoch  192/300  train_loss=0.1026  train_acc=0.9654  test_loss=0.2964  test_acc=0.9103  lr=0.028711  time=18.1s
-2026-05-20 12:37:22  INFO  Epoch  193/300  train_loss=0.1029  train_acc=0.9650  test_loss=0.3201  test_acc=0.9051  lr=0.028238  time=18.1s
-2026-05-20 12:37:40  INFO  Epoch  194/300  train_loss=0.1052  train_acc=0.9639  test_loss=0.2986  test_acc=0.9087  lr=0.027768  time=18.1s
-2026-05-20 12:37:58  INFO  Epoch  195/300  train_loss=0.0985  train_acc=0.9663  test_loss=0.2703  test_acc=0.9181  lr=0.027300  time=18.1s
-2026-05-20 12:37:58  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0195.pt
-2026-05-20 12:37:58  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0195.npy
-2026-05-20 12:38:17  INFO  Epoch  196/300  train_loss=0.1026  train_acc=0.9649  test_loss=0.2742  test_acc=0.9178  lr=0.026835  time=18.1s
-2026-05-20 12:38:35  INFO  Epoch  197/300  train_loss=0.0963  train_acc=0.9672  test_loss=0.2901  test_acc=0.9154  lr=0.026372  time=18.1s
-2026-05-20 12:38:53  INFO  Epoch  198/300  train_loss=0.0965  train_acc=0.9672  test_loss=0.3200  test_acc=0.9048  lr=0.025912  time=18.1s
-2026-05-20 12:39:11  INFO  Epoch  199/300  train_loss=0.0891  train_acc=0.9699  test_loss=0.2652  test_acc=0.9155  lr=0.025455  time=18.1s
-2026-05-20 12:39:29  INFO  Epoch  200/300  train_loss=0.0956  train_acc=0.9671  test_loss=0.3051  test_acc=0.9079  lr=0.025000  time=18.1s
-2026-05-20 12:39:29  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0200.pt
-2026-05-20 12:39:29  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0200.npy
-2026-05-20 12:39:47  INFO  Epoch  201/300  train_loss=0.0876  train_acc=0.9711  test_loss=0.2562  test_acc=0.9207  lr=0.024548  time=18.1s
-2026-05-20 12:40:06  INFO  Epoch  202/300  train_loss=0.0870  train_acc=0.9704  test_loss=0.3058  test_acc=0.9066  lr=0.024099  time=18.1s
-2026-05-20 12:40:24  INFO  Epoch  203/300  train_loss=0.0871  train_acc=0.9701  test_loss=0.2867  test_acc=0.9148  lr=0.023652  time=18.1s
-2026-05-20 12:40:42  INFO  Epoch  204/300  train_loss=0.0780  train_acc=0.9736  test_loss=0.2742  test_acc=0.9211  lr=0.023209  time=18.1s
-2026-05-20 12:41:00  INFO  Epoch  205/300  train_loss=0.0740  train_acc=0.9750  test_loss=0.3098  test_acc=0.9130  lr=0.022768  time=18.1s
-2026-05-20 12:41:00  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0205.pt
-2026-05-20 12:41:00  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0205.npy
-2026-05-20 12:41:18  INFO  Epoch  206/300  train_loss=0.0818  train_acc=0.9712  test_loss=0.2582  test_acc=0.9225  lr=0.022330  time=18.1s
-2026-05-20 12:41:37  INFO  Epoch  207/300  train_loss=0.0794  train_acc=0.9737  test_loss=0.2762  test_acc=0.9165  lr=0.021896  time=18.1s
-2026-05-20 12:41:55  INFO  Epoch  208/300  train_loss=0.0769  train_acc=0.9745  test_loss=0.2983  test_acc=0.9137  lr=0.021464  time=18.1s
-2026-05-20 12:42:13  INFO  Epoch  209/300  train_loss=0.0791  train_acc=0.9730  test_loss=0.3206  test_acc=0.9104  lr=0.021036  time=18.1s
-2026-05-20 12:42:31  INFO  Epoch  210/300  train_loss=0.0763  train_acc=0.9739  test_loss=0.2957  test_acc=0.9160  lr=0.020611  time=18.1s
-2026-05-20 12:42:31  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0210.pt
-2026-05-20 12:42:31  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0210.npy
-2026-05-20 12:42:49  INFO  Epoch  211/300  train_loss=0.0698  train_acc=0.9772  test_loss=0.3548  test_acc=0.9003  lr=0.020189  time=18.1s
-2026-05-20 12:43:07  INFO  Epoch  212/300  train_loss=0.0647  train_acc=0.9790  test_loss=0.3069  test_acc=0.9118  lr=0.019770  time=18.1s
-2026-05-20 12:43:26  INFO  Epoch  213/300  train_loss=0.0694  train_acc=0.9770  test_loss=0.2796  test_acc=0.9202  lr=0.019355  time=18.1s
-2026-05-20 12:43:44  INFO  Epoch  214/300  train_loss=0.0660  train_acc=0.9780  test_loss=0.3026  test_acc=0.9138  lr=0.018943  time=18.1s
-2026-05-20 12:44:02  INFO  Epoch  215/300  train_loss=0.0700  train_acc=0.9764  test_loss=0.2603  test_acc=0.9233  lr=0.018534  time=18.1s
-2026-05-20 12:44:02  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0215.pt
-2026-05-20 12:44:02  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0215.npy
-2026-05-20 12:44:20  INFO  Epoch  216/300  train_loss=0.0597  train_acc=0.9799  test_loss=0.2704  test_acc=0.9218  lr=0.018129  time=18.1s
-2026-05-20 12:44:38  INFO  Epoch  217/300  train_loss=0.0609  train_acc=0.9807  test_loss=0.2686  test_acc=0.9237  lr=0.017727  time=18.1s
-2026-05-20 12:44:57  INFO  Epoch  218/300  train_loss=0.0565  train_acc=0.9812  test_loss=0.2873  test_acc=0.9197  lr=0.017329  time=18.1s
-2026-05-20 12:45:15  INFO  Epoch  219/300  train_loss=0.0531  train_acc=0.9825  test_loss=0.2673  test_acc=0.9264  lr=0.016934  time=18.1s
-2026-05-20 12:45:33  INFO  Epoch  220/300  train_loss=0.0569  train_acc=0.9813  test_loss=0.2859  test_acc=0.9184  lr=0.016543  time=18.1s
-2026-05-20 12:45:33  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0220.pt
-2026-05-20 12:45:33  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0220.npy
-2026-05-20 12:45:51  INFO  Epoch  221/300  train_loss=0.0545  train_acc=0.9817  test_loss=0.2780  test_acc=0.9216  lr=0.016156  time=18.1s
-2026-05-20 12:46:09  INFO  Epoch  222/300  train_loss=0.0523  train_acc=0.9823  test_loss=0.2629  test_acc=0.9269  lr=0.015773  time=18.1s
-2026-05-20 12:46:27  INFO  Epoch  223/300  train_loss=0.0505  train_acc=0.9829  test_loss=0.2863  test_acc=0.9195  lr=0.015393  time=18.1s
-2026-05-20 12:46:46  INFO  Epoch  224/300  train_loss=0.0490  train_acc=0.9839  test_loss=0.2518  test_acc=0.9305  lr=0.015017  time=18.1s
-2026-05-20 12:47:04  INFO  Epoch  225/300  train_loss=0.0475  train_acc=0.9841  test_loss=0.2766  test_acc=0.9216  lr=0.014645  time=18.1s
-2026-05-20 12:47:04  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0225.pt
-2026-05-20 12:47:04  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0225.npy
-2026-05-20 12:47:22  INFO  Epoch  226/300  train_loss=0.0450  train_acc=0.9849  test_loss=0.2633  test_acc=0.9281  lr=0.014276  time=18.1s
-2026-05-20 12:47:40  INFO  Epoch  227/300  train_loss=0.0400  train_acc=0.9870  test_loss=0.2503  test_acc=0.9307  lr=0.013912  time=18.1s
-2026-05-20 12:47:58  INFO  Epoch  228/300  train_loss=0.0416  train_acc=0.9865  test_loss=0.2510  test_acc=0.9283  lr=0.013552  time=18.1s
-2026-05-20 12:48:16  INFO  Epoch  229/300  train_loss=0.0394  train_acc=0.9874  test_loss=0.2908  test_acc=0.9229  lr=0.013195  time=18.1s
-2026-05-20 12:48:35  INFO  Epoch  230/300  train_loss=0.0420  train_acc=0.9863  test_loss=0.2722  test_acc=0.9236  lr=0.012843  time=18.1s
-2026-05-20 12:48:35  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0230.pt
-2026-05-20 12:48:35  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0230.npy
-2026-05-20 12:48:53  INFO  Epoch  231/300  train_loss=0.0369  train_acc=0.9882  test_loss=0.2403  test_acc=0.9320  lr=0.012494  time=18.2s
-2026-05-20 12:49:11  INFO  Epoch  232/300  train_loss=0.0355  train_acc=0.9887  test_loss=0.2601  test_acc=0.9282  lr=0.012150  time=18.1s
-2026-05-20 12:49:29  INFO  Epoch  233/300  train_loss=0.0356  train_acc=0.9881  test_loss=0.2506  test_acc=0.9295  lr=0.011810  time=18.1s
-2026-05-20 12:49:47  INFO  Epoch  234/300  train_loss=0.0336  train_acc=0.9892  test_loss=0.2401  test_acc=0.9321  lr=0.011474  time=18.1s
-2026-05-20 12:50:06  INFO  Epoch  235/300  train_loss=0.0284  train_acc=0.9907  test_loss=0.2672  test_acc=0.9257  lr=0.011143  time=18.1s
-2026-05-20 12:50:06  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0235.pt
-2026-05-20 12:50:06  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0235.npy
-2026-05-20 12:50:24  INFO  Epoch  236/300  train_loss=0.0289  train_acc=0.9907  test_loss=0.2704  test_acc=0.9277  lr=0.010815  time=18.1s
-2026-05-20 12:50:42  INFO  Epoch  237/300  train_loss=0.0266  train_acc=0.9916  test_loss=0.2560  test_acc=0.9296  lr=0.010492  time=18.1s
-2026-05-20 12:51:00  INFO  Epoch  238/300  train_loss=0.0232  train_acc=0.9926  test_loss=0.2668  test_acc=0.9304  lr=0.010174  time=18.1s
-2026-05-20 12:51:18  INFO  Epoch  239/300  train_loss=0.0233  train_acc=0.9929  test_loss=0.2311  test_acc=0.9371  lr=0.009859  time=18.1s
-2026-05-20 12:51:36  INFO  Epoch  240/300  train_loss=0.0238  train_acc=0.9925  test_loss=0.2347  test_acc=0.9391  lr=0.009549  time=18.1s
-2026-05-20 12:51:36  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0240.pt
-2026-05-20 12:51:37  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0240.npy
-2026-05-20 12:51:55  INFO  Epoch  241/300  train_loss=0.0202  train_acc=0.9937  test_loss=0.2576  test_acc=0.9330  lr=0.009244  time=18.1s
-2026-05-20 12:52:13  INFO  Epoch  242/300  train_loss=0.0184  train_acc=0.9947  test_loss=0.2260  test_acc=0.9405  lr=0.008943  time=18.2s
-2026-05-20 12:52:31  INFO  Epoch  243/300  train_loss=0.0159  train_acc=0.9953  test_loss=0.2338  test_acc=0.9381  lr=0.008646  time=18.1s
-2026-05-20 12:52:49  INFO  Epoch  244/300  train_loss=0.0175  train_acc=0.9947  test_loss=0.2376  test_acc=0.9366  lr=0.008354  time=18.1s
-2026-05-20 12:53:07  INFO  Epoch  245/300  train_loss=0.0169  train_acc=0.9949  test_loss=0.2388  test_acc=0.9385  lr=0.008066  time=18.1s
-2026-05-20 12:53:07  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0245.pt
-2026-05-20 12:53:08  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0245.npy
-2026-05-20 12:53:26  INFO  Epoch  246/300  train_loss=0.0136  train_acc=0.9964  test_loss=0.2246  test_acc=0.9389  lr=0.007784  time=18.2s
-2026-05-20 12:53:44  INFO  Epoch  247/300  train_loss=0.0123  train_acc=0.9963  test_loss=0.2444  test_acc=0.9367  lr=0.007505  time=18.1s
-2026-05-20 12:54:02  INFO  Epoch  248/300  train_loss=0.0120  train_acc=0.9968  test_loss=0.2178  test_acc=0.9431  lr=0.007232  time=18.1s
-2026-05-20 12:54:20  INFO  Epoch  249/300  train_loss=0.0093  train_acc=0.9976  test_loss=0.2259  test_acc=0.9431  lr=0.006963  time=18.1s
-2026-05-20 12:54:38  INFO  Epoch  250/300  train_loss=0.0103  train_acc=0.9972  test_loss=0.2282  test_acc=0.9416  lr=0.006699  time=18.1s
-2026-05-20 12:54:38  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0250.pt
-2026-05-20 12:54:39  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0250.npy
-2026-05-20 12:54:57  INFO  Epoch  251/300  train_loss=0.0090  train_acc=0.9978  test_loss=0.2175  test_acc=0.9451  lr=0.006439  time=18.1s
-2026-05-20 12:55:15  INFO  Epoch  252/300  train_loss=0.0070  train_acc=0.9984  test_loss=0.2026  test_acc=0.9469  lr=0.006185  time=18.2s
-2026-05-20 12:55:33  INFO  Epoch  253/300  train_loss=0.0063  train_acc=0.9984  test_loss=0.2151  test_acc=0.9464  lr=0.005935  time=18.1s
-2026-05-20 12:55:51  INFO  Epoch  254/300  train_loss=0.0066  train_acc=0.9984  test_loss=0.2072  test_acc=0.9458  lr=0.005690  time=18.1s
-2026-05-20 12:56:09  INFO  Epoch  255/300  train_loss=0.0055  train_acc=0.9989  test_loss=0.2046  test_acc=0.9483  lr=0.005450  time=18.1s
-2026-05-20 12:56:09  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0255.pt
-2026-05-20 12:56:10  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0255.npy
-2026-05-20 12:56:28  INFO  Epoch  256/300  train_loss=0.0041  train_acc=0.9993  test_loss=0.1997  test_acc=0.9513  lr=0.005214  time=18.1s
-2026-05-20 12:56:46  INFO  Epoch  257/300  train_loss=0.0031  train_acc=0.9996  test_loss=0.1968  test_acc=0.9505  lr=0.004984  time=18.1s
-2026-05-20 12:57:04  INFO  Epoch  258/300  train_loss=0.0027  train_acc=0.9997  test_loss=0.1901  test_acc=0.9519  lr=0.004759  time=18.1s
-2026-05-20 12:57:22  INFO  Epoch  259/300  train_loss=0.0027  train_acc=0.9997  test_loss=0.1939  test_acc=0.9505  lr=0.004538  time=18.1s
-2026-05-20 12:57:40  INFO  Epoch  260/300  train_loss=0.0027  train_acc=0.9998  test_loss=0.1874  test_acc=0.9518  lr=0.004323  time=18.1s
-2026-05-20 12:57:40  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0260.pt
-2026-05-20 12:57:41  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0260.npy
-2026-05-20 12:57:59  INFO  Epoch  261/300  train_loss=0.0030  train_acc=0.9996  test_loss=0.1954  test_acc=0.9511  lr=0.004112  time=18.1s
-2026-05-20 12:58:17  INFO  Epoch  262/300  train_loss=0.0026  train_acc=0.9998  test_loss=0.1901  test_acc=0.9511  lr=0.003907  time=18.1s
-2026-05-20 12:58:35  INFO  Epoch  263/300  train_loss=0.0029  train_acc=0.9995  test_loss=0.1963  test_acc=0.9493  lr=0.003706  time=18.1s
-2026-05-20 12:58:53  INFO  Epoch  264/300  train_loss=0.0025  train_acc=0.9998  test_loss=0.1890  test_acc=0.9496  lr=0.003511  time=18.1s
-2026-05-20 12:59:11  INFO  Epoch  265/300  train_loss=0.0021  train_acc=0.9999  test_loss=0.1859  test_acc=0.9516  lr=0.003321  time=18.1s
-2026-05-20 12:59:11  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0265.pt
-2026-05-20 12:59:12  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0265.npy
-2026-05-20 12:59:30  INFO  Epoch  266/300  train_loss=0.0019  train_acc=1.0000  test_loss=0.1857  test_acc=0.9524  lr=0.003136  time=18.1s
-2026-05-20 12:59:48  INFO  Epoch  267/300  train_loss=0.0020  train_acc=0.9999  test_loss=0.1910  test_acc=0.9523  lr=0.002956  time=18.1s
-2026-05-20 13:00:06  INFO  Epoch  268/300  train_loss=0.0019  train_acc=1.0000  test_loss=0.1820  test_acc=0.9537  lr=0.002781  time=18.1s
-2026-05-20 13:00:24  INFO  Epoch  269/300  train_loss=0.0020  train_acc=0.9999  test_loss=0.1844  test_acc=0.9528  lr=0.002612  time=18.1s
-2026-05-20 13:00:42  INFO  Epoch  270/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1807  test_acc=0.9535  lr=0.002447  time=18.1s
-2026-05-20 13:00:42  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0270.pt
-2026-05-20 13:00:42  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0270.npy
-2026-05-20 13:01:01  INFO  Epoch  271/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1783  test_acc=0.9537  lr=0.002288  time=18.1s
-2026-05-20 13:01:19  INFO  Epoch  272/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1801  test_acc=0.9540  lr=0.002134  time=18.1s
-2026-05-20 13:01:37  INFO  Epoch  273/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1803  test_acc=0.9530  lr=0.001985  time=18.1s
-2026-05-20 13:01:55  INFO  Epoch  274/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1769  test_acc=0.9541  lr=0.001842  time=18.2s
-2026-05-20 13:02:13  INFO  Epoch  275/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1777  test_acc=0.9542  lr=0.001704  time=18.1s
-2026-05-20 13:02:13  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0275.pt
-2026-05-20 13:02:13  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0275.npy
-2026-05-20 13:02:32  INFO  Epoch  276/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1772  test_acc=0.9533  lr=0.001571  time=18.1s
-2026-05-20 13:02:50  INFO  Epoch  277/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1756  test_acc=0.9543  lr=0.001443  time=18.1s
-2026-05-20 13:03:08  INFO  Epoch  278/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1760  test_acc=0.9543  lr=0.001321  time=18.1s
-2026-05-20 13:03:26  INFO  Epoch  279/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1742  test_acc=0.9551  lr=0.001204  time=18.2s
-2026-05-20 13:03:44  INFO  Epoch  280/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1751  test_acc=0.9552  lr=0.001093  time=18.2s
-2026-05-20 13:03:44  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0280.pt
-2026-05-20 13:03:44  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0280.npy
-2026-05-20 13:04:02  INFO  Epoch  281/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1758  test_acc=0.9552  lr=0.000986  time=18.1s
-2026-05-20 13:04:21  INFO  Epoch  282/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9542  lr=0.000886  time=18.1s
-2026-05-20 13:04:39  INFO  Epoch  283/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1743  test_acc=0.9547  lr=0.000790  time=18.2s
-2026-05-20 13:04:57  INFO  Epoch  284/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1752  test_acc=0.9542  lr=0.000700  time=18.2s
-2026-05-20 13:05:15  INFO  Epoch  285/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1716  test_acc=0.9561  lr=0.000616  time=18.1s
-2026-05-20 13:05:15  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0285.pt
-2026-05-20 13:05:15  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0285.npy
-2026-05-20 13:05:34  INFO  Epoch  286/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1728  test_acc=0.9562  lr=0.000536  time=18.1s
-2026-05-20 13:05:52  INFO  Epoch  287/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1726  test_acc=0.9562  lr=0.000463  time=18.1s
-2026-05-20 13:06:10  INFO  Epoch  288/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1729  test_acc=0.9556  lr=0.000394  time=18.1s
-2026-05-20 13:06:28  INFO  Epoch  289/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1727  test_acc=0.9561  lr=0.000331  time=18.1s
-2026-05-20 13:06:46  INFO  Epoch  290/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1734  test_acc=0.9552  lr=0.000274  time=18.1s
-2026-05-20 13:06:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0290.pt
-2026-05-20 13:06:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0290.npy
-2026-05-20 13:07:04  INFO  Epoch  291/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9561  lr=0.000222  time=18.1s
-2026-05-20 13:07:23  INFO  Epoch  292/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1717  test_acc=0.9560  lr=0.000175  time=18.1s
-2026-05-20 13:07:41  INFO  Epoch  293/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1726  test_acc=0.9557  lr=0.000134  time=18.2s
-2026-05-20 13:07:59  INFO  Epoch  294/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1728  test_acc=0.9556  lr=0.000099  time=18.2s
-2026-05-20 13:08:17  INFO  Epoch  295/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1732  test_acc=0.9557  lr=0.000069  time=18.1s
-2026-05-20 13:08:17  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0295.pt
-2026-05-20 13:08:17  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0295.npy
-2026-05-20 13:08:36  INFO  Epoch  296/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9551  lr=0.000044  time=18.1s
-2026-05-20 13:08:54  INFO  Epoch  297/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1729  test_acc=0.9555  lr=0.000025  time=18.2s
-2026-05-20 13:09:12  INFO  Epoch  298/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1740  test_acc=0.9556  lr=0.000011  time=18.1s
-2026-05-20 13:09:30  INFO  Epoch  299/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1733  test_acc=0.9550  lr=0.000003  time=18.2s
-2026-05-20 13:09:48  INFO  Epoch  300/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1728  test_acc=0.9551  lr=0.000000  time=18.1s
-2026-05-20 13:09:48  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0300.pt
-2026-05-20 13:09:48  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0300.npy
-2026-05-20 13:09:48  INFO  ======================================================================
-2026-05-20 13:09:48  INFO  Training complete.
-2026-05-20 13:09:48  INFO  Final test accuracy: 0.9551
-2026-05-20 13:09:48  INFO  Checkpoints saved to: /local/data/gme101/checkpoints/seed_0
-2026-05-20 13:09:48  INFO  Activations saved to: /local/data/gme101/activations/seed_0
-2026-05-20 13:09:48  INFO  ======================================================================
+2026-05-21 09:21:12  INFO  Device: cuda
+2026-05-21 09:21:12  INFO  GPU: NVIDIA L4
+2026-05-21 09:21:12  INFO  CUDA version: 12.1
+2026-05-21 09:21:12  INFO  VRAM: 23.7 GB
+2026-05-21 09:21:12  INFO  PyTorch version: 2.5.1+cu121
+2026-05-21 09:21:12  INFO  Seed: 0
+2026-05-21 09:21:12  INFO  Building data loaders...
+2026-05-21 09:21:14  INFO  Train batches: 391
+2026-05-21 09:21:14  INFO  Test batches:  79
+2026-05-21 09:21:14  INFO  Extraction samples: 2048
+2026-05-21 09:21:14  INFO  Building ResNet-18 (CIFAR-10 stem)...
+2026-05-21 09:21:14  INFO  Trainable parameters: 11,173,962
+2026-05-21 09:21:14  INFO  Optimizer: SGD  lr=0.1  momentum=0.9  wd=0.0005
+2026-05-21 09:21:14  INFO  Scheduler: cosine  T_max=300
+2026-05-21 09:21:14  INFO  Starting training: epochs 1 to 300
+2026-05-21 09:21:14  INFO  ----------------------------------------------------------------------
+2026-05-21 09:21:32  INFO  Epoch    1/300  train_loss=1.9635  train_acc=0.3162  test_loss=1.5169  test_acc=0.4338  lr=0.099997  time=18.0s
+2026-05-21 09:21:50  INFO  Epoch    2/300  train_loss=1.3827  train_acc=0.4953  test_loss=1.2346  test_acc=0.5589  lr=0.099989  time=18.0s
+2026-05-21 09:22:08  INFO  Epoch    3/300  train_loss=1.1032  train_acc=0.6041  test_loss=0.9707  test_acc=0.6545  lr=0.099975  time=18.0s
+2026-05-21 09:22:26  INFO  Epoch    4/300  train_loss=0.8872  train_acc=0.6862  test_loss=0.8796  test_acc=0.7039  lr=0.099956  time=18.0s
+2026-05-21 09:22:44  INFO  Epoch    5/300  train_loss=0.7221  train_acc=0.7498  test_loss=0.8395  test_acc=0.7164  lr=0.099931  time=18.0s
+2026-05-21 09:22:44  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0005.pt
+2026-05-21 09:22:44  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0005.npy
+2026-05-21 09:23:02  INFO  Epoch    6/300  train_loss=0.6317  train_acc=0.7815  test_loss=0.7061  test_acc=0.7574  lr=0.099901  time=18.1s
+2026-05-21 09:23:20  INFO  Epoch    7/300  train_loss=0.5764  train_acc=0.8003  test_loss=0.5764  test_acc=0.8063  lr=0.099866  time=18.0s
+2026-05-21 09:23:38  INFO  Epoch    8/300  train_loss=0.5360  train_acc=0.8152  test_loss=0.6485  test_acc=0.7884  lr=0.099825  time=18.0s
+2026-05-21 09:23:56  INFO  Epoch    9/300  train_loss=0.5080  train_acc=0.8257  test_loss=0.6141  test_acc=0.7945  lr=0.099778  time=18.0s
+2026-05-21 09:24:14  INFO  Epoch   10/300  train_loss=0.4917  train_acc=0.8327  test_loss=0.5249  test_acc=0.8226  lr=0.099726  time=18.0s
+2026-05-21 09:24:14  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0010.pt
+2026-05-21 09:24:14  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0010.npy
+2026-05-21 09:24:32  INFO  Epoch   11/300  train_loss=0.4721  train_acc=0.8388  test_loss=0.5711  test_acc=0.8096  lr=0.099669  time=18.1s
+2026-05-21 09:24:50  INFO  Epoch   12/300  train_loss=0.4596  train_acc=0.8422  test_loss=0.6403  test_acc=0.7835  lr=0.099606  time=18.0s
+2026-05-21 09:25:08  INFO  Epoch   13/300  train_loss=0.4455  train_acc=0.8469  test_loss=0.6342  test_acc=0.7942  lr=0.099537  time=18.0s
+2026-05-21 09:25:26  INFO  Epoch   14/300  train_loss=0.4363  train_acc=0.8513  test_loss=0.5407  test_acc=0.8294  lr=0.099464  time=18.0s
+2026-05-21 09:25:44  INFO  Epoch   15/300  train_loss=0.4258  train_acc=0.8542  test_loss=0.6588  test_acc=0.7889  lr=0.099384  time=18.0s
+2026-05-21 09:25:44  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0015.pt
+2026-05-21 09:25:45  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0015.npy
+2026-05-21 09:26:03  INFO  Epoch   16/300  train_loss=0.4172  train_acc=0.8584  test_loss=0.4642  test_acc=0.8384  lr=0.099300  time=18.0s
+2026-05-21 09:26:21  INFO  Epoch   17/300  train_loss=0.4028  train_acc=0.8612  test_loss=0.4992  test_acc=0.8331  lr=0.099210  time=18.0s
+2026-05-21 09:26:39  INFO  Epoch   18/300  train_loss=0.4040  train_acc=0.8608  test_loss=0.5197  test_acc=0.8280  lr=0.099114  time=18.0s
+2026-05-21 09:26:57  INFO  Epoch   19/300  train_loss=0.4033  train_acc=0.8627  test_loss=0.4866  test_acc=0.8380  lr=0.099014  time=18.0s
+2026-05-21 09:27:15  INFO  Epoch   20/300  train_loss=0.3862  train_acc=0.8689  test_loss=0.4964  test_acc=0.8350  lr=0.098907  time=18.0s
+2026-05-21 09:27:15  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0020.pt
+2026-05-21 09:27:15  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0020.npy
+2026-05-21 09:27:33  INFO  Epoch   21/300  train_loss=0.3837  train_acc=0.8689  test_loss=0.5234  test_acc=0.8294  lr=0.098796  time=18.0s
+2026-05-21 09:27:51  INFO  Epoch   22/300  train_loss=0.3829  train_acc=0.8704  test_loss=0.4665  test_acc=0.8456  lr=0.098679  time=18.0s
+2026-05-21 09:28:09  INFO  Epoch   23/300  train_loss=0.3744  train_acc=0.8727  test_loss=0.5431  test_acc=0.8231  lr=0.098557  time=18.0s
+2026-05-21 09:28:27  INFO  Epoch   24/300  train_loss=0.3749  train_acc=0.8711  test_loss=0.6034  test_acc=0.8127  lr=0.098429  time=18.0s
+2026-05-21 09:28:45  INFO  Epoch   25/300  train_loss=0.3648  train_acc=0.8763  test_loss=0.5259  test_acc=0.8297  lr=0.098296  time=18.0s
+2026-05-21 09:28:45  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0025.pt
+2026-05-21 09:28:45  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0025.npy
+2026-05-21 09:29:03  INFO  Epoch   26/300  train_loss=0.3585  train_acc=0.8778  test_loss=0.5053  test_acc=0.8311  lr=0.098158  time=18.0s
+2026-05-21 09:29:21  INFO  Epoch   27/300  train_loss=0.3575  train_acc=0.8792  test_loss=0.4751  test_acc=0.8395  lr=0.098015  time=18.0s
+2026-05-21 09:29:39  INFO  Epoch   28/300  train_loss=0.3541  train_acc=0.8795  test_loss=0.5058  test_acc=0.8265  lr=0.097866  time=18.0s
+2026-05-21 09:29:57  INFO  Epoch   29/300  train_loss=0.3565  train_acc=0.8778  test_loss=0.4586  test_acc=0.8501  lr=0.097712  time=18.0s
+2026-05-21 09:30:15  INFO  Epoch   30/300  train_loss=0.3501  train_acc=0.8812  test_loss=0.4487  test_acc=0.8460  lr=0.097553  time=18.0s
+2026-05-21 09:30:15  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0030.pt
+2026-05-21 09:30:15  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0030.npy
+2026-05-21 09:30:33  INFO  Epoch   31/300  train_loss=0.3472  train_acc=0.8806  test_loss=0.5474  test_acc=0.8101  lr=0.097388  time=18.0s
+2026-05-21 09:30:51  INFO  Epoch   32/300  train_loss=0.3431  train_acc=0.8832  test_loss=0.5221  test_acc=0.8308  lr=0.097219  time=18.0s
+2026-05-21 09:31:09  INFO  Epoch   33/300  train_loss=0.3501  train_acc=0.8809  test_loss=0.4115  test_acc=0.8616  lr=0.097044  time=18.0s
+2026-05-21 09:31:27  INFO  Epoch   34/300  train_loss=0.3458  train_acc=0.8824  test_loss=0.5028  test_acc=0.8385  lr=0.096864  time=18.0s
+2026-05-21 09:31:45  INFO  Epoch   35/300  train_loss=0.3404  train_acc=0.8845  test_loss=0.6065  test_acc=0.8106  lr=0.096679  time=18.0s
+2026-05-21 09:31:45  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0035.pt
+2026-05-21 09:31:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0035.npy
+2026-05-21 09:32:04  INFO  Epoch   36/300  train_loss=0.3395  train_acc=0.8848  test_loss=0.7561  test_acc=0.7781  lr=0.096489  time=18.0s
+2026-05-21 09:32:22  INFO  Epoch   37/300  train_loss=0.3412  train_acc=0.8839  test_loss=0.4287  test_acc=0.8599  lr=0.096294  time=18.0s
+2026-05-21 09:32:40  INFO  Epoch   38/300  train_loss=0.3356  train_acc=0.8855  test_loss=0.4893  test_acc=0.8386  lr=0.096093  time=18.0s
+2026-05-21 09:32:58  INFO  Epoch   39/300  train_loss=0.3288  train_acc=0.8887  test_loss=0.4095  test_acc=0.8617  lr=0.095888  time=18.0s
+2026-05-21 09:33:15  INFO  Epoch   40/300  train_loss=0.3297  train_acc=0.8879  test_loss=0.4766  test_acc=0.8438  lr=0.095677  time=18.0s
+2026-05-21 09:33:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0040.pt
+2026-05-21 09:33:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0040.npy
+2026-05-21 09:33:34  INFO  Epoch   41/300  train_loss=0.3297  train_acc=0.8875  test_loss=0.4425  test_acc=0.8500  lr=0.095462  time=18.0s
+2026-05-21 09:33:52  INFO  Epoch   42/300  train_loss=0.3323  train_acc=0.8870  test_loss=0.5223  test_acc=0.8241  lr=0.095241  time=18.0s
+2026-05-21 09:34:10  INFO  Epoch   43/300  train_loss=0.3304  train_acc=0.8870  test_loss=0.5127  test_acc=0.8410  lr=0.095016  time=18.0s
+2026-05-21 09:34:28  INFO  Epoch   44/300  train_loss=0.3203  train_acc=0.8909  test_loss=0.5101  test_acc=0.8366  lr=0.094786  time=18.0s
+2026-05-21 09:34:46  INFO  Epoch   45/300  train_loss=0.3255  train_acc=0.8891  test_loss=0.4550  test_acc=0.8486  lr=0.094550  time=18.0s
+2026-05-21 09:34:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0045.pt
+2026-05-21 09:34:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0045.npy
+2026-05-21 09:35:04  INFO  Epoch   46/300  train_loss=0.3237  train_acc=0.8890  test_loss=0.5660  test_acc=0.8191  lr=0.094310  time=18.0s
+2026-05-21 09:35:22  INFO  Epoch   47/300  train_loss=0.3206  train_acc=0.8902  test_loss=0.5241  test_acc=0.8365  lr=0.094065  time=18.0s
+2026-05-21 09:35:40  INFO  Epoch   48/300  train_loss=0.3196  train_acc=0.8918  test_loss=0.4191  test_acc=0.8659  lr=0.093815  time=18.0s
+2026-05-21 09:35:58  INFO  Epoch   49/300  train_loss=0.3160  train_acc=0.8924  test_loss=0.4372  test_acc=0.8544  lr=0.093561  time=18.0s
+2026-05-21 09:36:16  INFO  Epoch   50/300  train_loss=0.3113  train_acc=0.8935  test_loss=0.3941  test_acc=0.8671  lr=0.093301  time=18.0s
+2026-05-21 09:36:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0050.pt
+2026-05-21 09:36:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0050.npy
+2026-05-21 09:36:34  INFO  Epoch   51/300  train_loss=0.3097  train_acc=0.8956  test_loss=0.4783  test_acc=0.8445  lr=0.093037  time=18.0s
+2026-05-21 09:36:52  INFO  Epoch   52/300  train_loss=0.3160  train_acc=0.8917  test_loss=0.4420  test_acc=0.8547  lr=0.092768  time=18.0s
+2026-05-21 09:37:10  INFO  Epoch   53/300  train_loss=0.3137  train_acc=0.8922  test_loss=0.6029  test_acc=0.8064  lr=0.092495  time=18.0s
+2026-05-21 09:37:28  INFO  Epoch   54/300  train_loss=0.3147  train_acc=0.8929  test_loss=0.3885  test_acc=0.8665  lr=0.092216  time=18.0s
+2026-05-21 09:37:46  INFO  Epoch   55/300  train_loss=0.3087  train_acc=0.8953  test_loss=0.4130  test_acc=0.8612  lr=0.091934  time=18.0s
+2026-05-21 09:37:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0055.pt
+2026-05-21 09:37:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0055.npy
+2026-05-21 09:38:04  INFO  Epoch   56/300  train_loss=0.3092  train_acc=0.8950  test_loss=0.5610  test_acc=0.8180  lr=0.091646  time=18.0s
+2026-05-21 09:38:22  INFO  Epoch   57/300  train_loss=0.3062  train_acc=0.8963  test_loss=0.4120  test_acc=0.8633  lr=0.091354  time=18.0s
+2026-05-21 09:38:40  INFO  Epoch   58/300  train_loss=0.3031  train_acc=0.8969  test_loss=0.5399  test_acc=0.8246  lr=0.091057  time=17.9s
+2026-05-21 09:38:58  INFO  Epoch   59/300  train_loss=0.3057  train_acc=0.8956  test_loss=0.4471  test_acc=0.8507  lr=0.090756  time=18.0s
+2026-05-21 09:39:16  INFO  Epoch   60/300  train_loss=0.3021  train_acc=0.8982  test_loss=0.4325  test_acc=0.8596  lr=0.090451  time=18.0s
+2026-05-21 09:39:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0060.pt
+2026-05-21 09:39:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0060.npy
+2026-05-21 09:39:34  INFO  Epoch   61/300  train_loss=0.3027  train_acc=0.8968  test_loss=0.4718  test_acc=0.8466  lr=0.090141  time=18.0s
+2026-05-21 09:39:52  INFO  Epoch   62/300  train_loss=0.3034  train_acc=0.8957  test_loss=0.4843  test_acc=0.8422  lr=0.089826  time=18.0s
+2026-05-21 09:40:10  INFO  Epoch   63/300  train_loss=0.3003  train_acc=0.8976  test_loss=0.4618  test_acc=0.8540  lr=0.089508  time=17.9s
+2026-05-21 09:40:28  INFO  Epoch   64/300  train_loss=0.2975  train_acc=0.8972  test_loss=0.4518  test_acc=0.8529  lr=0.089185  time=17.9s
+2026-05-21 09:40:46  INFO  Epoch   65/300  train_loss=0.3002  train_acc=0.8978  test_loss=0.5225  test_acc=0.8320  lr=0.088857  time=17.9s
+2026-05-21 09:40:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0065.pt
+2026-05-21 09:40:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0065.npy
+2026-05-21 09:41:04  INFO  Epoch   66/300  train_loss=0.3020  train_acc=0.8973  test_loss=0.4802  test_acc=0.8445  lr=0.088526  time=18.0s
+2026-05-21 09:41:22  INFO  Epoch   67/300  train_loss=0.2900  train_acc=0.9020  test_loss=0.4864  test_acc=0.8435  lr=0.088190  time=18.0s
+2026-05-21 09:41:40  INFO  Epoch   68/300  train_loss=0.2960  train_acc=0.8993  test_loss=0.4555  test_acc=0.8487  lr=0.087850  time=17.9s
+2026-05-21 09:41:58  INFO  Epoch   69/300  train_loss=0.2905  train_acc=0.9007  test_loss=0.6006  test_acc=0.8177  lr=0.087506  time=18.0s
+2026-05-21 09:42:16  INFO  Epoch   70/300  train_loss=0.2985  train_acc=0.8991  test_loss=0.4674  test_acc=0.8494  lr=0.087157  time=17.9s
+2026-05-21 09:42:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0070.pt
+2026-05-21 09:42:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0070.npy
+2026-05-21 09:42:34  INFO  Epoch   71/300  train_loss=0.2883  train_acc=0.9033  test_loss=0.4220  test_acc=0.8664  lr=0.086805  time=18.0s
+2026-05-21 09:42:52  INFO  Epoch   72/300  train_loss=0.2915  train_acc=0.8997  test_loss=0.4701  test_acc=0.8499  lr=0.086448  time=18.0s
+2026-05-21 09:43:10  INFO  Epoch   73/300  train_loss=0.2922  train_acc=0.8996  test_loss=0.4326  test_acc=0.8591  lr=0.086088  time=17.9s
+2026-05-21 09:43:28  INFO  Epoch   74/300  train_loss=0.2902  train_acc=0.9008  test_loss=0.5403  test_acc=0.8291  lr=0.085724  time=18.0s
+2026-05-21 09:43:46  INFO  Epoch   75/300  train_loss=0.2842  train_acc=0.9026  test_loss=0.4466  test_acc=0.8578  lr=0.085355  time=17.9s
+2026-05-21 09:43:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0075.pt
+2026-05-21 09:43:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0075.npy
+2026-05-21 09:44:04  INFO  Epoch   76/300  train_loss=0.2857  train_acc=0.9024  test_loss=0.4801  test_acc=0.8468  lr=0.084983  time=18.0s
+2026-05-21 09:44:22  INFO  Epoch   77/300  train_loss=0.2883  train_acc=0.9007  test_loss=0.4186  test_acc=0.8589  lr=0.084607  time=17.9s
+2026-05-21 09:44:40  INFO  Epoch   78/300  train_loss=0.2848  train_acc=0.9029  test_loss=0.4075  test_acc=0.8646  lr=0.084227  time=17.9s
+2026-05-21 09:44:58  INFO  Epoch   79/300  train_loss=0.2782  train_acc=0.9060  test_loss=0.4396  test_acc=0.8567  lr=0.083844  time=18.0s
+2026-05-21 09:45:16  INFO  Epoch   80/300  train_loss=0.2778  train_acc=0.9038  test_loss=0.4508  test_acc=0.8567  lr=0.083457  time=17.9s
+2026-05-21 09:45:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0080.pt
+2026-05-21 09:45:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0080.npy
+2026-05-21 09:45:34  INFO  Epoch   81/300  train_loss=0.2810  train_acc=0.9043  test_loss=0.5183  test_acc=0.8362  lr=0.083066  time=18.0s
+2026-05-21 09:45:52  INFO  Epoch   82/300  train_loss=0.2821  train_acc=0.9046  test_loss=0.4418  test_acc=0.8536  lr=0.082671  time=18.0s
+2026-05-21 09:46:10  INFO  Epoch   83/300  train_loss=0.2765  train_acc=0.9064  test_loss=0.4143  test_acc=0.8650  lr=0.082273  time=17.9s
+2026-05-21 09:46:28  INFO  Epoch   84/300  train_loss=0.2712  train_acc=0.9067  test_loss=0.4072  test_acc=0.8692  lr=0.081871  time=17.9s
+2026-05-21 09:46:46  INFO  Epoch   85/300  train_loss=0.2774  train_acc=0.9043  test_loss=0.3711  test_acc=0.8728  lr=0.081466  time=18.0s
+2026-05-21 09:46:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0085.pt
+2026-05-21 09:46:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0085.npy
+2026-05-21 09:47:04  INFO  Epoch   86/300  train_loss=0.2719  train_acc=0.9065  test_loss=0.4290  test_acc=0.8591  lr=0.081057  time=18.0s
+2026-05-21 09:47:22  INFO  Epoch   87/300  train_loss=0.2672  train_acc=0.9099  test_loss=0.5205  test_acc=0.8298  lr=0.080645  time=18.0s
+2026-05-21 09:47:40  INFO  Epoch   88/300  train_loss=0.2775  train_acc=0.9036  test_loss=0.4581  test_acc=0.8437  lr=0.080230  time=17.9s
+2026-05-21 09:47:58  INFO  Epoch   89/300  train_loss=0.2739  train_acc=0.9072  test_loss=0.4075  test_acc=0.8663  lr=0.079811  time=17.9s
+2026-05-21 09:48:16  INFO  Epoch   90/300  train_loss=0.2674  train_acc=0.9083  test_loss=0.4537  test_acc=0.8549  lr=0.079389  time=17.9s
+2026-05-21 09:48:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0090.pt
+2026-05-21 09:48:17  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0090.npy
+2026-05-21 09:48:34  INFO  Epoch   91/300  train_loss=0.2680  train_acc=0.9078  test_loss=0.3715  test_acc=0.8792  lr=0.078964  time=18.0s
+2026-05-21 09:48:52  INFO  Epoch   92/300  train_loss=0.2626  train_acc=0.9116  test_loss=0.4222  test_acc=0.8615  lr=0.078536  time=18.0s
+2026-05-21 09:49:10  INFO  Epoch   93/300  train_loss=0.2650  train_acc=0.9094  test_loss=0.4242  test_acc=0.8604  lr=0.078104  time=17.9s
+2026-05-21 09:49:28  INFO  Epoch   94/300  train_loss=0.2655  train_acc=0.9077  test_loss=0.4211  test_acc=0.8634  lr=0.077670  time=17.9s
+2026-05-21 09:49:46  INFO  Epoch   95/300  train_loss=0.2600  train_acc=0.9114  test_loss=0.4246  test_acc=0.8565  lr=0.077232  time=17.9s
+2026-05-21 09:49:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0095.pt
+2026-05-21 09:49:47  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0095.npy
+2026-05-21 09:50:04  INFO  Epoch   96/300  train_loss=0.2584  train_acc=0.9120  test_loss=0.3435  test_acc=0.8845  lr=0.076791  time=17.9s
+2026-05-21 09:50:22  INFO  Epoch   97/300  train_loss=0.2576  train_acc=0.9128  test_loss=0.5129  test_acc=0.8347  lr=0.076348  time=18.0s
+2026-05-21 09:50:40  INFO  Epoch   98/300  train_loss=0.2615  train_acc=0.9102  test_loss=0.3334  test_acc=0.8878  lr=0.075901  time=17.9s
+2026-05-21 09:50:58  INFO  Epoch   99/300  train_loss=0.2574  train_acc=0.9135  test_loss=0.4292  test_acc=0.8601  lr=0.075452  time=17.9s
+2026-05-21 09:51:16  INFO  Epoch  100/300  train_loss=0.2534  train_acc=0.9148  test_loss=0.3671  test_acc=0.8810  lr=0.075000  time=17.9s
+2026-05-21 09:51:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0100.pt
+2026-05-21 09:51:17  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0100.npy
+2026-05-21 09:51:34  INFO  Epoch  101/300  train_loss=0.2618  train_acc=0.9110  test_loss=0.3765  test_acc=0.8776  lr=0.074545  time=17.9s
+2026-05-21 09:51:52  INFO  Epoch  102/300  train_loss=0.2482  train_acc=0.9152  test_loss=0.4228  test_acc=0.8652  lr=0.074088  time=17.9s
+2026-05-21 09:52:10  INFO  Epoch  103/300  train_loss=0.2596  train_acc=0.9110  test_loss=0.4591  test_acc=0.8576  lr=0.073628  time=18.0s
+2026-05-21 09:52:28  INFO  Epoch  104/300  train_loss=0.2491  train_acc=0.9149  test_loss=0.4218  test_acc=0.8652  lr=0.073165  time=17.9s
+2026-05-21 09:52:46  INFO  Epoch  105/300  train_loss=0.2485  train_acc=0.9142  test_loss=0.4198  test_acc=0.8636  lr=0.072700  time=17.9s
+2026-05-21 09:52:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0105.pt
+2026-05-21 09:52:47  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0105.npy
+2026-05-21 09:53:04  INFO  Epoch  106/300  train_loss=0.2474  train_acc=0.9171  test_loss=0.4558  test_acc=0.8554  lr=0.072232  time=18.0s
+2026-05-21 09:53:22  INFO  Epoch  107/300  train_loss=0.2482  train_acc=0.9162  test_loss=0.4098  test_acc=0.8662  lr=0.071762  time=17.9s
+2026-05-21 09:53:40  INFO  Epoch  108/300  train_loss=0.2431  train_acc=0.9156  test_loss=0.4786  test_acc=0.8505  lr=0.071289  time=18.0s
+2026-05-21 09:53:58  INFO  Epoch  109/300  train_loss=0.2436  train_acc=0.9168  test_loss=0.4106  test_acc=0.8655  lr=0.070814  time=17.9s
+2026-05-21 09:54:16  INFO  Epoch  110/300  train_loss=0.2391  train_acc=0.9187  test_loss=0.4280  test_acc=0.8630  lr=0.070337  time=17.9s
+2026-05-21 09:54:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0110.pt
+2026-05-21 09:54:17  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0110.npy
+2026-05-21 09:54:34  INFO  Epoch  111/300  train_loss=0.2389  train_acc=0.9183  test_loss=0.3815  test_acc=0.8751  lr=0.069857  time=17.9s
+2026-05-21 09:54:52  INFO  Epoch  112/300  train_loss=0.2481  train_acc=0.9155  test_loss=0.3717  test_acc=0.8733  lr=0.069376  time=17.9s
+2026-05-21 09:55:10  INFO  Epoch  113/300  train_loss=0.2387  train_acc=0.9186  test_loss=0.3709  test_acc=0.8815  lr=0.068892  time=18.0s
+2026-05-21 09:55:28  INFO  Epoch  114/300  train_loss=0.2330  train_acc=0.9194  test_loss=0.3702  test_acc=0.8876  lr=0.068406  time=18.0s
+2026-05-21 09:55:46  INFO  Epoch  115/300  train_loss=0.2375  train_acc=0.9195  test_loss=0.3358  test_acc=0.8921  lr=0.067918  time=17.9s
+2026-05-21 09:55:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0115.pt
+2026-05-21 09:55:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0115.npy
+2026-05-21 09:56:04  INFO  Epoch  116/300  train_loss=0.2396  train_acc=0.9181  test_loss=0.4418  test_acc=0.8607  lr=0.067429  time=17.9s
+2026-05-21 09:56:22  INFO  Epoch  117/300  train_loss=0.2304  train_acc=0.9215  test_loss=0.4915  test_acc=0.8471  lr=0.066937  time=17.9s
+2026-05-21 09:56:40  INFO  Epoch  118/300  train_loss=0.2351  train_acc=0.9200  test_loss=0.3728  test_acc=0.8823  lr=0.066443  time=17.9s
+2026-05-21 09:56:58  INFO  Epoch  119/300  train_loss=0.2321  train_acc=0.9211  test_loss=0.3675  test_acc=0.8793  lr=0.065948  time=17.9s
+2026-05-21 09:57:16  INFO  Epoch  120/300  train_loss=0.2276  train_acc=0.9222  test_loss=0.3813  test_acc=0.8779  lr=0.065451  time=17.9s
+2026-05-21 09:57:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0120.pt
+2026-05-21 09:57:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0120.npy
+2026-05-21 09:57:34  INFO  Epoch  121/300  train_loss=0.2292  train_acc=0.9218  test_loss=0.4876  test_acc=0.8440  lr=0.064952  time=17.9s
+2026-05-21 09:57:52  INFO  Epoch  122/300  train_loss=0.2297  train_acc=0.9214  test_loss=0.4187  test_acc=0.8649  lr=0.064452  time=17.9s
+2026-05-21 09:58:10  INFO  Epoch  123/300  train_loss=0.2220  train_acc=0.9243  test_loss=0.3937  test_acc=0.8750  lr=0.063950  time=17.9s
+2026-05-21 09:58:28  INFO  Epoch  124/300  train_loss=0.2241  train_acc=0.9228  test_loss=0.4134  test_acc=0.8696  lr=0.063446  time=17.9s
+2026-05-21 09:58:46  INFO  Epoch  125/300  train_loss=0.2234  train_acc=0.9233  test_loss=0.3444  test_acc=0.8863  lr=0.062941  time=17.9s
+2026-05-21 09:58:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0125.pt
+2026-05-21 09:58:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0125.npy
+2026-05-21 09:59:04  INFO  Epoch  126/300  train_loss=0.2222  train_acc=0.9239  test_loss=0.3150  test_acc=0.8934  lr=0.062434  time=17.9s
+2026-05-21 09:59:22  INFO  Epoch  127/300  train_loss=0.2142  train_acc=0.9276  test_loss=0.3463  test_acc=0.8853  lr=0.061927  time=17.9s
+2026-05-21 09:59:40  INFO  Epoch  128/300  train_loss=0.2163  train_acc=0.9267  test_loss=0.3638  test_acc=0.8857  lr=0.061418  time=17.9s
+2026-05-21 09:59:58  INFO  Epoch  129/300  train_loss=0.2143  train_acc=0.9262  test_loss=0.3249  test_acc=0.8946  lr=0.060907  time=17.9s
+2026-05-21 10:00:16  INFO  Epoch  130/300  train_loss=0.2154  train_acc=0.9266  test_loss=0.5131  test_acc=0.8424  lr=0.060396  time=17.9s
+2026-05-21 10:00:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0130.pt
+2026-05-21 10:00:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0130.npy
+2026-05-21 10:00:34  INFO  Epoch  131/300  train_loss=0.2120  train_acc=0.9285  test_loss=0.5086  test_acc=0.8462  lr=0.059883  time=18.0s
+2026-05-21 10:00:52  INFO  Epoch  132/300  train_loss=0.2103  train_acc=0.9291  test_loss=0.3788  test_acc=0.8810  lr=0.059369  time=17.9s
+2026-05-21 10:01:10  INFO  Epoch  133/300  train_loss=0.2038  train_acc=0.9295  test_loss=0.3818  test_acc=0.8800  lr=0.058854  time=17.9s
+2026-05-21 10:01:28  INFO  Epoch  134/300  train_loss=0.2042  train_acc=0.9307  test_loss=0.3677  test_acc=0.8822  lr=0.058338  time=17.9s
+2026-05-21 10:01:46  INFO  Epoch  135/300  train_loss=0.2092  train_acc=0.9281  test_loss=0.3391  test_acc=0.8884  lr=0.057822  time=17.9s
+2026-05-21 10:01:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0135.pt
+2026-05-21 10:01:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0135.npy
+2026-05-21 10:02:04  INFO  Epoch  136/300  train_loss=0.1993  train_acc=0.9316  test_loss=0.3692  test_acc=0.8822  lr=0.057304  time=18.0s
+2026-05-21 10:02:22  INFO  Epoch  137/300  train_loss=0.2105  train_acc=0.9284  test_loss=0.4108  test_acc=0.8697  lr=0.056786  time=17.9s
+2026-05-21 10:02:40  INFO  Epoch  138/300  train_loss=0.2027  train_acc=0.9310  test_loss=0.3656  test_acc=0.8790  lr=0.056267  time=17.9s
+2026-05-21 10:02:58  INFO  Epoch  139/300  train_loss=0.1960  train_acc=0.9324  test_loss=0.3661  test_acc=0.8828  lr=0.055747  time=17.9s
+2026-05-21 10:03:16  INFO  Epoch  140/300  train_loss=0.1928  train_acc=0.9342  test_loss=0.3498  test_acc=0.8901  lr=0.055226  time=17.9s
+2026-05-21 10:03:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0140.pt
+2026-05-21 10:03:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0140.npy
+2026-05-21 10:03:34  INFO  Epoch  141/300  train_loss=0.1997  train_acc=0.9311  test_loss=0.4209  test_acc=0.8721  lr=0.054705  time=17.9s
+2026-05-21 10:03:52  INFO  Epoch  142/300  train_loss=0.1973  train_acc=0.9317  test_loss=0.3633  test_acc=0.8870  lr=0.054184  time=17.9s
+2026-05-21 10:04:10  INFO  Epoch  143/300  train_loss=0.1916  train_acc=0.9345  test_loss=0.3446  test_acc=0.8868  lr=0.053662  time=17.9s
+2026-05-21 10:04:28  INFO  Epoch  144/300  train_loss=0.1933  train_acc=0.9341  test_loss=0.3710  test_acc=0.8824  lr=0.053140  time=17.9s
+2026-05-21 10:04:46  INFO  Epoch  145/300  train_loss=0.1915  train_acc=0.9361  test_loss=0.3343  test_acc=0.8937  lr=0.052617  time=17.9s
+2026-05-21 10:04:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0145.pt
+2026-05-21 10:04:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0145.npy
+2026-05-21 10:05:04  INFO  Epoch  146/300  train_loss=0.1897  train_acc=0.9354  test_loss=0.3141  test_acc=0.9010  lr=0.052094  time=17.9s
+2026-05-21 10:05:22  INFO  Epoch  147/300  train_loss=0.1906  train_acc=0.9350  test_loss=0.3264  test_acc=0.8952  lr=0.051571  time=17.9s
+2026-05-21 10:05:40  INFO  Epoch  148/300  train_loss=0.1827  train_acc=0.9384  test_loss=0.3414  test_acc=0.8908  lr=0.051047  time=17.9s
+2026-05-21 10:05:58  INFO  Epoch  149/300  train_loss=0.1828  train_acc=0.9377  test_loss=0.3583  test_acc=0.8864  lr=0.050524  time=17.9s
+2026-05-21 10:06:16  INFO  Epoch  150/300  train_loss=0.1801  train_acc=0.9379  test_loss=0.3052  test_acc=0.9020  lr=0.050000  time=17.9s
+2026-05-21 10:06:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0150.pt
+2026-05-21 10:06:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0150.npy
+2026-05-21 10:06:34  INFO  Epoch  151/300  train_loss=0.1821  train_acc=0.9383  test_loss=0.3153  test_acc=0.8935  lr=0.049476  time=17.9s
+2026-05-21 10:06:52  INFO  Epoch  152/300  train_loss=0.1754  train_acc=0.9410  test_loss=0.3210  test_acc=0.8966  lr=0.048953  time=17.9s
+2026-05-21 10:07:10  INFO  Epoch  153/300  train_loss=0.1754  train_acc=0.9406  test_loss=0.3227  test_acc=0.8987  lr=0.048429  time=17.9s
+2026-05-21 10:07:28  INFO  Epoch  154/300  train_loss=0.1758  train_acc=0.9399  test_loss=0.3805  test_acc=0.8822  lr=0.047906  time=17.9s
+2026-05-21 10:07:46  INFO  Epoch  155/300  train_loss=0.1723  train_acc=0.9413  test_loss=0.3793  test_acc=0.8791  lr=0.047383  time=17.9s
+2026-05-21 10:07:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0155.pt
+2026-05-21 10:07:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0155.npy
+2026-05-21 10:08:04  INFO  Epoch  156/300  train_loss=0.1707  train_acc=0.9425  test_loss=0.3225  test_acc=0.8987  lr=0.046860  time=17.9s
+2026-05-21 10:08:22  INFO  Epoch  157/300  train_loss=0.1785  train_acc=0.9394  test_loss=0.3225  test_acc=0.8967  lr=0.046338  time=17.9s
+2026-05-21 10:08:40  INFO  Epoch  158/300  train_loss=0.1690  train_acc=0.9418  test_loss=0.3346  test_acc=0.8956  lr=0.045816  time=17.9s
+2026-05-21 10:08:58  INFO  Epoch  159/300  train_loss=0.1664  train_acc=0.9434  test_loss=0.3612  test_acc=0.8907  lr=0.045295  time=17.9s
+2026-05-21 10:09:16  INFO  Epoch  160/300  train_loss=0.1692  train_acc=0.9418  test_loss=0.3439  test_acc=0.8940  lr=0.044774  time=17.9s
+2026-05-21 10:09:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0160.pt
+2026-05-21 10:09:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0160.npy
+2026-05-21 10:09:34  INFO  Epoch  161/300  train_loss=0.1599  train_acc=0.9446  test_loss=0.3827  test_acc=0.8808  lr=0.044253  time=17.9s
+2026-05-21 10:09:52  INFO  Epoch  162/300  train_loss=0.1589  train_acc=0.9450  test_loss=0.3742  test_acc=0.8848  lr=0.043733  time=17.9s
+2026-05-21 10:10:10  INFO  Epoch  163/300  train_loss=0.1603  train_acc=0.9456  test_loss=0.3198  test_acc=0.9000  lr=0.043214  time=17.9s
+2026-05-21 10:10:28  INFO  Epoch  164/300  train_loss=0.1588  train_acc=0.9465  test_loss=0.3727  test_acc=0.8860  lr=0.042696  time=17.9s
+2026-05-21 10:10:46  INFO  Epoch  165/300  train_loss=0.1559  train_acc=0.9479  test_loss=0.3061  test_acc=0.8995  lr=0.042178  time=17.9s
+2026-05-21 10:10:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0165.pt
+2026-05-21 10:10:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0165.npy
+2026-05-21 10:11:04  INFO  Epoch  166/300  train_loss=0.1567  train_acc=0.9465  test_loss=0.2678  test_acc=0.9116  lr=0.041662  time=17.9s
+2026-05-21 10:11:22  INFO  Epoch  167/300  train_loss=0.1518  train_acc=0.9479  test_loss=0.3052  test_acc=0.9011  lr=0.041146  time=17.9s
+2026-05-21 10:11:40  INFO  Epoch  168/300  train_loss=0.1524  train_acc=0.9480  test_loss=0.3307  test_acc=0.8954  lr=0.040631  time=17.9s
+2026-05-21 10:11:58  INFO  Epoch  169/300  train_loss=0.1451  train_acc=0.9506  test_loss=0.3049  test_acc=0.9025  lr=0.040117  time=17.9s
+2026-05-21 10:12:16  INFO  Epoch  170/300  train_loss=0.1457  train_acc=0.9505  test_loss=0.3685  test_acc=0.8847  lr=0.039604  time=17.9s
+2026-05-21 10:12:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0170.pt
+2026-05-21 10:12:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0170.npy
+2026-05-21 10:12:34  INFO  Epoch  171/300  train_loss=0.1456  train_acc=0.9499  test_loss=0.3052  test_acc=0.9026  lr=0.039093  time=17.9s
+2026-05-21 10:12:52  INFO  Epoch  172/300  train_loss=0.1433  train_acc=0.9508  test_loss=0.3056  test_acc=0.9005  lr=0.038582  time=17.9s
+2026-05-21 10:13:10  INFO  Epoch  173/300  train_loss=0.1365  train_acc=0.9540  test_loss=0.3093  test_acc=0.9002  lr=0.038073  time=17.9s
+2026-05-21 10:13:28  INFO  Epoch  174/300  train_loss=0.1380  train_acc=0.9540  test_loss=0.2935  test_acc=0.9048  lr=0.037566  time=17.9s
+2026-05-21 10:13:46  INFO  Epoch  175/300  train_loss=0.1384  train_acc=0.9528  test_loss=0.3061  test_acc=0.9019  lr=0.037059  time=17.9s
+2026-05-21 10:13:46  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0175.pt
+2026-05-21 10:13:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0175.npy
+2026-05-21 10:14:04  INFO  Epoch  176/300  train_loss=0.1371  train_acc=0.9533  test_loss=0.3325  test_acc=0.8990  lr=0.036554  time=17.9s
+2026-05-21 10:14:22  INFO  Epoch  177/300  train_loss=0.1373  train_acc=0.9535  test_loss=0.3328  test_acc=0.8919  lr=0.036050  time=17.9s
+2026-05-21 10:14:40  INFO  Epoch  178/300  train_loss=0.1296  train_acc=0.9556  test_loss=0.3120  test_acc=0.9054  lr=0.035548  time=17.9s
+2026-05-21 10:14:58  INFO  Epoch  179/300  train_loss=0.1301  train_acc=0.9562  test_loss=0.3105  test_acc=0.9039  lr=0.035048  time=17.9s
+2026-05-21 10:15:15  INFO  Epoch  180/300  train_loss=0.1279  train_acc=0.9560  test_loss=0.3524  test_acc=0.8904  lr=0.034549  time=17.9s
+2026-05-21 10:15:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0180.pt
+2026-05-21 10:15:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0180.npy
+2026-05-21 10:15:34  INFO  Epoch  181/300  train_loss=0.1233  train_acc=0.9583  test_loss=0.3363  test_acc=0.8968  lr=0.034052  time=17.9s
+2026-05-21 10:15:52  INFO  Epoch  182/300  train_loss=0.1261  train_acc=0.9579  test_loss=0.3389  test_acc=0.8958  lr=0.033557  time=17.9s
+2026-05-21 10:16:09  INFO  Epoch  183/300  train_loss=0.1260  train_acc=0.9572  test_loss=0.3813  test_acc=0.8871  lr=0.033063  time=17.9s
+2026-05-21 10:16:27  INFO  Epoch  184/300  train_loss=0.1209  train_acc=0.9590  test_loss=0.3068  test_acc=0.9056  lr=0.032571  time=17.9s
+2026-05-21 10:16:45  INFO  Epoch  185/300  train_loss=0.1170  train_acc=0.9602  test_loss=0.3135  test_acc=0.8998  lr=0.032082  time=17.9s
+2026-05-21 10:16:45  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0185.pt
+2026-05-21 10:16:46  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0185.npy
+2026-05-21 10:17:04  INFO  Epoch  186/300  train_loss=0.1188  train_acc=0.9594  test_loss=0.2874  test_acc=0.9112  lr=0.031594  time=17.9s
+2026-05-21 10:17:21  INFO  Epoch  187/300  train_loss=0.1182  train_acc=0.9597  test_loss=0.3244  test_acc=0.9037  lr=0.031108  time=17.9s
+2026-05-21 10:17:39  INFO  Epoch  188/300  train_loss=0.1181  train_acc=0.9594  test_loss=0.3179  test_acc=0.9005  lr=0.030624  time=17.9s
+2026-05-21 10:17:57  INFO  Epoch  189/300  train_loss=0.1075  train_acc=0.9641  test_loss=0.2648  test_acc=0.9181  lr=0.030143  time=17.9s
+2026-05-21 10:18:15  INFO  Epoch  190/300  train_loss=0.1115  train_acc=0.9622  test_loss=0.2616  test_acc=0.9181  lr=0.029663  time=17.9s
+2026-05-21 10:18:15  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0190.pt
+2026-05-21 10:18:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0190.npy
+2026-05-21 10:18:33  INFO  Epoch  191/300  train_loss=0.1045  train_acc=0.9652  test_loss=0.3034  test_acc=0.9091  lr=0.029186  time=17.9s
+2026-05-21 10:18:51  INFO  Epoch  192/300  train_loss=0.1026  train_acc=0.9654  test_loss=0.2964  test_acc=0.9103  lr=0.028711  time=17.9s
+2026-05-21 10:19:09  INFO  Epoch  193/300  train_loss=0.1029  train_acc=0.9650  test_loss=0.3201  test_acc=0.9051  lr=0.028238  time=17.9s
+2026-05-21 10:19:27  INFO  Epoch  194/300  train_loss=0.1052  train_acc=0.9639  test_loss=0.2986  test_acc=0.9087  lr=0.027768  time=17.9s
+2026-05-21 10:19:45  INFO  Epoch  195/300  train_loss=0.0985  train_acc=0.9663  test_loss=0.2703  test_acc=0.9181  lr=0.027300  time=17.9s
+2026-05-21 10:19:45  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0195.pt
+2026-05-21 10:19:45  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0195.npy
+2026-05-21 10:20:03  INFO  Epoch  196/300  train_loss=0.1026  train_acc=0.9649  test_loss=0.2742  test_acc=0.9178  lr=0.026835  time=17.9s
+2026-05-21 10:20:22  INFO  Epoch  197/300  train_loss=0.0963  train_acc=0.9672  test_loss=0.2901  test_acc=0.9154  lr=0.026372  time=19.1s
+2026-05-21 10:20:41  INFO  Epoch  198/300  train_loss=0.0965  train_acc=0.9672  test_loss=0.3200  test_acc=0.9048  lr=0.025912  time=18.3s
+2026-05-21 10:20:59  INFO  Epoch  199/300  train_loss=0.0891  train_acc=0.9699  test_loss=0.2652  test_acc=0.9155  lr=0.025455  time=18.6s
+2026-05-21 10:21:18  INFO  Epoch  200/300  train_loss=0.0956  train_acc=0.9671  test_loss=0.3051  test_acc=0.9079  lr=0.025000  time=18.4s
+2026-05-21 10:21:18  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0200.pt
+2026-05-21 10:21:18  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0200.npy
+2026-05-21 10:21:36  INFO  Epoch  201/300  train_loss=0.0876  train_acc=0.9711  test_loss=0.2562  test_acc=0.9207  lr=0.024548  time=18.3s
+2026-05-21 10:21:55  INFO  Epoch  202/300  train_loss=0.0870  train_acc=0.9704  test_loss=0.3058  test_acc=0.9066  lr=0.024099  time=18.5s
+2026-05-21 10:22:14  INFO  Epoch  203/300  train_loss=0.0871  train_acc=0.9701  test_loss=0.2867  test_acc=0.9148  lr=0.023652  time=18.6s
+2026-05-21 10:22:32  INFO  Epoch  204/300  train_loss=0.0780  train_acc=0.9736  test_loss=0.2742  test_acc=0.9211  lr=0.023209  time=18.5s
+2026-05-21 10:22:50  INFO  Epoch  205/300  train_loss=0.0740  train_acc=0.9750  test_loss=0.3098  test_acc=0.9130  lr=0.022768  time=18.2s
+2026-05-21 10:22:50  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0205.pt
+2026-05-21 10:22:51  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0205.npy
+2026-05-21 10:23:09  INFO  Epoch  206/300  train_loss=0.0818  train_acc=0.9712  test_loss=0.2582  test_acc=0.9225  lr=0.022330  time=18.2s
+2026-05-21 10:23:27  INFO  Epoch  207/300  train_loss=0.0794  train_acc=0.9737  test_loss=0.2762  test_acc=0.9165  lr=0.021896  time=18.3s
+2026-05-21 10:23:46  INFO  Epoch  208/300  train_loss=0.0769  train_acc=0.9745  test_loss=0.2983  test_acc=0.9137  lr=0.021464  time=18.4s
+2026-05-21 10:24:04  INFO  Epoch  209/300  train_loss=0.0791  train_acc=0.9730  test_loss=0.3206  test_acc=0.9104  lr=0.021036  time=18.2s
+2026-05-21 10:24:22  INFO  Epoch  210/300  train_loss=0.0763  train_acc=0.9739  test_loss=0.2957  test_acc=0.9160  lr=0.020611  time=18.3s
+2026-05-21 10:24:22  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0210.pt
+2026-05-21 10:24:22  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0210.npy
+2026-05-21 10:24:41  INFO  Epoch  211/300  train_loss=0.0698  train_acc=0.9772  test_loss=0.3548  test_acc=0.9003  lr=0.020189  time=18.9s
+2026-05-21 10:25:00  INFO  Epoch  212/300  train_loss=0.0647  train_acc=0.9790  test_loss=0.3069  test_acc=0.9118  lr=0.019770  time=18.3s
+2026-05-21 10:25:18  INFO  Epoch  213/300  train_loss=0.0694  train_acc=0.9770  test_loss=0.2796  test_acc=0.9202  lr=0.019355  time=18.3s
+2026-05-21 10:25:36  INFO  Epoch  214/300  train_loss=0.0660  train_acc=0.9780  test_loss=0.3026  test_acc=0.9138  lr=0.018943  time=18.4s
+2026-05-21 10:25:55  INFO  Epoch  215/300  train_loss=0.0700  train_acc=0.9764  test_loss=0.2603  test_acc=0.9233  lr=0.018534  time=18.4s
+2026-05-21 10:25:55  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0215.pt
+2026-05-21 10:25:55  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0215.npy
+2026-05-21 10:26:13  INFO  Epoch  216/300  train_loss=0.0597  train_acc=0.9799  test_loss=0.2704  test_acc=0.9218  lr=0.018129  time=18.3s
+2026-05-21 10:26:32  INFO  Epoch  217/300  train_loss=0.0609  train_acc=0.9807  test_loss=0.2686  test_acc=0.9237  lr=0.017727  time=19.1s
+2026-05-21 10:26:51  INFO  Epoch  218/300  train_loss=0.0565  train_acc=0.9812  test_loss=0.2873  test_acc=0.9197  lr=0.017329  time=18.6s
+2026-05-21 10:27:10  INFO  Epoch  219/300  train_loss=0.0531  train_acc=0.9825  test_loss=0.2673  test_acc=0.9264  lr=0.016934  time=18.9s
+2026-05-21 10:27:28  INFO  Epoch  220/300  train_loss=0.0569  train_acc=0.9813  test_loss=0.2859  test_acc=0.9184  lr=0.016543  time=18.4s
+2026-05-21 10:27:28  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0220.pt
+2026-05-21 10:27:29  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0220.npy
+2026-05-21 10:27:47  INFO  Epoch  221/300  train_loss=0.0545  train_acc=0.9817  test_loss=0.2780  test_acc=0.9216  lr=0.016156  time=18.7s
+2026-05-21 10:28:06  INFO  Epoch  222/300  train_loss=0.0523  train_acc=0.9823  test_loss=0.2629  test_acc=0.9269  lr=0.015773  time=18.3s
+2026-05-21 10:28:24  INFO  Epoch  223/300  train_loss=0.0505  train_acc=0.9829  test_loss=0.2863  test_acc=0.9195  lr=0.015393  time=18.1s
+2026-05-21 10:28:42  INFO  Epoch  224/300  train_loss=0.0490  train_acc=0.9839  test_loss=0.2518  test_acc=0.9305  lr=0.015017  time=18.3s
+2026-05-21 10:29:01  INFO  Epoch  225/300  train_loss=0.0475  train_acc=0.9841  test_loss=0.2766  test_acc=0.9216  lr=0.014645  time=18.7s
+2026-05-21 10:29:01  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0225.pt
+2026-05-21 10:29:01  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0225.npy
+2026-05-21 10:29:20  INFO  Epoch  226/300  train_loss=0.0450  train_acc=0.9849  test_loss=0.2633  test_acc=0.9281  lr=0.014276  time=18.5s
+2026-05-21 10:29:38  INFO  Epoch  227/300  train_loss=0.0400  train_acc=0.9870  test_loss=0.2503  test_acc=0.9307  lr=0.013912  time=18.5s
+2026-05-21 10:29:57  INFO  Epoch  228/300  train_loss=0.0416  train_acc=0.9865  test_loss=0.2510  test_acc=0.9283  lr=0.013552  time=18.8s
+2026-05-21 10:30:16  INFO  Epoch  229/300  train_loss=0.0394  train_acc=0.9874  test_loss=0.2908  test_acc=0.9229  lr=0.013195  time=18.7s
+2026-05-21 10:30:34  INFO  Epoch  230/300  train_loss=0.0420  train_acc=0.9863  test_loss=0.2722  test_acc=0.9236  lr=0.012843  time=18.8s
+2026-05-21 10:30:35  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0230.pt
+2026-05-21 10:30:35  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0230.npy
+2026-05-21 10:30:53  INFO  Epoch  231/300  train_loss=0.0369  train_acc=0.9882  test_loss=0.2403  test_acc=0.9320  lr=0.012494  time=18.7s
+2026-05-21 10:31:12  INFO  Epoch  232/300  train_loss=0.0355  train_acc=0.9887  test_loss=0.2601  test_acc=0.9282  lr=0.012150  time=18.9s
+2026-05-21 10:31:30  INFO  Epoch  233/300  train_loss=0.0356  train_acc=0.9881  test_loss=0.2506  test_acc=0.9295  lr=0.011810  time=18.1s
+2026-05-21 10:31:49  INFO  Epoch  234/300  train_loss=0.0336  train_acc=0.9892  test_loss=0.2401  test_acc=0.9321  lr=0.011474  time=18.5s
+2026-05-21 10:32:07  INFO  Epoch  235/300  train_loss=0.0284  train_acc=0.9907  test_loss=0.2672  test_acc=0.9257  lr=0.011143  time=18.5s
+2026-05-21 10:32:08  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0235.pt
+2026-05-21 10:32:08  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0235.npy
+2026-05-21 10:32:26  INFO  Epoch  236/300  train_loss=0.0289  train_acc=0.9907  test_loss=0.2704  test_acc=0.9277  lr=0.010815  time=18.5s
+2026-05-21 10:32:44  INFO  Epoch  237/300  train_loss=0.0266  train_acc=0.9916  test_loss=0.2560  test_acc=0.9296  lr=0.010492  time=18.1s
+2026-05-21 10:33:02  INFO  Epoch  238/300  train_loss=0.0232  train_acc=0.9926  test_loss=0.2668  test_acc=0.9304  lr=0.010174  time=18.0s
+2026-05-21 10:33:20  INFO  Epoch  239/300  train_loss=0.0233  train_acc=0.9929  test_loss=0.2311  test_acc=0.9371  lr=0.009859  time=17.9s
+2026-05-21 10:33:38  INFO  Epoch  240/300  train_loss=0.0238  train_acc=0.9925  test_loss=0.2347  test_acc=0.9391  lr=0.009549  time=17.9s
+2026-05-21 10:33:38  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0240.pt
+2026-05-21 10:33:39  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0240.npy
+2026-05-21 10:33:57  INFO  Epoch  241/300  train_loss=0.0202  train_acc=0.9937  test_loss=0.2576  test_acc=0.9330  lr=0.009244  time=17.9s
+2026-05-21 10:34:14  INFO  Epoch  242/300  train_loss=0.0184  train_acc=0.9947  test_loss=0.2260  test_acc=0.9405  lr=0.008943  time=18.0s
+2026-05-21 10:34:33  INFO  Epoch  243/300  train_loss=0.0159  train_acc=0.9953  test_loss=0.2338  test_acc=0.9381  lr=0.008646  time=18.1s
+2026-05-21 10:34:51  INFO  Epoch  244/300  train_loss=0.0175  train_acc=0.9947  test_loss=0.2376  test_acc=0.9366  lr=0.008354  time=18.6s
+2026-05-21 10:35:10  INFO  Epoch  245/300  train_loss=0.0169  train_acc=0.9949  test_loss=0.2388  test_acc=0.9385  lr=0.008066  time=18.9s
+2026-05-21 10:35:10  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0245.pt
+2026-05-21 10:35:10  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0245.npy
+2026-05-21 10:35:30  INFO  Epoch  246/300  train_loss=0.0136  train_acc=0.9964  test_loss=0.2246  test_acc=0.9389  lr=0.007784  time=19.1s
+2026-05-21 10:35:48  INFO  Epoch  247/300  train_loss=0.0123  train_acc=0.9963  test_loss=0.2444  test_acc=0.9367  lr=0.007505  time=18.4s
+2026-05-21 10:36:07  INFO  Epoch  248/300  train_loss=0.0120  train_acc=0.9968  test_loss=0.2178  test_acc=0.9431  lr=0.007232  time=18.9s
+2026-05-21 10:36:26  INFO  Epoch  249/300  train_loss=0.0093  train_acc=0.9976  test_loss=0.2259  test_acc=0.9431  lr=0.006963  time=18.6s
+2026-05-21 10:36:44  INFO  Epoch  250/300  train_loss=0.0103  train_acc=0.9972  test_loss=0.2282  test_acc=0.9416  lr=0.006699  time=18.5s
+2026-05-21 10:36:44  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0250.pt
+2026-05-21 10:36:44  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0250.npy
+2026-05-21 10:37:03  INFO  Epoch  251/300  train_loss=0.0090  train_acc=0.9978  test_loss=0.2175  test_acc=0.9451  lr=0.006439  time=18.3s
+2026-05-21 10:37:21  INFO  Epoch  252/300  train_loss=0.0070  train_acc=0.9984  test_loss=0.2026  test_acc=0.9469  lr=0.006185  time=18.4s
+2026-05-21 10:37:39  INFO  Epoch  253/300  train_loss=0.0063  train_acc=0.9984  test_loss=0.2151  test_acc=0.9464  lr=0.005935  time=18.3s
+2026-05-21 10:37:58  INFO  Epoch  254/300  train_loss=0.0066  train_acc=0.9984  test_loss=0.2072  test_acc=0.9458  lr=0.005690  time=18.4s
+2026-05-21 10:38:16  INFO  Epoch  255/300  train_loss=0.0055  train_acc=0.9989  test_loss=0.2046  test_acc=0.9483  lr=0.005450  time=18.3s
+2026-05-21 10:38:16  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0255.pt
+2026-05-21 10:38:16  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0255.npy
+2026-05-21 10:38:35  INFO  Epoch  256/300  train_loss=0.0041  train_acc=0.9993  test_loss=0.1997  test_acc=0.9513  lr=0.005214  time=18.9s
+2026-05-21 10:38:54  INFO  Epoch  257/300  train_loss=0.0031  train_acc=0.9996  test_loss=0.1968  test_acc=0.9505  lr=0.004984  time=18.5s
+2026-05-21 10:39:12  INFO  Epoch  258/300  train_loss=0.0027  train_acc=0.9997  test_loss=0.1901  test_acc=0.9519  lr=0.004759  time=18.4s
+2026-05-21 10:39:31  INFO  Epoch  259/300  train_loss=0.0027  train_acc=0.9997  test_loss=0.1939  test_acc=0.9505  lr=0.004538  time=18.6s
+2026-05-21 10:39:49  INFO  Epoch  260/300  train_loss=0.0027  train_acc=0.9998  test_loss=0.1874  test_acc=0.9518  lr=0.004323  time=18.5s
+2026-05-21 10:39:49  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0260.pt
+2026-05-21 10:39:50  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0260.npy
+2026-05-21 10:40:08  INFO  Epoch  261/300  train_loss=0.0030  train_acc=0.9996  test_loss=0.1954  test_acc=0.9511  lr=0.004112  time=18.5s
+2026-05-21 10:40:26  INFO  Epoch  262/300  train_loss=0.0026  train_acc=0.9998  test_loss=0.1901  test_acc=0.9511  lr=0.003907  time=18.2s
+2026-05-21 10:40:45  INFO  Epoch  263/300  train_loss=0.0029  train_acc=0.9995  test_loss=0.1963  test_acc=0.9493  lr=0.003706  time=18.1s
+2026-05-21 10:41:03  INFO  Epoch  264/300  train_loss=0.0025  train_acc=0.9998  test_loss=0.1890  test_acc=0.9496  lr=0.003511  time=18.9s
+2026-05-21 10:41:22  INFO  Epoch  265/300  train_loss=0.0021  train_acc=0.9999  test_loss=0.1859  test_acc=0.9516  lr=0.003321  time=19.0s
+2026-05-21 10:41:23  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0265.pt
+2026-05-21 10:41:23  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0265.npy
+2026-05-21 10:41:42  INFO  Epoch  266/300  train_loss=0.0019  train_acc=1.0000  test_loss=0.1857  test_acc=0.9524  lr=0.003136  time=19.0s
+2026-05-21 10:42:01  INFO  Epoch  267/300  train_loss=0.0020  train_acc=0.9999  test_loss=0.1910  test_acc=0.9523  lr=0.002956  time=18.9s
+2026-05-21 10:42:19  INFO  Epoch  268/300  train_loss=0.0019  train_acc=1.0000  test_loss=0.1820  test_acc=0.9537  lr=0.002781  time=18.3s
+2026-05-21 10:42:38  INFO  Epoch  269/300  train_loss=0.0020  train_acc=0.9999  test_loss=0.1844  test_acc=0.9528  lr=0.002612  time=18.6s
+2026-05-21 10:42:56  INFO  Epoch  270/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1807  test_acc=0.9535  lr=0.002447  time=18.6s
+2026-05-21 10:42:56  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0270.pt
+2026-05-21 10:42:56  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0270.npy
+2026-05-21 10:43:14  INFO  Epoch  271/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1783  test_acc=0.9537  lr=0.002288  time=18.1s
+2026-05-21 10:43:33  INFO  Epoch  272/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1801  test_acc=0.9540  lr=0.002134  time=18.2s
+2026-05-21 10:43:51  INFO  Epoch  273/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1803  test_acc=0.9530  lr=0.001985  time=18.2s
+2026-05-21 10:44:09  INFO  Epoch  274/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1769  test_acc=0.9541  lr=0.001842  time=18.3s
+2026-05-21 10:44:27  INFO  Epoch  275/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1777  test_acc=0.9542  lr=0.001704  time=17.9s
+2026-05-21 10:44:27  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0275.pt
+2026-05-21 10:44:27  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0275.npy
+2026-05-21 10:44:45  INFO  Epoch  276/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1772  test_acc=0.9533  lr=0.001571  time=17.9s
+2026-05-21 10:45:03  INFO  Epoch  277/300  train_loss=0.0018  train_acc=0.9999  test_loss=0.1756  test_acc=0.9543  lr=0.001443  time=17.9s
+2026-05-21 10:45:21  INFO  Epoch  278/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1760  test_acc=0.9543  lr=0.001321  time=17.9s
+2026-05-21 10:45:39  INFO  Epoch  279/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1742  test_acc=0.9551  lr=0.001204  time=17.9s
+2026-05-21 10:45:57  INFO  Epoch  280/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1751  test_acc=0.9552  lr=0.001093  time=17.9s
+2026-05-21 10:45:57  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0280.pt
+2026-05-21 10:45:57  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0280.npy
+2026-05-21 10:46:15  INFO  Epoch  281/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1758  test_acc=0.9552  lr=0.000986  time=17.9s
+2026-05-21 10:46:33  INFO  Epoch  282/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9542  lr=0.000886  time=17.9s
+2026-05-21 10:46:51  INFO  Epoch  283/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1743  test_acc=0.9547  lr=0.000790  time=17.9s
+2026-05-21 10:47:09  INFO  Epoch  284/300  train_loss=0.0018  train_acc=1.0000  test_loss=0.1752  test_acc=0.9542  lr=0.000700  time=17.9s
+2026-05-21 10:47:27  INFO  Epoch  285/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1716  test_acc=0.9561  lr=0.000616  time=17.9s
+2026-05-21 10:47:27  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0285.pt
+2026-05-21 10:47:27  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0285.npy
+2026-05-21 10:47:45  INFO  Epoch  286/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1728  test_acc=0.9562  lr=0.000536  time=17.9s
+2026-05-21 10:48:03  INFO  Epoch  287/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1726  test_acc=0.9562  lr=0.000463  time=17.9s
+2026-05-21 10:48:21  INFO  Epoch  288/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1729  test_acc=0.9556  lr=0.000394  time=18.1s
+2026-05-21 10:48:39  INFO  Epoch  289/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1727  test_acc=0.9561  lr=0.000331  time=18.3s
+2026-05-21 10:48:58  INFO  Epoch  290/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1734  test_acc=0.9552  lr=0.000274  time=18.4s
+2026-05-21 10:48:58  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0290.pt
+2026-05-21 10:48:58  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0290.npy
+2026-05-21 10:49:16  INFO  Epoch  291/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9561  lr=0.000222  time=17.9s
+2026-05-21 10:49:34  INFO  Epoch  292/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1717  test_acc=0.9560  lr=0.000175  time=17.9s
+2026-05-21 10:49:52  INFO  Epoch  293/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1726  test_acc=0.9557  lr=0.000134  time=18.1s
+2026-05-21 10:50:11  INFO  Epoch  294/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1728  test_acc=0.9556  lr=0.000099  time=19.0s
+2026-05-21 10:50:29  INFO  Epoch  295/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1732  test_acc=0.9557  lr=0.000069  time=18.2s
+2026-05-21 10:50:29  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0295.pt
+2026-05-21 10:50:29  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0295.npy
+2026-05-21 10:50:48  INFO  Epoch  296/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1739  test_acc=0.9551  lr=0.000044  time=18.2s
+2026-05-21 10:51:06  INFO  Epoch  297/300  train_loss=0.0016  train_acc=1.0000  test_loss=0.1729  test_acc=0.9555  lr=0.000025  time=18.5s
+2026-05-21 10:51:25  INFO  Epoch  298/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1740  test_acc=0.9556  lr=0.000011  time=18.5s
+2026-05-21 10:51:43  INFO  Epoch  299/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1733  test_acc=0.9550  lr=0.000003  time=18.4s
+2026-05-21 10:52:01  INFO  Epoch  300/300  train_loss=0.0017  train_acc=1.0000  test_loss=0.1728  test_acc=0.9551  lr=0.000000  time=18.2s
+2026-05-21 10:52:01  INFO    [checkpoint] Saved: /local/data/gme101/checkpoints/seed_0/checkpoint_epoch_0300.pt
+2026-05-21 10:52:02  INFO    [activations] shape=(2040, 512)  saved: /local/data/gme101/activations/seed_0/activations_epoch_0300.npy
+2026-05-21 10:52:02  INFO  ======================================================================
+2026-05-21 10:52:02  INFO  Training complete.
+2026-05-21 10:52:02  INFO  Final test accuracy: 0.9551
+2026-05-21 10:52:02  INFO  Checkpoints saved to: /local/data/gme101/checkpoints/seed_0
+2026-05-21 10:52:02  INFO  Activations saved to: /local/data/gme101/activations/seed_0
+2026-05-21 10:52:02  INFO  ======================================================================

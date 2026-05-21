@@ -1,0 +1,84 @@
+2026-05-21 07:40:27  INFO  ======================================================================
+2026-05-21 07:40:27  INFO  Surrogate: Logistic Regression (Linear Probe)
+2026-05-21 07:40:27  INFO  ======================================================================
+2026-05-21 07:40:27  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 07:40:27  INFO  Epoch:           280
+2026-05-21 07:40:27  INFO  C:               1.0
+2026-05-21 07:40:27  INFO  max_iter:        1000
+2026-05-21 07:40:27  INFO  Loading train features...
+2026-05-21 07:40:28  INFO  ======================================================================
+2026-05-21 07:40:28  INFO  Surrogate: LightGBM
+2026-05-21 07:40:28  INFO  ======================================================================
+2026-05-21 07:40:28  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 07:40:28  INFO  Epoch:           280
+2026-05-21 07:40:28  INFO  LightGBM:        n_estimators=200  num_leaves=31  lr=0.1
+2026-05-21 07:40:28  INFO  Loading train features...
+2026-05-21 07:40:30  INFO  ======================================================================
+2026-05-21 07:40:30  INFO  Surrogate: Random Forest
+2026-05-21 07:40:30  INFO  ======================================================================
+2026-05-21 07:40:30  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 07:40:30  INFO  Epoch:           280
+2026-05-21 07:40:30  INFO  RandomForest:    n_estimators=200  max_features=sqrt  n_jobs=-1
+2026-05-21 07:40:30  INFO  Loading train features...
+2026-05-21 16:37:24  INFO  ======================================================================
+2026-05-21 16:37:24  INFO  Surrogate: Logistic Regression (Linear Probe)
+2026-05-21 16:37:24  INFO  ======================================================================
+2026-05-21 16:37:24  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 16:37:24  INFO  Epoch:           285
+2026-05-21 16:37:24  INFO  C:               1.0
+2026-05-21 16:37:24  INFO  max_iter:        1000
+2026-05-21 16:37:24  INFO  Loading train features...
+2026-05-21 16:37:24  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-21 16:37:24  INFO  Loading test features...
+2026-05-21 16:37:24  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-21 16:37:24  INFO  Normalizing features (StandardScaler fit on train)...
+2026-05-21 16:37:24  INFO  Reference (full network) test_acc at epoch 285: 0.9544
+2026-05-21 16:37:24  INFO  Training logistic regression...
+2026-05-21 16:37:24  INFO    Solver converged in 6 iterations.
+2026-05-21 16:37:24  INFO  ----------------------------------------------------------------------
+2026-05-21 16:37:24  INFO  Surrogate train accuracy:        1.0000
+2026-05-21 16:37:24  INFO  Surrogate test accuracy:         0.9543
+2026-05-21 16:37:24  INFO  Full network test accuracy:      0.9544
+2026-05-21 16:37:24  INFO  Accuracy gap (network - surrogate): +0.0001  (surrogate underperforms)
+2026-05-21 16:37:24  INFO  Saved results to: /local/data/gme101/results/seed_2/surrogate_linear_epoch_0285.csv
+2026-05-21 16:37:24  INFO  ======================================================================
+2026-05-21 16:37:25  INFO  ======================================================================
+2026-05-21 16:37:25  INFO  Surrogate: LightGBM
+2026-05-21 16:37:25  INFO  ======================================================================
+2026-05-21 16:37:25  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 16:37:25  INFO  Epoch:           285
+2026-05-21 16:37:25  INFO  LightGBM:        n_estimators=200  num_leaves=31  lr=0.1
+2026-05-21 16:37:25  INFO  Loading train features...
+2026-05-21 16:37:25  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-21 16:37:25  INFO  Loading test features...
+2026-05-21 16:37:25  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-21 16:37:25  INFO  Reference (full network) test_acc at epoch 285: 0.9544
+2026-05-21 16:37:25  INFO  Training LightGBM...
+2026-05-21 16:37:25  INFO    Fitting LightGBM: n_estimators=200, num_leaves=31, lr=0.1
+2026-05-21 16:37:42  INFO  ----------------------------------------------------------------------
+2026-05-21 16:37:42  INFO  Surrogate train accuracy:           1.0000
+2026-05-21 16:37:42  INFO  Surrogate test accuracy:            0.9491
+2026-05-21 16:37:42  INFO  Full network test accuracy:         0.9544
+2026-05-21 16:37:42  INFO  Accuracy gap (network - surrogate): +0.0053  (surrogate underperforms)
+2026-05-21 16:37:42  INFO  Saved results to: /local/data/gme101/results/seed_2/surrogate_lightgbm_epoch_0285.csv
+2026-05-21 16:37:42  INFO  ======================================================================
+2026-05-21 16:37:43  INFO  ======================================================================
+2026-05-21 16:37:43  INFO  Surrogate: Random Forest
+2026-05-21 16:37:43  INFO  ======================================================================
+2026-05-21 16:37:43  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 16:37:43  INFO  Epoch:           285
+2026-05-21 16:37:43  INFO  RandomForest:    n_estimators=200  max_features=sqrt  n_jobs=-1
+2026-05-21 16:37:43  INFO  Loading train features...
+2026-05-21 16:37:43  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-21 16:37:43  INFO  Loading test features...
+2026-05-21 16:37:43  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-21 16:37:43  INFO  Reference (full network) test_acc at epoch 285: 0.9544
+2026-05-21 16:37:43  INFO  Training Random Forest...
+2026-05-21 16:37:43  INFO    Fitting RandomForest: n_estimators=200, max_features=sqrt, n_jobs=-1
+2026-05-21 16:37:44  INFO  ----------------------------------------------------------------------
+2026-05-21 16:37:44  INFO  Surrogate train accuracy:           1.0000
+2026-05-21 16:37:44  INFO  Surrogate test accuracy:            0.9537
+2026-05-21 16:37:44  INFO  Full network test accuracy:         0.9544
+2026-05-21 16:37:44  INFO  Accuracy gap (network - surrogate): +0.0007  (surrogate underperforms)
+2026-05-21 16:37:44  INFO  Saved results to: /local/data/gme101/results/seed_2/surrogate_rf_epoch_0285.csv
+2026-05-21 16:37:44  INFO  ======================================================================

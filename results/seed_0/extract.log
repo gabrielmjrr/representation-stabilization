@@ -1,0 +1,42 @@
+2026-05-21 07:40:13  INFO  ======================================================================
+2026-05-21 07:40:13  INFO  Activation Extraction — Full Training and Test Sets
+2026-05-21 07:40:13  INFO  ======================================================================
+2026-05-21 07:40:13  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 07:40:13  INFO  Epoch to load:   280
+2026-05-21 07:40:13  INFO  Checkpoint dir:  /local/data/gme101/checkpoints/seed_0
+2026-05-21 07:40:13  INFO  Activations dir: /local/data/gme101/activations/seed_0
+2026-05-21 07:40:13  INFO  Device: cuda
+2026-05-21 07:40:13  INFO  GPU: NVIDIA L4
+2026-05-21 07:40:13  INFO  Building model...
+2026-05-21 16:10:37  INFO  ======================================================================
+2026-05-21 16:10:37  INFO  Activation Extraction — Full Training and Test Sets
+2026-05-21 16:10:37  INFO  ======================================================================
+2026-05-21 16:10:37  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 16:10:37  INFO  Epoch to load:   285
+2026-05-21 16:10:37  INFO  Checkpoint dir:  /local/data/gme101/checkpoints/seed_0
+2026-05-21 16:10:37  INFO  Activations dir: /local/data/gme101/activations/seed_0
+2026-05-21 16:10:37  INFO  Device: cuda
+2026-05-21 16:10:37  INFO  GPU: NVIDIA L4
+2026-05-21 16:10:37  INFO  Building model...
+2026-05-21 16:10:37  INFO  Loaded checkpoint from epoch 285
+2026-05-21 16:10:37  INFO    Checkpoint train_acc: 1.0000
+2026-05-21 16:10:37  INFO    Checkpoint test_acc:  0.9561
+2026-05-21 16:10:37  INFO  Building full train loader (no augmentation, no shuffle)...
+2026-05-21 16:10:38  INFO    Train batches: 391
+2026-05-21 16:10:38  INFO  Building full test loader...
+2026-05-21 16:10:38  INFO    Test batches:  79
+2026-05-21 16:10:38  INFO  ----------------------------------------------------------------------
+2026-05-21 16:10:38  INFO  Extracting activations for full training set...
+2026-05-21 16:10:43  INFO    Saved train activations: shape=(50000, 512)  path=/local/data/gme101/activations/seed_0/train_full_epoch_0285.npy
+2026-05-21 16:10:43  INFO    Saved train labels:      shape=(50000,)  path=/local/data/gme101/activations/seed_0/train_labels.npy
+2026-05-21 16:10:43  INFO  ----------------------------------------------------------------------
+2026-05-21 16:10:43  INFO  Extracting activations for full test set...
+2026-05-21 16:10:43  INFO    Saved test activations: shape=(10000, 512)  path=/local/data/gme101/activations/seed_0/test_full_epoch_0285.npy
+2026-05-21 16:10:43  INFO    Saved test labels:      shape=(10000,)  path=/local/data/gme101/activations/seed_0/test_labels.npy
+2026-05-21 16:10:43  INFO  ======================================================================
+2026-05-21 16:10:43  INFO  Extraction complete.
+2026-05-21 16:10:43  INFO    Train features: (50000, 512)
+2026-05-21 16:10:43  INFO    Test features:  (10000, 512)
+2026-05-21 16:10:43  INFO    Checkpoint network test accuracy at epoch 285: 0.9561
+2026-05-21 16:10:43  INFO    Next step: run surrogates/linear_probe.py, lightgbm_probe.py, or rf_probe.py with --epoch same as above.
+2026-05-21 16:10:43  INFO  ======================================================================

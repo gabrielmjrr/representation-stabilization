@@ -1,78 +1,78 @@
-2026-05-20 14:42:23  INFO  ======================================================================
-2026-05-20 14:42:23  INFO  CKA Computation — Representation Stabilization
-2026-05-20 14:42:23  INFO  ======================================================================
-2026-05-20 14:42:23  INFO  Config:          configs/resnet18_cifar10.yaml
-2026-05-20 14:42:23  INFO  Activations dir: /local/data/gme101/activations/seed_1
-2026-05-20 14:42:23  INFO  Results dir:     /local/data/gme101/results/seed_1
-2026-05-20 14:42:23  INFO  Seed: 1
-2026-05-20 14:42:23  INFO  Mode: consecutive
-2026-05-20 14:42:23  INFO  Stabilization threshold tau = 0.02
-2026-05-20 14:42:23  INFO  Found 60 activation files in '/local/data/gme101/activations/seed_1'
-2026-05-20 14:42:23  INFO  Epoch range: 5 to 300
-2026-05-20 14:42:23  INFO  Number of CKA pairs to compute: 59
-2026-05-20 14:42:23  INFO  ----------------------------------------------------------------------
-2026-05-20 14:42:24  INFO    Pair   1/59  epoch    5 →   10  CKA = 0.7967  change = 0.2033  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   2/59  epoch   10 →   15  CKA = 0.8265  change = 0.1735  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   3/59  epoch   15 →   20  CKA = 0.7894  change = 0.2106  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   4/59  epoch   20 →   25  CKA = 0.7754  change = 0.2246  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   5/59  epoch   25 →   30  CKA = 0.8320  change = 0.1680  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   6/59  epoch   30 →   35  CKA = 0.8308  change = 0.1692  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   7/59  epoch   35 →   40  CKA = 0.8082  change = 0.1918  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   8/59  epoch   40 →   45  CKA = 0.8162  change = 0.1838  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair   9/59  epoch   45 →   50  CKA = 0.7301  change = 0.2699  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  10/59  epoch   50 →   55  CKA = 0.7426  change = 0.2574  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  11/59  epoch   55 →   60  CKA = 0.7935  change = 0.2065  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  12/59  epoch   60 →   65  CKA = 0.8141  change = 0.1859  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  13/59  epoch   65 →   70  CKA = 0.8011  change = 0.1989  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  14/59  epoch   70 →   75  CKA = 0.7750  change = 0.2250  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  15/59  epoch   75 →   80  CKA = 0.8328  change = 0.1672  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  16/59  epoch   80 →   85  CKA = 0.8012  change = 0.1988  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  17/59  epoch   85 →   90  CKA = 0.8111  change = 0.1889  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  18/59  epoch   90 →   95  CKA = 0.8165  change = 0.1835  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  19/59  epoch   95 →  100  CKA = 0.7986  change = 0.2014  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  20/59  epoch  100 →  105  CKA = 0.8090  change = 0.1910  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  21/59  epoch  105 →  110  CKA = 0.8322  change = 0.1678  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  22/59  epoch  110 →  115  CKA = 0.8261  change = 0.1739  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  23/59  epoch  115 →  120  CKA = 0.8277  change = 0.1723  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  24/59  epoch  120 →  125  CKA = 0.8169  change = 0.1831  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  25/59  epoch  125 →  130  CKA = 0.8043  change = 0.1957  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  26/59  epoch  130 →  135  CKA = 0.7925  change = 0.2075  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  27/59  epoch  135 →  140  CKA = 0.7880  change = 0.2120  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  28/59  epoch  140 →  145  CKA = 0.8220  change = 0.1780  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  29/59  epoch  145 →  150  CKA = 0.8118  change = 0.1882  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  30/59  epoch  150 →  155  CKA = 0.8373  change = 0.1627  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  31/59  epoch  155 →  160  CKA = 0.8568  change = 0.1432  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  32/59  epoch  160 →  165  CKA = 0.8420  change = 0.1580  below_tau = no 
-2026-05-20 14:42:24  INFO    Pair  33/59  epoch  165 →  170  CKA = 0.8433  change = 0.1567  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  34/59  epoch  170 →  175  CKA = 0.8391  change = 0.1609  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  35/59  epoch  175 →  180  CKA = 0.8286  change = 0.1714  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  36/59  epoch  180 →  185  CKA = 0.8487  change = 0.1513  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  37/59  epoch  185 →  190  CKA = 0.8369  change = 0.1631  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  38/59  epoch  190 →  195  CKA = 0.8382  change = 0.1618  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  39/59  epoch  195 →  200  CKA = 0.8597  change = 0.1403  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  40/59  epoch  200 →  205  CKA = 0.8661  change = 0.1339  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  41/59  epoch  205 →  210  CKA = 0.8751  change = 0.1249  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  42/59  epoch  210 →  215  CKA = 0.8684  change = 0.1316  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  43/59  epoch  215 →  220  CKA = 0.8624  change = 0.1376  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  44/59  epoch  220 →  225  CKA = 0.8909  change = 0.1091  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  45/59  epoch  225 →  230  CKA = 0.8919  change = 0.1081  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  46/59  epoch  230 →  235  CKA = 0.8982  change = 0.1018  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  47/59  epoch  235 →  240  CKA = 0.9048  change = 0.0952  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  48/59  epoch  240 →  245  CKA = 0.9280  change = 0.0720  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  49/59  epoch  245 →  250  CKA = 0.9459  change = 0.0541  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  50/59  epoch  250 →  255  CKA = 0.9637  change = 0.0363  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  51/59  epoch  255 →  260  CKA = 0.9752  change = 0.0248  below_tau = no 
-2026-05-20 14:42:25  INFO    Pair  52/59  epoch  260 →  265  CKA = 0.9877  change = 0.0123  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  53/59  epoch  265 →  270  CKA = 0.9948  change = 0.0052  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  54/59  epoch  270 →  275  CKA = 0.9968  change = 0.0032  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  55/59  epoch  275 →  280  CKA = 0.9981  change = 0.0019  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  56/59  epoch  280 →  285  CKA = 0.9986  change = 0.0014  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  57/59  epoch  285 →  290  CKA = 0.9992  change = 0.0008  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  58/59  epoch  290 →  295  CKA = 0.9995  change = 0.0005  below_tau = YES
-2026-05-20 14:42:25  INFO    Pair  59/59  epoch  295 →  300  CKA = 0.9994  change = 0.0006  below_tau = YES
-2026-05-20 14:42:25  INFO  ----------------------------------------------------------------------
-2026-05-20 14:42:25  INFO  Saved CKA results (59 pairs) to: /local/data/gme101/results/seed_1/cka_results.csv
-2026-05-20 14:42:25  INFO  Pairs below tau=0.02: 8 / 59
-2026-05-20 14:42:25  INFO  ======================================================================
-2026-05-20 14:42:25  INFO  CKA computation complete.
-2026-05-20 14:42:25  INFO  ======================================================================
+2026-05-21 12:27:48  INFO  ======================================================================
+2026-05-21 12:27:48  INFO  CKA Computation — Representation Stabilization
+2026-05-21 12:27:48  INFO  ======================================================================
+2026-05-21 12:27:48  INFO  Config:          configs/resnet18_cifar10.yaml
+2026-05-21 12:27:48  INFO  Activations dir: /local/data/gme101/activations/seed_1
+2026-05-21 12:27:48  INFO  Results dir:     /local/data/gme101/results/seed_1
+2026-05-21 12:27:48  INFO  Seed: 1
+2026-05-21 12:27:48  INFO  Mode: consecutive
+2026-05-21 12:27:48  INFO  Stabilization threshold tau = 0.02
+2026-05-21 12:27:48  INFO  Found 60 activation files in '/local/data/gme101/activations/seed_1'
+2026-05-21 12:27:48  INFO  Epoch range: 5 to 300
+2026-05-21 12:27:48  INFO  Number of CKA pairs to compute: 59
+2026-05-21 12:27:48  INFO  ----------------------------------------------------------------------
+2026-05-21 12:27:48  INFO    Pair   1/59  epoch    5 →   10  CKA = 0.7967  change = 0.2033  below_tau = no 
+2026-05-21 12:27:48  INFO    Pair   2/59  epoch   10 →   15  CKA = 0.8265  change = 0.1735  below_tau = no 
+2026-05-21 12:27:48  INFO    Pair   3/59  epoch   15 →   20  CKA = 0.7894  change = 0.2106  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   4/59  epoch   20 →   25  CKA = 0.7754  change = 0.2246  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   5/59  epoch   25 →   30  CKA = 0.8320  change = 0.1680  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   6/59  epoch   30 →   35  CKA = 0.8308  change = 0.1692  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   7/59  epoch   35 →   40  CKA = 0.8082  change = 0.1918  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   8/59  epoch   40 →   45  CKA = 0.8162  change = 0.1838  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair   9/59  epoch   45 →   50  CKA = 0.7301  change = 0.2699  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  10/59  epoch   50 →   55  CKA = 0.7426  change = 0.2574  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  11/59  epoch   55 →   60  CKA = 0.7935  change = 0.2065  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  12/59  epoch   60 →   65  CKA = 0.8141  change = 0.1859  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  13/59  epoch   65 →   70  CKA = 0.8011  change = 0.1989  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  14/59  epoch   70 →   75  CKA = 0.7750  change = 0.2250  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  15/59  epoch   75 →   80  CKA = 0.8328  change = 0.1672  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  16/59  epoch   80 →   85  CKA = 0.8012  change = 0.1988  below_tau = no 
+2026-05-21 12:27:49  INFO    Pair  17/59  epoch   85 →   90  CKA = 0.8111  change = 0.1889  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  18/59  epoch   90 →   95  CKA = 0.8165  change = 0.1835  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  19/59  epoch   95 →  100  CKA = 0.7986  change = 0.2014  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  20/59  epoch  100 →  105  CKA = 0.8090  change = 0.1910  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  21/59  epoch  105 →  110  CKA = 0.8322  change = 0.1678  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  22/59  epoch  110 →  115  CKA = 0.8261  change = 0.1739  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  23/59  epoch  115 →  120  CKA = 0.8277  change = 0.1723  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  24/59  epoch  120 →  125  CKA = 0.8169  change = 0.1831  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  25/59  epoch  125 →  130  CKA = 0.8043  change = 0.1957  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  26/59  epoch  130 →  135  CKA = 0.7925  change = 0.2075  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  27/59  epoch  135 →  140  CKA = 0.7880  change = 0.2120  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  28/59  epoch  140 →  145  CKA = 0.8220  change = 0.1780  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  29/59  epoch  145 →  150  CKA = 0.8118  change = 0.1882  below_tau = no 
+2026-05-21 12:27:50  INFO    Pair  30/59  epoch  150 →  155  CKA = 0.8373  change = 0.1627  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  31/59  epoch  155 →  160  CKA = 0.8568  change = 0.1432  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  32/59  epoch  160 →  165  CKA = 0.8420  change = 0.1580  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  33/59  epoch  165 →  170  CKA = 0.8433  change = 0.1567  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  34/59  epoch  170 →  175  CKA = 0.8391  change = 0.1609  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  35/59  epoch  175 →  180  CKA = 0.8286  change = 0.1714  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  36/59  epoch  180 →  185  CKA = 0.8487  change = 0.1513  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  37/59  epoch  185 →  190  CKA = 0.8369  change = 0.1631  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  38/59  epoch  190 →  195  CKA = 0.8382  change = 0.1618  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  39/59  epoch  195 →  200  CKA = 0.8597  change = 0.1403  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  40/59  epoch  200 →  205  CKA = 0.8661  change = 0.1339  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  41/59  epoch  205 →  210  CKA = 0.8751  change = 0.1249  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  42/59  epoch  210 →  215  CKA = 0.8684  change = 0.1316  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  43/59  epoch  215 →  220  CKA = 0.8624  change = 0.1376  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  44/59  epoch  220 →  225  CKA = 0.8909  change = 0.1091  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  45/59  epoch  225 →  230  CKA = 0.8919  change = 0.1081  below_tau = no 
+2026-05-21 12:27:51  INFO    Pair  46/59  epoch  230 →  235  CKA = 0.8982  change = 0.1018  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  47/59  epoch  235 →  240  CKA = 0.9048  change = 0.0952  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  48/59  epoch  240 →  245  CKA = 0.9280  change = 0.0720  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  49/59  epoch  245 →  250  CKA = 0.9459  change = 0.0541  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  50/59  epoch  250 →  255  CKA = 0.9637  change = 0.0363  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  51/59  epoch  255 →  260  CKA = 0.9752  change = 0.0248  below_tau = no 
+2026-05-21 12:27:52  INFO    Pair  52/59  epoch  260 →  265  CKA = 0.9877  change = 0.0123  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  53/59  epoch  265 →  270  CKA = 0.9948  change = 0.0052  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  54/59  epoch  270 →  275  CKA = 0.9968  change = 0.0032  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  55/59  epoch  275 →  280  CKA = 0.9981  change = 0.0019  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  56/59  epoch  280 →  285  CKA = 0.9986  change = 0.0014  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  57/59  epoch  285 →  290  CKA = 0.9992  change = 0.0008  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  58/59  epoch  290 →  295  CKA = 0.9995  change = 0.0005  below_tau = YES
+2026-05-21 12:27:52  INFO    Pair  59/59  epoch  295 →  300  CKA = 0.9994  change = 0.0006  below_tau = YES
+2026-05-21 12:27:52  INFO  ----------------------------------------------------------------------
+2026-05-21 12:27:52  INFO  Saved CKA results (59 pairs) to: /local/data/gme101/results/seed_1/cka_results.csv
+2026-05-21 12:27:52  INFO  Pairs below tau=0.02: 8 / 59
+2026-05-21 12:27:52  INFO  ======================================================================
+2026-05-21 12:27:52  INFO  CKA computation complete.
+2026-05-21 12:27:52  INFO  ======================================================================

@@ -1,0 +1,2 @@
+epoch,surrogate_type,surrogate_train_acc,surrogate_test_acc,network_test_acc,accuracy_gap,C,n_iterations
+285,logistic_regression,1.0,0.9554,0.9561,0.0007,1.0,6
