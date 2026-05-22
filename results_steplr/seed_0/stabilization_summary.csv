@@ -1,0 +1,4 @@
+metric,t_star,tau,K,n_pairs,note
+CKA,230,0.02,5,59,t* = first epoch_curr completing K consecutive below-tau pairs
+DRS,NOT_DETECTED,0.02,5,30,t* = first epoch_curr completing K consecutive below-tau pairs
+JOINT,NOT_DETECTED,0.02,5,89,"max(t*_CKA, t*_DRS) — both metrics must satisfy the criterion"

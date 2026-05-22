@@ -1,0 +1,62 @@
+2026-05-22 21:05:39  INFO  ======================================================================
+2026-05-22 21:05:39  INFO  Surrogate: Logistic Regression (Linear Probe)
+2026-05-22 21:05:39  INFO  ======================================================================
+2026-05-22 21:05:39  INFO  Config:          configs/resnet18_cifar10_steplr.yaml
+2026-05-22 21:05:39  INFO  Epoch:           230
+2026-05-22 21:05:39  INFO  C:               1.0
+2026-05-22 21:05:39  INFO  max_iter:        1000
+2026-05-22 21:05:39  INFO  Loading train features...
+2026-05-22 21:05:39  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-22 21:05:39  INFO  Loading test features...
+2026-05-22 21:05:39  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-22 21:05:39  INFO  Normalizing features (StandardScaler fit on train)...
+2026-05-22 21:05:39  INFO  Reference (full network) test_acc at epoch 230: 0.9494
+2026-05-22 21:05:39  INFO  Training logistic regression...
+2026-05-22 21:05:40  INFO    Solver converged in 7 iterations.
+2026-05-22 21:05:40  INFO  ----------------------------------------------------------------------
+2026-05-22 21:05:40  INFO  Surrogate train accuracy:        1.0000
+2026-05-22 21:05:40  INFO  Surrogate test accuracy:         0.9502
+2026-05-22 21:05:40  INFO  Full network test accuracy:      0.9494
+2026-05-22 21:05:40  INFO  Accuracy gap (network - surrogate): -0.0008  (surrogate matches or exceeds)
+2026-05-22 21:05:40  INFO  Saved results to: /local/data/gme101/results_steplr/seed_2/surrogate_linear_epoch_0230.csv
+2026-05-22 21:05:40  INFO  ======================================================================
+2026-05-22 21:05:41  INFO  ======================================================================
+2026-05-22 21:05:41  INFO  Surrogate: LightGBM
+2026-05-22 21:05:41  INFO  ======================================================================
+2026-05-22 21:05:41  INFO  Config:          configs/resnet18_cifar10_steplr.yaml
+2026-05-22 21:05:41  INFO  Epoch:           230
+2026-05-22 21:05:41  INFO  LightGBM:        n_estimators=200  num_leaves=31  lr=0.1
+2026-05-22 21:05:41  INFO  Loading train features...
+2026-05-22 21:05:41  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-22 21:05:41  INFO  Loading test features...
+2026-05-22 21:05:41  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-22 21:05:41  INFO  Reference (full network) test_acc at epoch 230: 0.9494
+2026-05-22 21:05:41  INFO  Training LightGBM...
+2026-05-22 21:05:41  INFO    Fitting LightGBM: n_estimators=200, num_leaves=31, lr=0.1
+2026-05-22 21:24:36  INFO  ----------------------------------------------------------------------
+2026-05-22 21:24:36  INFO  Surrogate train accuracy:           1.0000
+2026-05-22 21:24:36  INFO  Surrogate test accuracy:            0.9460
+2026-05-22 21:24:36  INFO  Full network test accuracy:         0.9494
+2026-05-22 21:24:36  INFO  Accuracy gap (network - surrogate): +0.0034  (surrogate underperforms)
+2026-05-22 21:24:36  INFO  Saved results to: /local/data/gme101/results_steplr/seed_2/surrogate_lightgbm_epoch_0230.csv
+2026-05-22 21:24:36  INFO  ======================================================================
+2026-05-22 21:24:38  INFO  ======================================================================
+2026-05-22 21:24:38  INFO  Surrogate: Random Forest
+2026-05-22 21:24:38  INFO  ======================================================================
+2026-05-22 21:24:38  INFO  Config:          configs/resnet18_cifar10_steplr.yaml
+2026-05-22 21:24:38  INFO  Epoch:           230
+2026-05-22 21:24:38  INFO  RandomForest:    n_estimators=200  max_features=sqrt  n_jobs=-1
+2026-05-22 21:24:38  INFO  Loading train features...
+2026-05-22 21:24:38  INFO    Train: features=(50000, 512)  labels=(50000,)
+2026-05-22 21:24:38  INFO  Loading test features...
+2026-05-22 21:24:38  INFO    Test:  features=(10000, 512)  labels=(10000,)
+2026-05-22 21:24:38  INFO  Reference (full network) test_acc at epoch 230: 0.9494
+2026-05-22 21:24:38  INFO  Training Random Forest...
+2026-05-22 21:24:38  INFO    Fitting RandomForest: n_estimators=200, max_features=sqrt, n_jobs=-1
+2026-05-22 21:24:39  INFO  ----------------------------------------------------------------------
+2026-05-22 21:24:39  INFO  Surrogate train accuracy:           1.0000
+2026-05-22 21:24:39  INFO  Surrogate test accuracy:            0.9499
+2026-05-22 21:24:39  INFO  Full network test accuracy:         0.9494
+2026-05-22 21:24:39  INFO  Accuracy gap (network - surrogate): -0.0005  (surrogate matches or exceeds)
+2026-05-22 21:24:39  INFO  Saved results to: /local/data/gme101/results_steplr/seed_2/surrogate_rf_epoch_0230.csv
+2026-05-22 21:24:39  INFO  ======================================================================
