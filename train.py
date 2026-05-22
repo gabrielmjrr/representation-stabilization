@@ -301,16 +301,45 @@ def build_scheduler(
     optimizer: torch.optim.Optimizer,
     config: dict,
 ) -> torch.optim.lr_scheduler._LRScheduler:
-    """Cosine annealing over the full training run."""
+    """
+    Build the LR scheduler specified by config['lr_scheduler'].
+
+    Supported values:
+      cosine   — CosineAnnealingLR over the full training run (primary experiment)
+      constant — no decay; LambdaLR with factor 1.0 throughout (ablation)
+      step     — MultiStepLR; milestones and gamma read from config (ablation)
+    """
     scheduler_name = config["lr_scheduler"]
-    if scheduler_name != "cosine":
+
+    if scheduler_name == "cosine":
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+            optimizer,
+            T_max=config["epochs"],
+            eta_min=0.0,
+        )
+
+    elif scheduler_name == "constant":
+        # No LR decay. LambdaLR with factor 1.0 is a no-op that keeps the
+        # scheduler interface uniform (step/get_last_lr/state_dict all work).
+        scheduler = torch.optim.lr_scheduler.LambdaLR(
+            optimizer,
+            lr_lambda=lambda epoch: 1.0,
+        )
+
+    elif scheduler_name == "step":
+        # Multiply LR by gamma at each milestone epoch.
+        # milestones and gamma must be present in config for this scheduler.
+        milestones = config["lr_scheduler_milestones"]
+        gamma = config["lr_scheduler_gamma"]
+        scheduler = torch.optim.lr_scheduler.MultiStepLR(
+            optimizer,
+            milestones=milestones,
+            gamma=gamma,
+        )
+
+    else:
         raise ValueError(f"Unsupported lr_scheduler: '{scheduler_name}'")
 
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
-        optimizer,
-        T_max=config["epochs"],
-        eta_min=0.0,
-    )
     return scheduler
 
 
@@ -640,7 +669,7 @@ def main() -> None:
     scheduler = build_scheduler(optimizer=optimizer, config=config)
 
     logger.info(f"Optimizer: SGD  lr={config['lr']}  momentum={config['momentum']}  wd={config['weight_decay']}")
-    logger.info(f"Scheduler: cosine  T_max={config['epochs']}")
+    logger.info(f"Scheduler: {config['lr_scheduler']}")
 
     # ------------------------------------------------------------------
     # 9. Optional: resume from checkpoint

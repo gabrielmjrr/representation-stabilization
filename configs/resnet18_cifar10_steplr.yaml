@@ -1,0 +1,71 @@
+# Step-LR ablation: ResNet-18 on CIFAR-10 with SGD and MultiStepLR decay.
+# Identical to resnet18_cifar10.yaml except: lr_scheduler=step with milestones.
+# LR schedule: 0.1 → 0.01 (epoch 100) → 0.001 (epoch 200).
+# Purpose: compare a step-decay schedule against cosine annealing for t* detection.
+
+model: resnet18
+dataset: cifar10
+
+# Optimizer — SGD by design (see CLAUDE.md: Sharon & Dar 2024 note on Adam artifacts)
+optimizer: sgd
+lr: 0.1
+momentum: 0.9
+weight_decay: 5.0e-4
+
+# LR schedule — MultiStepLR: multiply by gamma at each milestone epoch.
+# torch.optim.lr_scheduler.MultiStepLR(milestones=[100, 200], gamma=0.1)
+lr_scheduler: step
+lr_scheduler_milestones: [100, 200]
+lr_scheduler_gamma: 0.1
+lr_warmup_epochs: 0
+
+# Training duration
+epochs: 300
+batch_size: 128
+seed: 42
+
+# Checkpoint frequency (epochs)
+checkpoint_freq: 5
+
+# Stabilization detection
+tau: 0.02    # similarity-change threshold (fixed across all conditions)
+K: 5         # consecutive checkpoints that must satisfy tau before declaring t*
+
+# CKA computation
+cka:
+  n_samples: 2048   # fixed held-out subset size; same subset for every checkpoint
+  # Note: use unbiased HSIC estimator for this sample size
+
+# DRS computation (Sharon & Dar 2024)
+drs:
+  n_planes: 500           # random 2D planes through input space
+  n_points_per_plane: 2500  # grid points per plane
+  probe_epochs: 10        # epochs to train each linear probe
+  probe_lr: 1.0e-4        # Adam lr for DRS probes (DRS probes only; main model uses SGD)
+  compute_freq: 10        # compute DRS every N epochs (expensive)
+
+# Activation extraction
+extraction:
+  n_samples: 2048         # must match cka.n_samples — same fixed held-out set
+  layer: penultimate      # penultimate layer (before final FC)
+
+# Surrogate classifiers (trained on full-set features from extract.py)
+surrogates:
+  linear:
+    C: 1.0          # inverse regularization strength; 1.0 is the sklearn default
+    max_iter: 1000  # L-BFGS solver iterations; increase if solver warns of non-convergence
+  lightgbm:
+    n_estimators: 200
+    num_leaves: 31
+    learning_rate: 0.1
+    n_jobs: -1      # use all available CPU threads
+  random_forest:
+    n_estimators: 200
+    max_features: sqrt   # sqrt(512) ≈ 22 features per split; standard for classification
+    n_jobs: -1
+
+# Paths
+paths:
+  checkpoints: /local/data/gme101/checkpoints_steplr/
+  activations: /local/data/gme101/activations_steplr/
+  results: /local/data/gme101/results_steplr/
