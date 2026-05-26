@@ -3,7 +3,12 @@
     "allow": [
       "Bash(python3:*)",
       "PowerShell(Get-ChildItem \"c:\\\\Users\\\\gabri\\\\Documents\\\\thesisrep\" -Recurse | Where-Object { !$_.PSIsContainer } | Select-Object FullName)",
-      "Bash(python -c ' *)"
+      "Bash(python -c ' *)",
+      "Bash(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\gabri\\\\thesis\\\\\" -Directory | Where-Object { $_.Name -match 'results' })",
+      "PowerShell(Get-Content *)",
+      "PowerShell(py *)",
+      "Bash(git add *)"
     ]
   }
 }
