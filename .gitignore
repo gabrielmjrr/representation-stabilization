@@ -5,5 +5,18 @@ results/*.log
 results/*.pt
 __pycache__/
 *.pyc
+
+# Heavy artifact file types — must never be committed regardless of directory
 *.npy
 *.pt
+*.pkl
+*.h5
+*.hdf5
+
+# Fullstudy run storage (lives at /local/data/gme101/ on the cluster; guard against
+# any local copies being accidentally staged)
+features/
+manifests/*.pkl
+plots/*.png
+plots/*.pdf
+logs/*.log
