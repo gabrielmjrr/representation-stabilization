@@ -144,7 +144,7 @@ entk:
 paths:
   base: /local/data/gme101/fullstudy_seed42
   checkpoints: /local/data/gme101/fullstudy_seed42/checkpoints
-  features: /local/data/gme101/fullstudy_seed42/features
+  activations: /local/data/gme101/fullstudy_seed42/activations
   results: /local/data/gme101/fullstudy_seed42/results
   plots: /local/data/gme101/fullstudy_seed42/plots
   logs: /local/data/gme101/fullstudy_seed42/logs

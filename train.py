@@ -1,17 +1,24 @@
 """
-train.py — Train ResNet-18 on CIFAR-10 and save checkpoints every N epochs.
+train.py — Train ResNet-18 on CIFAR-10 and save checkpoints at configured epochs.
 
 Pipeline (read top to bottom):
   1. Parse args and load config
   2. Set seed for reproducibility
   3. Build data loaders (train + test + fixed held-out extraction set)
   4. Build model and optimizer
-  5. Train loop:
+  5. Epoch 0: evaluate initial weights, save checkpoint + activations
+  6. Train loop:
        - Forward/backward/update each batch
        - Log epoch metrics (loss, train acc, test acc)
-       - Save checkpoint every checkpoint_freq epochs
+       - Append every epoch to results/train_metrics.csv
+       - Save checkpoint at configured epochs (explicit list or checkpoint_freq)
        - Extract penultimate activations at each checkpoint and save them
-  6. Save final model
+  7. Save run manifest (config path, git hash, hostname, CUDA info, timing)
+
+Checkpoint epochs are controlled by config:
+  checkpoint_epochs: [0, 1, 2, ...]   — explicit list (new configs)
+  checkpoint_freq: N                  — every N epochs (backwards compat)
+Epoch 0 and the final epoch are always checkpointed.
 
 What is NOT done here:
   - CKA / DRS computation  (metrics/ scripts)
@@ -23,10 +30,15 @@ independently without re-running training.
 """
 
 import argparse
+import csv
+import json
 import logging
 import os
+import socket
+import subprocess
 import sys
 import time
+from datetime import datetime, timezone
 
 import numpy as np
 import random
@@ -89,6 +101,31 @@ def load_config(config_path: str) -> dict:
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
     return config
+
+
+def get_checkpoint_epoch_set(config: dict, total_epochs: int) -> set:
+    """
+    Return the set of epoch numbers at which checkpoints will be saved.
+
+    If config contains 'checkpoint_epochs' (explicit list), use that.
+    Otherwise fall back to 'checkpoint_freq' for backwards compatibility
+    with older configs that do not carry an explicit epoch list.
+
+    Epoch 0 (initial weights, before any training) and the final epoch are
+    always included regardless of which mode is used. Epoch 0 captures the
+    random-initialization representation, which is the CKA baseline.
+    """
+    if "checkpoint_epochs" in config:
+        epoch_set = set(config["checkpoint_epochs"])
+    else:
+        # Backwards compatibility: derive epochs from a uniform frequency
+        freq = config["checkpoint_freq"]
+        epoch_set = set(range(freq, total_epochs + 1, freq))
+
+    # Always include the initialization state and the final epoch
+    epoch_set.add(0)
+    epoch_set.add(total_epochs)
+    return epoch_set
 
 
 # ---------------------------------------------------------------------------
@@ -488,6 +525,7 @@ def save_checkpoint(
     optimizer: torch.optim.Optimizer,
     scheduler: torch.optim.lr_scheduler._LRScheduler,
     epoch: int,
+    learning_rate: float,
     train_loss: float,
     train_acc: float,
     test_loss: float,
@@ -507,6 +545,7 @@ def save_checkpoint(
 
     checkpoint = {
         "epoch": epoch,
+        "learning_rate": learning_rate,
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
         "scheduler_state_dict": scheduler.state_dict(),
@@ -540,6 +579,79 @@ def save_activations(
 
     np.save(activations_path, activations)
     return activations_path
+
+
+# ---------------------------------------------------------------------------
+# Metrics CSV
+# ---------------------------------------------------------------------------
+
+def write_metrics_csv_header(csv_path: str) -> None:
+    """Create train_metrics.csv and write the column header row."""
+    with open(csv_path, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["epoch", "lr", "train_loss", "train_acc", "test_loss", "test_acc"])
+
+
+def append_metrics_csv_row(
+    csv_path: str,
+    epoch: int,
+    lr: float,
+    train_loss: float,
+    train_acc: float,
+    test_loss: float,
+    test_acc: float,
+) -> None:
+    """Append one epoch's metrics as a single row to train_metrics.csv."""
+    with open(csv_path, "a", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([epoch, lr, train_loss, train_acc, test_loss, test_acc])
+
+
+# ---------------------------------------------------------------------------
+# Run manifest
+# ---------------------------------------------------------------------------
+
+def collect_system_info(config_path: str, device: torch.device) -> dict:
+    """
+    Collect environment metadata for the run manifest.
+
+    The git commit hash is recorded so any saved result can be traced back
+    to the exact code that produced it.
+    """
+    try:
+        git_result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        git_commit = git_result.stdout.strip()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        git_commit = "unavailable"
+
+    system_info = {
+        "config_path": os.path.abspath(config_path),
+        "git_commit": git_commit,
+        "hostname": socket.gethostname(),
+        "pytorch_version": torch.__version__,
+        "cuda_available": torch.cuda.is_available(),
+    }
+
+    if torch.cuda.is_available():
+        system_info["cuda_device"] = torch.cuda.get_device_name(0)
+        system_info["cuda_version"] = torch.version.cuda
+        system_info["vram_gb"] = round(
+            torch.cuda.get_device_properties(0).total_memory / 1e9, 1
+        )
+
+    return system_info
+
+
+def save_run_manifest(manifest_path: str, manifest_data: dict) -> None:
+    """Write the run manifest as a JSON file."""
+    os.makedirs(os.path.dirname(manifest_path), exist_ok=True)
+    with open(manifest_path, "w") as f:
+        json.dump(manifest_data, f, indent=2)
 
 
 # ---------------------------------------------------------------------------
@@ -581,32 +693,33 @@ def main() -> None:
     # ------------------------------------------------------------------
     config = load_config(args.config)
 
-    # --seed overrides the random seed and routes all outputs to a
+    # --seed overrides the random seed and routes all output directories to a
     # seed-specific subdirectory so concurrent seed runs don't collide.
     if args.seed is not None:
         config["seed"] = args.seed
-        config["paths"]["checkpoints"] = os.path.join(
-            config["paths"]["checkpoints"], f"seed_{args.seed}"
-        )
-        config["paths"]["activations"] = os.path.join(
-            config["paths"]["activations"], f"seed_{args.seed}"
-        )
-        config["paths"]["results"] = os.path.join(
-            config["paths"]["results"], f"seed_{args.seed}"
-        )
+        for path_key in ["checkpoints", "activations", "results", "logs", "manifests"]:
+            if path_key in config["paths"]:
+                config["paths"][path_key] = os.path.join(
+                    config["paths"][path_key], f"seed_{args.seed}"
+                )
 
     checkpoint_dir = config["paths"]["checkpoints"]
     activations_dir = config["paths"]["activations"]
     results_dir = config["paths"]["results"]
+    # logs/ and manifests/ fall back to results_dir for configs that predate these keys
+    logs_dir = config["paths"].get("logs", results_dir)
+    manifests_dir = config["paths"].get("manifests", results_dir)
 
     os.makedirs(checkpoint_dir, exist_ok=True)
     os.makedirs(activations_dir, exist_ok=True)
     os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(logs_dir, exist_ok=True)
+    os.makedirs(manifests_dir, exist_ok=True)
 
     # ------------------------------------------------------------------
     # 3. Set up logging
     # ------------------------------------------------------------------
-    log_path = os.path.join(results_dir, "train.log")
+    log_path = os.path.join(logs_dir, "train.log")
     logger = setup_logging(log_path)
 
     logger.info("=" * 70)
@@ -627,6 +740,30 @@ def main() -> None:
         logger.info(f"VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
     logger.info(f"PyTorch version: {torch.__version__}")
+
+    # ------------------------------------------------------------------
+    # 4b. Run metadata
+    # ------------------------------------------------------------------
+    run_start_time = datetime.now(timezone.utc)
+    system_info = collect_system_info(config_path=args.config, device=device)
+    logger.info(f"Hostname: {system_info['hostname']}")
+    logger.info(f"Git commit: {system_info['git_commit']}")
+
+    total_epochs = config["epochs"]
+    checkpoint_epoch_set = get_checkpoint_epoch_set(config, total_epochs)
+    logger.info(
+        f"Checkpoint epochs ({len(checkpoint_epoch_set)} total): "
+        f"{sorted(checkpoint_epoch_set)}"
+    )
+
+    # Metrics CSV: create with header if starting fresh; append rows if resuming.
+    csv_path = os.path.join(results_dir, "train_metrics.csv")
+    if not os.path.exists(csv_path):
+        write_metrics_csv_header(csv_path)
+
+    # Manifest path: one file per run, named by start timestamp.
+    run_timestamp = run_start_time.strftime("%Y%m%d_%H%M%S")
+    manifest_path = os.path.join(manifests_dir, f"manifest_{run_timestamp}.json")
 
     # ------------------------------------------------------------------
     # 5. Reproducibility
@@ -686,11 +823,70 @@ def main() -> None:
         logger.info(f"Resuming from epoch {start_epoch}")
 
     # ------------------------------------------------------------------
-    # 10. Training loop
+    # 10. Epoch 0: save initial weights before any gradient steps
     # ------------------------------------------------------------------
-    total_epochs = config["epochs"]
-    checkpoint_freq = config["checkpoint_freq"]
+    # Capturing the random-initialization state lets CKA measure how much
+    # representations move from the very start of training.  train_loss and
+    # train_acc are NaN because no training pass has been run yet.
+    if start_epoch == 1:
+        init_lr = optimizer.param_groups[0]["lr"]
+        init_test_loss, init_test_acc = run_eval_epoch(
+            model=model,
+            test_loader=test_loader,
+            criterion=criterion,
+            device=device,
+        )
+        logger.info(
+            f"Epoch    0/{total_epochs}  [init]"
+            f"  test_loss={init_test_loss:.4f}"
+            f"  test_acc={init_test_acc:.4f}"
+            f"  lr={init_lr:.6f}"
+        )
 
+        if 0 in checkpoint_epoch_set:
+            init_checkpoint_path = save_checkpoint(
+                model=model,
+                optimizer=optimizer,
+                scheduler=scheduler,
+                epoch=0,
+                learning_rate=init_lr,
+                train_loss=float("nan"),
+                train_acc=float("nan"),
+                test_loss=init_test_loss,
+                test_acc=init_test_acc,
+                checkpoint_dir=checkpoint_dir,
+            )
+            logger.info(f"  [checkpoint] Saved: {init_checkpoint_path}")
+
+            init_activations = extract_penultimate_activations(
+                model=model,
+                extraction_loader=extraction_loader,
+                device=device,
+            )
+            init_activations_path = save_activations(
+                activations=init_activations,
+                epoch=0,
+                activations_dir=activations_dir,
+            )
+            logger.info(
+                f"  [activations] shape={init_activations.shape}"
+                f"  saved: {init_activations_path}"
+            )
+
+        # Record epoch 0 in the CSV regardless of whether a checkpoint was saved
+        append_metrics_csv_row(
+            csv_path=csv_path,
+            epoch=0,
+            lr=init_lr,
+            train_loss=float("nan"),
+            train_acc=float("nan"),
+            test_loss=init_test_loss,
+            test_acc=init_test_acc,
+        )
+
+    # ------------------------------------------------------------------
+    # 11. Training loop
+    # ------------------------------------------------------------------
     logger.info(f"Starting training: epochs {start_epoch} to {total_epochs}")
     logger.info("-" * 70)
 
@@ -730,17 +926,26 @@ def main() -> None:
             f"  time={epoch_duration_seconds:.1f}s"
         )
 
-        # --- Checkpoint + activation extraction ---
-        is_checkpoint_epoch = (epoch % checkpoint_freq == 0)
-        is_final_epoch = (epoch == total_epochs)
+        # Write every epoch to the CSV so downstream analysis has the full curve
+        append_metrics_csv_row(
+            csv_path=csv_path,
+            epoch=epoch,
+            lr=current_lr,
+            train_loss=train_loss,
+            train_acc=train_acc,
+            test_loss=test_loss,
+            test_acc=test_acc,
+        )
 
-        if is_checkpoint_epoch or is_final_epoch:
+        # --- Checkpoint + activation extraction ---
+        if epoch in checkpoint_epoch_set:
             # Save model checkpoint
             checkpoint_path = save_checkpoint(
                 model=model,
                 optimizer=optimizer,
                 scheduler=scheduler,
                 epoch=epoch,
+                learning_rate=current_lr,
                 train_loss=train_loss,
                 train_acc=train_acc,
                 test_loss=test_loss,
@@ -768,13 +973,36 @@ def main() -> None:
             )
 
     # ------------------------------------------------------------------
-    # 11. Done
+    # 12. Done — write manifest
     # ------------------------------------------------------------------
+    run_end_time = datetime.now(timezone.utc)
+    manifest_data = {
+        **system_info,
+        "seed": seed,
+        "total_epochs": total_epochs,
+        "checkpoint_epochs": sorted(checkpoint_epoch_set),
+        "start_time": run_start_time.isoformat(),
+        "end_time": run_end_time.isoformat(),
+        "duration_seconds": round((run_end_time - run_start_time).total_seconds(), 1),
+        "final_test_acc": round(test_acc, 6),
+        "paths": {
+            "checkpoint_dir": checkpoint_dir,
+            "activations_dir": activations_dir,
+            "results_dir": results_dir,
+            "logs_dir": logs_dir,
+            "manifests_dir": manifests_dir,
+            "csv": csv_path,
+        },
+    }
+    save_run_manifest(manifest_path, manifest_data)
+
     logger.info("=" * 70)
     logger.info("Training complete.")
     logger.info(f"Final test accuracy: {test_acc:.4f}")
     logger.info(f"Checkpoints saved to: {checkpoint_dir}")
     logger.info(f"Activations saved to: {activations_dir}")
+    logger.info(f"Metrics CSV: {csv_path}")
+    logger.info(f"Manifest: {manifest_path}")
     logger.info("=" * 70)
 
 
