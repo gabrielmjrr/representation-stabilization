@@ -14,8 +14,9 @@ __pycache__/
 *.hdf5
 
 # Fullstudy run storage (lives at /local/data/gme101/ on the cluster; guard against
-# any local copies being accidentally staged)
-features/
+# any local copies being accidentally staged).
+# Note: features/ is a source code directory — the *.npy rule above blocks the
+# heavy data files inside it; no directory-level ignore is needed.
 manifests/*.pkl
 plots/*.png
 plots/*.pdf
