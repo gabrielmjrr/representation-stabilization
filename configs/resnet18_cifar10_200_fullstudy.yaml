@@ -109,6 +109,7 @@ surrogates:
     C: 1.0
     gamma: scale    # gamma = 1 / (n_features * X.var()); sklearn default
     max_iter: -1    # no iteration limit for RBF SVM
+    n_train_subset: 10000  # stratified subset; full 50k makes kernel matrix intractable
   random_forest:
     n_estimators: 200
     max_features: sqrt   # sqrt(512) ≈ 22 features per split; standard for classification
