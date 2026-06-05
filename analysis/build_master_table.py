@@ -116,6 +116,40 @@ def load_source_csv(
     return df
 
 
+def require_at_least_one_required_source(
+    results_dir: str,
+    logger: logging.Logger,
+) -> None:
+    """Fail if no required fullstudy source CSV exists yet."""
+    required_source_files = [
+        "train_metrics.csv",
+        "cka_summary.csv",
+        "probe_results_wide.csv",
+        "neural_collapse.csv",
+    ]
+    existing = [
+        filename for filename in required_source_files
+        if os.path.exists(os.path.join(results_dir, filename))
+    ]
+
+    if existing:
+        missing = sorted(set(required_source_files) - set(existing))
+        if missing:
+            logger.warning(
+                f"Required source CSVs missing; continuing with NaNs for those groups: {missing}"
+            )
+        return
+
+    logger.error(
+        "No required source CSVs were found. Refusing to create an empty "
+        "master_trajectory.csv.\n"
+        f"  Results dir: {results_dir}\n"
+        f"  Required sources: {required_source_files}\n"
+        "Run at least one upstream fullstudy step before building the master table."
+    )
+    sys.exit(1)
+
+
 # ---------------------------------------------------------------------------
 # Column selection helpers
 # ---------------------------------------------------------------------------
@@ -351,6 +385,7 @@ def main() -> None:
     # ------------------------------------------------------------------
     logger.info("-" * 70)
     logger.info("Loading source CSVs...")
+    require_at_least_one_required_source(results_dir=results_dir, logger=logger)
 
     train_df = load_source_csv(
         path=os.path.join(results_dir, "train_metrics.csv"),

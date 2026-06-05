@@ -678,6 +678,14 @@ def main() -> None:
         help="Path to a checkpoint .pt file to resume training from.",
     )
     parser.add_argument(
+        "--overwrite-metrics",
+        action="store_true",
+        help=(
+            "Allow a non-resume run to replace an existing train_metrics.csv. "
+            "Without this flag, fresh runs fail if the metrics file already exists."
+        ),
+    )
+    parser.add_argument(
         "--seed",
         type=int,
         default=None,
@@ -756,10 +764,23 @@ def main() -> None:
         f"{sorted(checkpoint_epoch_set)}"
     )
 
-    # Metrics CSV: create with header if starting fresh; append rows if resuming.
+    # Metrics CSV: fresh runs must not silently append duplicate epoch rows.
     csv_path = os.path.join(results_dir, "train_metrics.csv")
-    if not os.path.exists(csv_path):
+    if args.resume is None:
+        if os.path.exists(csv_path) and not args.overwrite_metrics:
+            logger.error(
+                f"Refusing to start a non-resume run because metrics CSV already exists: {csv_path}\n"
+                "Use --resume to continue an existing run, or --overwrite-metrics "
+                "to replace train_metrics.csv for a deliberate fresh run."
+            )
+            sys.exit(1)
         write_metrics_csv_header(csv_path)
+        logger.info(f"Created fresh metrics CSV: {csv_path}")
+    elif not os.path.exists(csv_path):
+        write_metrics_csv_header(csv_path)
+        logger.warning(
+            f"Resume requested but metrics CSV was missing; created a new file: {csv_path}"
+        )
 
     # Manifest path: one file per run, named by start timestamp.
     run_timestamp = run_start_time.strftime("%Y%m%d_%H%M%S")
@@ -786,9 +807,13 @@ def main() -> None:
         batch_size=batch_size,
         seed=seed,
     )
+    actual_extraction_samples = len(extraction_loader.dataset)
     logger.info(f"Train batches: {len(train_loader)}")
     logger.info(f"Test batches:  {len(test_loader)}")
-    logger.info(f"Extraction samples: {n_extraction_samples}")
+    logger.info(
+        f"Extraction samples: requested={n_extraction_samples}  "
+        f"actual_balanced={actual_extraction_samples}"
+    )
 
     # ------------------------------------------------------------------
     # 7. Model
@@ -892,6 +917,7 @@ def main() -> None:
 
     for epoch in range(start_epoch, total_epochs + 1):
         epoch_start_time = time.time()
+        lr_used_this_epoch = optimizer.param_groups[0]["lr"]
 
         # --- Train ---
         train_loss, train_acc = run_train_epoch(
@@ -910,9 +936,9 @@ def main() -> None:
             device=device,
         )
 
-        # Advance LR schedule after each epoch
+        # Advance LR schedule after each epoch. The CSV records the LR used
+        # during this epoch, not the LR prepared for the next epoch.
         scheduler.step()
-        current_lr = scheduler.get_last_lr()[0]
 
         epoch_duration_seconds = time.time() - epoch_start_time
 
@@ -922,7 +948,7 @@ def main() -> None:
             f"  train_acc={train_acc:.4f}"
             f"  test_loss={test_loss:.4f}"
             f"  test_acc={test_acc:.4f}"
-            f"  lr={current_lr:.6f}"
+            f"  lr={lr_used_this_epoch:.6f}"
             f"  time={epoch_duration_seconds:.1f}s"
         )
 
@@ -930,7 +956,7 @@ def main() -> None:
         append_metrics_csv_row(
             csv_path=csv_path,
             epoch=epoch,
-            lr=current_lr,
+            lr=lr_used_this_epoch,
             train_loss=train_loss,
             train_acc=train_acc,
             test_loss=test_loss,
@@ -945,7 +971,7 @@ def main() -> None:
                 optimizer=optimizer,
                 scheduler=scheduler,
                 epoch=epoch,
-                learning_rate=current_lr,
+                learning_rate=lr_used_this_epoch,
                 train_loss=train_loss,
                 train_acc=train_acc,
                 test_loss=test_loss,

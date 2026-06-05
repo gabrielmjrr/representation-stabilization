@@ -545,6 +545,7 @@ def main() -> None:
     logger.info(f"Config:      {args.config}")
     logger.info(f"Results dir: {results_dir}")
     logger.info(f"Plots dir:   {plots_dir}")
+    logger.info(f"Final plot output directory: {plots_dir}")
     logger.info(f"tau:         {tau}")
 
     # ------------------------------------------------------------------

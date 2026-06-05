@@ -133,6 +133,36 @@ def find_feature_epochs(full_train_dir: str) -> list:
     return epochs
 
 
+def validate_feature_epochs(
+    found_epochs: list,
+    expected_epochs: list,
+    logger: logging.Logger,
+) -> None:
+    """
+    Fullstudy runs should process exactly the configured checkpoint epochs.
+    Manual --epochs is the explicit partial/debug path.
+    """
+    found_sorted = sorted(found_epochs)
+    expected_sorted = sorted(expected_epochs)
+
+    if found_sorted == expected_sorted:
+        logger.info(f"Epoch completeness check passed ({len(found_sorted)} epochs).")
+        return
+
+    missing = sorted(set(expected_sorted) - set(found_sorted))
+    extra = sorted(set(found_sorted) - set(expected_sorted))
+    logger.error(
+        "Feature epoch completeness check FAILED.\n"
+        f"  Expected epochs: {expected_sorted}\n"
+        f"  Found epochs:    {found_sorted}\n"
+        f"  Missing epochs:  {missing}\n"
+        f"  Extra epochs:    {extra}\n"
+        "Run features/extract_features.py for all checkpoint epochs, or pass "
+        "--epochs explicitly for a partial smoke test."
+    )
+    sys.exit(1)
+
+
 # ---------------------------------------------------------------------------
 # Label loading (done once before the epoch loop)
 # ---------------------------------------------------------------------------
@@ -698,11 +728,18 @@ def main() -> None:
         )
         sys.exit(1)
 
+    discovered_epochs = find_feature_epochs(full_train_dir)
+
     if args.epochs is not None:
         epochs_to_process = sorted(args.epochs)
         logger.info(f"Epochs (from --epochs): {epochs_to_process}")
     else:
-        epochs_to_process = find_feature_epochs(full_train_dir)
+        validate_feature_epochs(
+            found_epochs=discovered_epochs,
+            expected_epochs=config["checkpoint_epochs"],
+            logger=logger,
+        )
+        epochs_to_process = discovered_epochs
         logger.info(
             f"Epochs discovered from full_train: {len(epochs_to_process)} checkpoints "
             f"(range {epochs_to_process[0]}–{epochs_to_process[-1]})"

@@ -129,6 +129,36 @@ def find_feature_epochs(features_dir: str) -> list:
     return epochs
 
 
+def validate_feature_epochs(
+    found_epochs: list,
+    expected_epochs: list,
+    logger: logging.Logger,
+) -> None:
+    """
+    Fullstudy runs should process exactly the configured checkpoint epochs.
+    Manual --epochs is the explicit partial/debug path.
+    """
+    found_sorted = sorted(found_epochs)
+    expected_sorted = sorted(expected_epochs)
+
+    if found_sorted == expected_sorted:
+        logger.info(f"Epoch completeness check passed ({len(found_sorted)} epochs).")
+        return
+
+    missing = sorted(set(expected_sorted) - set(found_sorted))
+    extra = sorted(set(found_sorted) - set(expected_sorted))
+    logger.error(
+        "Feature epoch completeness check FAILED.\n"
+        f"  Expected epochs: {expected_sorted}\n"
+        f"  Found epochs:    {found_sorted}\n"
+        f"  Missing epochs:  {missing}\n"
+        f"  Extra epochs:    {extra}\n"
+        "Run features/extract_features.py for all checkpoint epochs, or pass "
+        "--epochs explicitly for a partial smoke test."
+    )
+    sys.exit(1)
+
+
 def load_all_features(
     features_dir: str,
     epochs: list,
@@ -557,6 +587,16 @@ def main() -> None:
         ),
     )
     parser.add_argument(
+        "--epochs",
+        type=int,
+        nargs="*",
+        default=None,
+        help=(
+            "Specific epochs to process for partial/debug runs. "
+            "Default: require all config checkpoint_epochs to be present."
+        ),
+    )
+    parser.add_argument(
         "--results-dir",
         type=str,
         default=None,
@@ -613,6 +653,7 @@ def main() -> None:
     logger.info(f"Features dir: {features_dir}")
     logger.info(f"Results dir:  {results_dir}")
     logger.info(f"tau (reference threshold): {tau}")
+    logger.info(f"Requested CKA samples from config: {config.get('cka', {}).get('n_samples', 'unset')}")
 
     # ------------------------------------------------------------------
     # 4. Reproducibility
@@ -631,15 +672,26 @@ def main() -> None:
         )
         sys.exit(1)
 
-    epochs = find_feature_epochs(features_dir)
+    discovered_epochs = find_feature_epochs(features_dir)
 
-    if len(epochs) < 2:
+    if len(discovered_epochs) < 2:
         logger.error(
             f"Need at least 2 feature files to compute CKA. "
-            f"Found {len(epochs)} in '{features_dir}'. "
+            f"Found {len(discovered_epochs)} in '{features_dir}'. "
             "Run features/extract_features.py first."
         )
         sys.exit(1)
+
+    if args.epochs is not None:
+        epochs = sorted(args.epochs)
+        logger.info(f"Partial/debug epochs from --epochs: {epochs}")
+    else:
+        epochs = discovered_epochs
+        validate_feature_epochs(
+            found_epochs=discovered_epochs,
+            expected_epochs=config["checkpoint_epochs"],
+            logger=logger,
+        )
 
     logger.info(
         f"Found {len(epochs)} feature files  "
@@ -658,7 +710,7 @@ def main() -> None:
     n_features = all_features[0][1].shape[1]
     logger.info(
         f"Loaded {len(all_features)} epochs  "
-        f"n_samples={n_samples}  n_features={n_features}"
+        f"actual_n_samples={n_samples}  n_features={n_features}"
     )
 
     # ------------------------------------------------------------------

@@ -76,7 +76,9 @@ K: 5         # consecutive checkpoints that must satisfy tau before declaring t*
 #   cka_to_final      = CKA(t, final_epoch)
 #   mean_future_cka   = average CKA(t, t') over all future stored checkpoints
 cka:
-  n_samples: 2048   # fixed held-out subset; same subset for every checkpoint
+  # Requested held-out subset size. Balanced CIFAR-10 sampling uses
+  # floor(2048 / 10) * 10 = 2040 actual examples, same examples every checkpoint.
+  n_samples: 2048
   # Unbiased HSIC estimator is used for this sample size (Kornblith et al. 2019)
 
 # DRS computation is deprecated in this experiment (see CLAUDE.md: Deprecated Components).
@@ -90,7 +92,8 @@ drs:
 
 # Activation extraction
 extraction:
-  n_samples: 2048         # must match cka.n_samples — same fixed held-out set
+  # Requested size; class-balanced extraction gives 2040 actual examples.
+  n_samples: 2048
   layer: penultimate      # penultimate layer (before final FC); see CLAUDE.md rationale
 
 # Surrogate classifiers trained on frozen penultimate representations
