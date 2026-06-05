@@ -202,10 +202,12 @@ def build_cka_subset(
     This ensures that features from train.py inline extraction and features
     from this script are directly comparable.
 
-    Why test set: training examples must not be used for CKA because they
-    also feed into surrogate classifier training.  Mixing them would make it
-    impossible to distinguish representation geometry changes from label-
-    information leakage.  See CLAUDE.md Activation extraction notes.
+    Why test set, not train set: the loss function directly optimises
+    representations of training examples.  Measuring CKA on those same
+    examples conflates genuine geometric similarity with optimisation
+    pressure.  The test set is never seen during parameter updates, so
+    CKA on test examples measures the network's generalised representation
+    geometry without that confound.  See CLAUDE.md Activation extraction.
 
     n_per_class = n_samples // n_classes
     Total examples returned = n_per_class * n_classes (may be < n_samples
