@@ -10,7 +10,9 @@ representation stabilization implies representation sufficiency.
 
 Surrogate classifiers
   logistic_regression — Logistic Regression (L-BFGS, all 50 k train examples)
-  linear_svm          — Linear SVM via LinearSVC (all 50 k train examples)
+  linear_svm          — Linear SVM via LinearSVC on a fixed stratified subset of train
+                        (default 10 000; full 50 k is too slow per checkpoint.
+                        Subset indices are saved once.)
   rbf_svm             — RBF kernel SVM on a fixed stratified subset of train
                         (default 10 000; full 50 k makes the kernel matrix
                         intractable.  Subset indices are saved once.)
@@ -34,7 +36,8 @@ Inputs (under config["paths"]["activations"])
 Outputs (under config["paths"]["results"])
   probe_results_long.csv  — one row per (epoch × probe)
   probe_results_wide.csv  — one row per epoch, probes as columns (test_acc)
-  rbf_svm_train_indices.json — fixed stratified indices into the train set
+  rbf_svm_train_indices.json    — fixed stratified indices into the train set (RBF SVM)
+  linear_svm_train_indices.json — fixed stratified indices into the train set (Linear SVM)
 
 Usage
   python surrogates/run_probes.py \\
@@ -335,6 +338,58 @@ def save_rbf_subset_indices(
 
 
 # ---------------------------------------------------------------------------
+# Linear SVM train subset
+# ---------------------------------------------------------------------------
+
+def compute_linear_svm_subset_indices(
+    train_labels: np.ndarray,
+    n_subset: int,
+    seed: int,
+) -> list:
+    """
+    Compute a fixed stratified subset of training indices for Linear SVM.
+
+    Same stratified sampling logic as compute_rbf_subset_indices.
+    Fixed: the same seed always produces the same indices.
+
+    Returns:
+        selected_indices: sorted list of int indices into the train set
+    """
+    n_classes = len(np.unique(train_labels))
+    n_per_class = n_subset // n_classes
+
+    rng = np.random.RandomState(seed)
+    selected = []
+    for class_label in range(n_classes):
+        class_indices = np.where(train_labels == class_label)[0]
+        sampled = rng.choice(class_indices, size=n_per_class, replace=False)
+        selected.extend(sampled.tolist())
+
+    selected.sort()
+    return selected
+
+
+def save_linear_svm_subset_indices(
+    indices: list,
+    results_dir: str,
+    logger: logging.Logger,
+) -> str:
+    """
+    Save Linear SVM train subset indices to a JSON file.
+    Skips writing if the file already exists (indices are deterministic).
+    Returns the path to the saved file.
+    """
+    indices_path = os.path.join(results_dir, "linear_svm_train_indices.json")
+    if not os.path.exists(indices_path):
+        with open(indices_path, "w") as f:
+            json.dump(indices, f)
+        logger.info(f"Saved Linear SVM train subset indices ({len(indices)} examples): {indices_path}")
+    else:
+        logger.info(f"Linear SVM train subset indices already saved: {indices_path}")
+    return indices_path
+
+
+# ---------------------------------------------------------------------------
 # Individual probe fitters
 # ---------------------------------------------------------------------------
 
@@ -354,13 +409,11 @@ def fit_logistic_regression(
     C = lr_config["C"]
     max_iter = lr_config["max_iter"]
     solver = lr_config.get("solver", "lbfgs")
-    multi_class = lr_config.get("multi_class", "multinomial")
 
     clf = LogisticRegression(
         C=C,
         solver=solver,
         max_iter=max_iter,
-        multi_class=multi_class,
         random_state=seed,
         verbose=0,
     )
@@ -388,10 +441,11 @@ def fit_linear_svm(
 ) -> tuple:
     """
     Fit a Linear SVM via LinearSVC and return (train_acc, test_acc, fit_seconds).
-    Inputs must be SCALED features.
+    Inputs must be SCALED features. X_train may be a stratified subset of train
+    (when n_train_subset is configured) rather than the full 50 k set.
 
     LinearSVC is used rather than SVC(kernel='linear') because LinearSVC uses a
-    liblinear implementation that is much faster for large n_samples (50 000 >> 512).
+    liblinear implementation that is much faster for large n_samples.
     dual=False is set because n_samples > n_features; this is more efficient.
     """
     svm_config = config["surrogates"]["linear_svm"]
@@ -531,6 +585,9 @@ def fit_lightgbm(
     num_leaves = lgb_config["num_leaves"]
     learning_rate = lgb_config["learning_rate"]
     n_jobs = lgb_config.get("n_jobs", -1)
+    max_n_estimators = lgb_config.get("max_n_estimators", None)
+    if max_n_estimators is not None:
+        n_estimators = min(n_estimators, max_n_estimators)
 
     clf = lgb.LGBMClassifier(
         n_estimators=n_estimators,
@@ -539,6 +596,7 @@ def fit_lightgbm(
         n_jobs=n_jobs,
         random_state=seed,
         verbose=-1,
+        force_col_wise=True,
     )
 
     t0 = time.perf_counter()
@@ -574,6 +632,7 @@ def run_single_probe(
     probe does not abort the remaining probes for the same epoch.
     """
     try:
+        logger.info(f"    [{probe_name}] Starting fit...")
         train_acc, test_acc, fit_seconds = probe_fn(*fn_args)
         status = "ok"
         error_message = ""
@@ -808,7 +867,32 @@ def main() -> None:
     y_rbf_train = train_labels[rbf_train_indices]
 
     # ------------------------------------------------------------------
-    # 8. Main epoch loop
+    # 8. Compute Linear SVM train subset indices (once, from labels)
+    # ------------------------------------------------------------------
+    linear_svm_config = config["surrogates"]["linear_svm"]
+    n_linear_subset = linear_svm_config.get("n_train_subset", None)
+
+    if n_linear_subset is not None:
+        linear_train_indices = compute_linear_svm_subset_indices(
+            train_labels=train_labels,
+            n_subset=n_linear_subset,
+            seed=seed,
+        )
+        n_linear_actual = len(linear_train_indices)
+        logger.info(
+            f"Linear SVM train subset: {n_linear_actual} examples "
+            f"(stratified from {n_train_full})"
+        )
+        save_linear_svm_subset_indices(linear_train_indices, results_dir, logger)
+        y_linear_train = train_labels[linear_train_indices]
+    else:
+        linear_train_indices = None
+        n_linear_actual = n_train_full
+        y_linear_train = train_labels
+        logger.info("Linear SVM train subset: not configured — using full training set")
+
+    # ------------------------------------------------------------------
+    # 9. Main epoch loop
     # ------------------------------------------------------------------
     logger.info("=" * 70)
     logger.info(f"Evaluating {len(args.probes)} probes across {len(epochs_to_process)} epochs...")
@@ -875,9 +959,14 @@ def main() -> None:
                 n_train_for_row = n_train_full
 
             elif probe_name == "linear_svm":
+                X_linear_train_scaled = (
+                    X_train_scaled[linear_train_indices]
+                    if linear_train_indices is not None
+                    else X_train_scaled
+                )
                 fn = fit_linear_svm
-                fn_args = (X_train_scaled, train_labels, X_test_scaled, test_labels, config, seed)
-                n_train_for_row = n_train_full
+                fn_args = (X_linear_train_scaled, y_linear_train, X_test_scaled, test_labels, config, seed)
+                n_train_for_row = n_linear_actual
 
             elif probe_name == "rbf_svm":
                 fn = fit_rbf_svm
@@ -931,7 +1020,7 @@ def main() -> None:
         all_wide_rows.append(wide_row)
 
     # ------------------------------------------------------------------
-    # 9. Save results
+    # 10. Save results
     # ------------------------------------------------------------------
     logger.info("=" * 70)
     logger.info("Saving results...")
@@ -943,7 +1032,7 @@ def main() -> None:
     save_wide_csv(rows=all_wide_rows, output_path=wide_csv_path, logger=logger)
 
     # ------------------------------------------------------------------
-    # 10. Summary
+    # 11. Summary
     # ------------------------------------------------------------------
     n_ok = sum(1 for r in all_long_rows if r["status"] == "ok")
     n_failed = sum(1 for r in all_long_rows if r["status"] == "failed")

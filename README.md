@@ -4,104 +4,149 @@ Master's thesis codebase. Tests whether representational stability (within-netwo
 similarity) predicts representational sufficiency (surrogate classifier performance on frozen
 features), using ResNet-18 trained on CIFAR-10.
 
-## Hypothesis
+## Research Question
 
-Frozen features extracted at the stabilization epoch t* — detected when both CKA and DRS
-stop changing between consecutive checkpoints — are sufficient for a fresh surrogate classifier
-to match full-network accuracy.
+> Once representations stop changing substantially, do they already contain essentially all
+> task-relevant information?
+
+Representation stabilization is measured with CKA. Representation sufficiency is measured
+with surrogate classifiers trained on frozen penultimate-layer features.
+
+---
+
+## Storage Warning
+
+**`/local/data` is node-local scratch.** It is wiped when the cluster job ends or the node
+is reallocated. All heavy artifacts (checkpoints, feature tensors, NTK matrices) live under
+`/local/data/gme101/` for performance, but they are ephemeral.
+
+Run `scripts/archive_run_outputs.py` before your job ends to copy CSVs and plots to
+persistent storage. Never commit `.pt` or `.npy` files to git.
 
 ---
 
 ## Project Structure
 
 ```
-representation-stabilization/
-│
-├── train.py                      # Train ResNet-18; saves checkpoints + activations every 5 epochs
-├── extract.py                    # Extract full-scale penultimate features at a given epoch
+thesis/
+├── train.py                        # Train ResNet-18 with cosine-annealing SGD
+├── features/
+│   └── extract_features.py         # Extract penultimate-layer features at every checkpoint
 ├── metrics/
-│   ├── cka.py                    # CKA(t, t-1) for all checkpoint pairs → results/cka_results.csv
-│   ├── drs.py                    # DRS(t, t-1) for every 10-epoch pair → results/drs_results.csv
-│   └── stabilization.py         # Detect t* from metric curves; prints next commands
+│   ├── cka_trajectory.py           # CKA (local, to-final, mean-future) at all checkpoints
+│   └── neural_collapse.py          # NC1–NC4 at every checkpoint
 ├── surrogates/
-│   ├── linear_probe.py           # Logistic regression on frozen features
-│   ├── lightgbm_probe.py         # LightGBM on frozen features
-│   └── rf_probe.py               # Random Forest on frozen features
+│   └── run_probes.py               # Fit 5 surrogate classifiers on frozen features
+├── analysis/
+│   ├── build_master_table.py       # Merge all CSVs into master_trajectory.csv
+│   └── plot_main_trajectory.py     # Generate all main trajectory plots
+├── scripts/
+│   └── archive_run_outputs.py      # Copy results/plots to persistent storage
 ├── configs/
-│   └── resnet18_cifar10.yaml     # All hyperparameters — single source of truth
-├── checkpoints/                  # .gitignore — model weights per epoch
-├── activations/                  # .gitignore — extracted features per epoch
-├── results/                      # Plots and CSVs — committed
+│   └── resnet18_cifar10_200_fullstudy.yaml   # All hyperparameters — single source of truth
 └── requirements.txt
 ```
 
 ---
 
-## Pipeline
+## Running One LR Experiment (Fullstudy)
 
-### 1. Train
+All commands assume you are in the repo root. Adjust `--config` if you point to a different
+config file.
 
-Trains ResNet-18 with SGD on CIFAR-10. Saves a checkpoint and extracts penultimate-layer
-activations on a fixed 2048-sample held-out set at every 5-epoch interval.
+### Step 1 — Train
 
 ```bash
-python train.py --config configs/resnet18_cifar10.yaml
+python train.py --config configs/resnet18_cifar10_200_fullstudy.yaml
 ```
 
-Outputs: `checkpoints/epoch_{N}.pt`, `activations/activations_epoch_{N}.npy`
+Trains ResNet-18 with SGD + cosine annealing for 200 epochs. Saves checkpoints and
+triggers feature extraction at every configured checkpoint epoch.
 
-### 2. Compute metrics
+Outputs (on `/local/data`):
+- `checkpoints/epoch_XXXX.pt`
+- `activations/full_train/features_epoch_XXXX.npy`
+- `activations/full_test/features_epoch_XXXX.npy`
+- `results/train_metrics.csv`
 
-CKA runs on the saved activations (fast). DRS trains linear probes and evaluates them on
-random 2D planes through input space (slow — computed every 10 epochs by default).
+### Step 2 — Extract features (if not done by train.py)
 
 ```bash
-python metrics/cka.py --config configs/resnet18_cifar10.yaml   # → results/cka_results.csv
-python metrics/drs.py --config configs/resnet18_cifar10.yaml   # → results/drs_results.csv
+python features/extract_features.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml \
+    --sets full_train full_test
 ```
 
-`cka.py` can be run before training finishes; it reads whatever activations exist.
-`drs.py` can also be run mid-training — both scripts tolerate a partial activations directory.
-
-### 3. Detect t*
-
-Reads the metric CSVs and applies the (τ, K) stabilization criterion: t* is the first epoch
-where both CKA and DRS have stayed below τ=0.02 for K=5 consecutive checkpoints.
+### Step 3 — CKA trajectory
 
 ```bash
-python metrics/stabilization.py --config configs/resnet18_cifar10.yaml
+python metrics/cka_trajectory.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
 ```
 
-Outputs:
-- `results/stabilization_cka.csv` — annotated CKA pair table with `consecutive_count` and `is_t_star_trigger`
-- `results/stabilization_drs.csv` — same for DRS
-- Printed recommendation block with the exact commands to run next
+Outputs: `results/cka_summary.csv`, `results/cka_matrix.csv`
 
-**CKA-only fallback**: if `drs_results.csv` does not exist, the script warns and uses CKA
-alone. Useful for inspecting mid-training without blocking on the full DRS run.
-
-**Joint detection rule**: `t* = max(t*_CKA, t*_DRS)`. The later detection wins, because
-both metrics must independently satisfy the criterion. DRS runs every 10 epochs vs CKA's
-every 5, so DRS will typically be the slower detector.
-
-### 4. Extract full-scale features at t*
-
-Replace `85` with the epoch printed by `stabilization.py`.
+### Step 4 — Neural Collapse
 
 ```bash
-python extract.py --epoch 85
+python metrics/neural_collapse.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
 ```
 
-Outputs: `activations/activations_epoch_85_full.npy` (train + test, full dataset scale)
+Output: `results/neural_collapse.csv`
 
-### 5. Train surrogates
-
-All three surrogates train on the frozen features from step 4 and report test accuracy.
+### Step 5 — Surrogate probes
 
 ```bash
-python surrogates/linear_probe.py   --epoch 85
-python surrogates/lightgbm_probe.py --epoch 85
-python surrogates/rf_probe.py       --epoch 85
+python surrogates/run_probes.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
+```
+
+Fits five classifiers (Logistic Regression, Linear SVM, RBF SVM, Random Forest, LightGBM)
+on frozen features at every checkpoint. Linear SVM and RBF SVM use a 10 000-example
+stratified subset to keep runtimes tractable.
+
+Outputs: `results/probe_results_long.csv`, `results/probe_results_wide.csv`
+
+Partial runs (smoke test):
+```bash
+python surrogates/run_probes.py --config ... --epochs 0 10 50 100 200
+python surrogates/run_probes.py --config ... --probes logistic_regression lightgbm
+```
+
+### Step 6 — Build master table
+
+```bash
+python analysis/build_master_table.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
+```
+
+Merges all metric CSVs into `results/master_trajectory.csv`.
+Can be run with partial data — missing sources produce NaN columns.
+
+### Step 7 — Plot
+
+```bash
+python analysis/plot_main_trajectory.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
+```
+
+Writes eight figures to `plots/`.
+
+### Step 8 — Archive results before job ends
+
+```bash
+python scripts/archive_run_outputs.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
+```
+
+Copies CSVs and PNGs to `~/thesis_results/fullstudy_seed42/`. Does **not** copy
+checkpoints or feature tensors. Run this before the cluster job terminates or the
+node is reallocated, otherwise `/local/data` is lost.
+
+Dry-run to preview what would be copied:
+```bash
+python scripts/archive_run_outputs.py --config ... --dry-run
 ```
 
 ---
@@ -109,23 +154,22 @@ python surrogates/rf_probe.py       --epoch 85
 ## Key Design Decisions
 
 **SGD, not Adam** — Adam produces noisy phase structure in CKA heatmaps and causes first-layer
-representations to drift late in training (Sharon & Dar 2024). SGD gives cleaner, more
-abrupt stabilization transitions.
+representations to drift late in training (Sharon & Dar 2024). SGD gives cleaner transitions.
 
 **Penultimate layer** — We test whether the representation the network hands to its own
-classifier is sufficient. That is the penultimate layer.
+classifier is sufficient. That is the penultimate (pre-FC) layer.
 
-**Fixed held-out 2048 samples** — CKA is computed on the same fixed subset at every
-checkpoint. Changing the subset across epochs would confound geometric change with
-sampling noise.
+**Fixed held-out 2040 samples for CKA** — CKA is computed on the same fixed subset at every
+checkpoint. Changing the subset would confound geometric change with sampling noise.
 
-**τ fixed across all conditions** — τ=0.02 is the similarity-change threshold. It is never
-tuned per run. K=5 consecutive checkpoints prevents false triggers from single noisy dips.
+**Surrogate subsets for SVM** — Linear SVM and RBF SVM use a fixed 10 000-example stratified
+subset. Full 50 k makes runtimes prohibitive at 44+ checkpoints. Subset indices are saved
+to JSON for reproducibility. Logistic Regression, Random Forest, and LightGBM use the full
+training set.
 
-**CKA + DRS together** — CKA measures geometric similarity; DRS measures whether linear
-probes at consecutive epochs make the same classification decisions. High CKA can coexist
-with different functional behavior (Davari et al. 2022). Concordance between both metrics
-is stronger evidence of stabilization than either alone.
+**τ fixed across all conditions** — τ=0.02 is the CKA-change stabilization threshold.
+It is never tuned per run. K=5 consecutive checkpoints prevents false triggers from single
+noisy dips.
 
 ---
 
@@ -135,14 +179,15 @@ is stronger evidence of stabilization than either alone.
 pip install -r requirements.txt
 ```
 
-Requires Python 3.9+. GPU recommended for training and DRS probe computation.
+Requires Python 3.9+. GPU strongly recommended for training and feature extraction.
 
 ---
 
 ## Compute Environment
 
-Developed for VU Amsterdam JupyterLab cluster (NVIDIA L4, 23 GB VRAM, 128 CPUs).
-Run training and DRS from a terminal, not a notebook cell.
+VU Amsterdam JupyterLab cluster (NVIDIA L4, 23 GB VRAM, 128 CPUs).
+Run training from a terminal session, not a notebook cell.
+All heavy I/O goes to `/local/data/gme101/` (node-local NVMe scratch).
 
 ---
 

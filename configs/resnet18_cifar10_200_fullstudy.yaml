@@ -60,10 +60,15 @@ checkpoint_epochs:
   - 80
   - 90
   - 100
+  - 110
   - 120
+  - 130
   - 140
+  - 150
   - 160
+  - 170
   - 180
+  - 190
   - 200
 
 # Stabilization detection (tau recorded for reference; not used as a trigger here)
@@ -104,10 +109,10 @@ surrogates:
     C: 1.0          # inverse regularization strength; sklearn default
     max_iter: 1000  # L-BFGS solver iterations
     solver: lbfgs
-    multi_class: multinomial
   linear_svm:
     C: 1.0
     max_iter: 1000
+    n_train_subset: 10000  # stratified subset; full 50k is too slow per checkpoint
   rbf_svm:
     C: 1.0
     gamma: scale    # gamma = 1 / (n_features * X.var()); sklearn default
@@ -118,10 +123,11 @@ surrogates:
     max_features: sqrt   # sqrt(512) ≈ 22 features per split; standard for classification
     n_jobs: -1
   lightgbm:
-    n_estimators: 200
+    n_estimators: 100
     num_leaves: 31
     learning_rate: 0.1
     n_jobs: -1
+    # max_n_estimators: 50  # uncomment to hard-cap if LightGBM runs long
 
 # Neural Collapse metrics (Papyan et al. 2020)
 # Computed from penultimate-layer train representations at each checkpoint.
