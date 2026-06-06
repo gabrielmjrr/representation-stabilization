@@ -409,10 +409,10 @@ def main() -> None:
     )
 
     # Optional: eNTK results (not required; merged gracefully if present)
-    entk_path = os.path.join(results_dir, "entk_results.csv")
+    entk_path = os.path.join(results_dir, "entk_summary.csv")
     entk_df = load_source_csv(
         path=entk_path,
-        label="entk_results (optional)",
+        label="entk_summary (optional)",
         logger=logger,
     )
 

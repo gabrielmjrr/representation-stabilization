@@ -11,41 +11,50 @@ not alternative stabilization criteria.  Their purpose is to reveal whether
 class-structured geometry in the feature space accompanies, precedes, or
 follows CKA stabilization and probe sufficiency — the two primary measurements.
 
+Feature loading: this script reuses penultimate representations extracted by
+features/extract_features.py (stored as full_train/features_epoch_XXXX.npy)
+and classifier weights from checkpoints produced by train.py.  No additional
+feature extraction is performed here.
+
 Four NC metrics are computed from the penultimate-layer training representations
-at each stored checkpoint epoch:
+at each stored checkpoint epoch, following Papyan, Han, Donoho (2020):
 
-  NC1  Within-class variability collapse.
-       NC1 = trace(Σ_W) / trace(Σ_B)
-       Σ_W = within-class scatter (deviation of each training example from its
-              class mean), averaged over all training examples.
-       Σ_B = between-class scatter (deviation of each class mean from the
-              global mean), averaged over all classes.
-       NC1 → 0 as within-class variability collapses to zero.
-       NC1 is large at early training when features are random.
+  NC1  Variability collapse via full p×p scatter matrices.
+       Σ_W = (1/N) Σ_c Σ_{i:y_i=c} (h_i − μ_c)(h_i − μ_c)^T      [p×p]
+       Σ_B = (1/C) Σ_c (μ_c − μ_G)(μ_c − μ_G)^T                   [p×p]
+       nc1_papyan = Tr(Σ_W Σ_B^†) / C
+       Σ_B^† is the Moore–Penrose pseudoinverse; Σ_B has rank ≤ C−1 < p
+       so a plain inverse does not exist.
+       This is NOT the trace-ratio Tr(Σ_W)/Tr(Σ_B).
 
-  NC2  Class-mean alignment to a simplex ETF (equiangular tight frame).
-       An ideal ETF satisfies <ĥ_c, ĥ_c'> = −1/(C−1) for every pair c ≠ c',
-       where ĥ_c is the normalized, global-mean-centered class mean.
-       NC2 = RMS deviation of actual off-diagonal cosine similarities from
-             the ideal value −1/(C−1).
-       NC2 → 0 at full collapse.
+  NC2  Simplex ETF deviation of normalized centered class means.
+       ĥ_c = (μ_c − μ_G) / max(‖μ_c − μ_G‖, ε)
+       G = Ĥ Ĥ^T   (C×C Gram matrix of the ĥ vectors)
+       G_target = C/(C−1)·I_C − 1/(C−1)·11^T   (ideal ETF Gram)
+       nc2_etf_deviation = ‖G − G_target‖_F / ‖G_target‖_F
+       Normalisation by ‖G_target‖_F makes the measure scale-invariant.
 
-  NC3  Classifier weight / class mean self-duality.
-       NC3 = (1/C) Σ_c cos(ŵ_c, ĥ_c)
-       ŵ_c = row c of the final FC weight matrix, unit-normalized.
-       ĥ_c = centered class mean, unit-normalized.
-       NC3 → 1 at full collapse (weights align with class means).
+  NC3  Frobenius self-duality between classifier weights and class means.
+       M_dot ∈ R^{p×C}  — centered class means stacked as columns.
+       W^T   ∈ R^{p×C}  — transpose of FC weight matrix.
+       W_T_norm = W^T / max(‖W‖_F, ε)
+       M_norm   = M_dot / max(‖M_dot‖_F, ε)
+       nc3_self_duality_frobenius = ‖W_T_norm − M_norm‖_F
+       This is NOT the per-class cosine mean; it measures full-matrix alignment.
 
-  NC4  Nearest-class-mean (NCM) versus network classifier disagreement.
-       For each training example, compare:
-         network prediction: argmax over logits W h + b
-         NCM prediction:     argmin_c  ||h − μ_c||²
-       NC4 = fraction of training examples where the two predictions differ.
-       NC4 → 0 at full collapse.
+  NC4  Nearest-class-center (NCC) vs network classifier disagreement.
+       pred_net[i]  = argmax_c (W h_i + b)_c
+       pred_ncc[i]  = argmin_c ‖h_i − μ_c‖²
+                    = argmin_c (−2 h_i·μ_c + ‖μ_c‖²)
+       nc4_ncc_disagreement = mean(pred_net ≠ pred_ncc)
 
-All metrics are computed entirely on training features.  Test features are
-not used — NC describes the network's internal geometry on the data it
-was trained on.
+Backward-compatibility alias columns are written alongside the canonical
+columns so that analysis/build_master_table.py and analysis/plot_main_trajectory.py
+require no changes (they read nc1, log10_nc1, nc2_etf_deviation,
+nc3_weight_mean_alignment, nc4_ncm_disagreement — present as aliases in output).
+
+Pseudoinverse backend: scipy.linalg.pinv is preferred; falls back to
+numpy.linalg.pinv if scipy is not installed.
 
 Inputs (under config["paths"]["activations"])
   full_train/labels.npy               (N,)       — static; loaded once
@@ -55,9 +64,15 @@ Inputs (under config["paths"]["checkpoints"])
   checkpoint_epoch_XXXX.pt            — fc.weight and fc.bias extracted per epoch
 
 Output (under config["paths"]["results"])
-  neural_collapse.csv   — one row per epoch:
-    epoch, nc1, log10_nc1, nc2_etf_deviation,
-    nc3_weight_mean_alignment, nc4_ncm_disagreement
+  neural_collapse.csv   — one row per epoch, columns:
+    epoch
+    nc1_papyan, log10_nc1_papyan        (canonical)
+    nc2_etf_deviation                   (canonical)
+    nc3_self_duality_frobenius          (canonical)
+    nc4_ncc_disagreement                (canonical)
+    nc1, log10_nc1                      (backward-compat aliases)
+    nc3_weight_mean_alignment           (backward-compat alias)
+    nc4_ncm_disagreement                (backward-compat alias)
 
 Usage
   python metrics/neural_collapse.py \\
@@ -75,6 +90,13 @@ import sys
 import numpy as np
 import torch
 import yaml
+
+try:
+    from scipy.linalg import pinv as matrix_pinv
+    _PINV_BACKEND = "scipy"
+except ImportError:
+    from numpy.linalg import pinv as matrix_pinv
+    _PINV_BACKEND = "numpy"
 
 
 # ---------------------------------------------------------------------------
@@ -302,6 +324,7 @@ def compute_centered_normalized_class_means(
 ) -> np.ndarray:
     """
     Center each class mean by subtracting the global mean, then unit-normalize.
+    Used for NC2 (Gram matrix computation).
 
     Returns:
         normalized_centered_class_means: (n_classes, n_features)
@@ -321,7 +344,7 @@ def compute_centered_normalized_class_means(
         if norm < epsilon_norm:
             logger.warning(
                 f"  Class {class_label}: centered class mean has near-zero norm ({norm:.2e}). "
-                "NC2 and NC3 for this class are ill-defined. "
+                "NC2 is ill-defined for this class. "
                 "At epoch 0 this is expected if random features are approximately isotropic."
             )
             normalized_centered_class_means[class_label] = np.zeros(n_features)
@@ -332,7 +355,86 @@ def compute_centered_normalized_class_means(
 
 
 # ---------------------------------------------------------------------------
-# NC1: Within-class variability collapse
+# Input validation
+# ---------------------------------------------------------------------------
+
+def validate_nc_inputs(
+    features: np.ndarray,
+    labels: np.ndarray,
+    fc_weight: np.ndarray,
+    fc_bias: np.ndarray,
+    n_classes: int,
+    logger: logging.Logger,
+) -> None:
+    """
+    Validate shapes and class coverage before any NC computation.
+    Raises ValueError on hard shape errors.
+    Logs a warning for soft issues (near-zero norms are handled per-metric).
+    """
+    # H: must be 2D [N, p]
+    if features.ndim != 2:
+        raise ValueError(
+            f"features (H) must be 2D [N, p], got ndim={features.ndim} shape={features.shape}"
+        )
+    N, p = features.shape
+
+    # y: must be 1D [N]
+    if labels.ndim != 1:
+        raise ValueError(
+            f"labels (y) must be 1D [N], got ndim={labels.ndim} shape={labels.shape}"
+        )
+    if len(labels) != N:
+        raise ValueError(
+            f"labels length {len(labels)} must equal features rows {N}"
+        )
+
+    # W: must be 2D [C, p]
+    if fc_weight.ndim != 2:
+        raise ValueError(
+            f"fc_weight (W) must be 2D [C, p], got ndim={fc_weight.ndim} shape={fc_weight.shape}"
+        )
+    C_from_W, p_from_W = fc_weight.shape
+    if p_from_W != p:
+        raise ValueError(
+            f"fc_weight columns ({p_from_W}) must match features columns ({p}); "
+            "W.T and M_dot would not be compatible"
+        )
+
+    # b: must be 1D [C]
+    if fc_bias.ndim != 1:
+        raise ValueError(
+            f"fc_bias (b) must be 1D [C], got ndim={fc_bias.ndim} shape={fc_bias.shape}"
+        )
+    if len(fc_bias) != C_from_W:
+        raise ValueError(
+            f"fc_bias length {len(fc_bias)} must match fc_weight rows {C_from_W}"
+        )
+
+    # Every class 0..C-1 must appear in y
+    unique_labels = sorted(np.unique(labels).tolist())
+    expected_labels = list(range(n_classes))
+    if unique_labels != expected_labels:
+        raise ValueError(
+            f"Expected classes {expected_labels} in labels, found {unique_labels}. "
+            "All classes 0..C-1 must be present in the training set."
+        )
+
+    # C from labels and C from W must agree
+    C_from_labels = len(unique_labels)
+    if C_from_labels != C_from_W:
+        raise ValueError(
+            f"n_classes from labels ({C_from_labels}) != n_classes from fc_weight ({C_from_W})"
+        )
+
+    logger.info(
+        f"  Input validation passed: N={N}  p={p}  C={n_classes}"
+        f"  fc_weight={fc_weight.shape}  fc_bias={fc_bias.shape}"
+        f"  pinv_backend={_PINV_BACKEND}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# NC1 — Papyan variability collapse:  Tr(Σ_W Σ_B^†) / C
 # ---------------------------------------------------------------------------
 
 def compute_nc1(
@@ -344,67 +446,65 @@ def compute_nc1(
     logger: logging.Logger,
 ) -> tuple:
     """
-    Compute NC1 = trace(Σ_W) / trace(Σ_B).
+    NC1 = Tr(Σ_W Σ_B^†) / C   (Papyan, Han, Donoho 2020)
 
-    Σ_W (within-class scatter):
-      Σ_W = (1/N) * Σ_c Σ_{x in class c} (x − μ_c)(x − μ_c)^T
-      trace(Σ_W) = (1/N) * Σ_c Σ_{x in class c} ||x − μ_c||²
+    Σ_W (within-class scatter, p×p):
+        Build X_centered — the (N, p) matrix where each row h_i is replaced by
+        (h_i − μ_{y_i}).  Then:
+            Σ_W = X_centered^T X_centered / N
 
-    Σ_B (between-class scatter):
-      Σ_B = (1/C) * Σ_c (μ_c − μ_G)(μ_c − μ_G)^T
-      trace(Σ_B) = (1/C) * Σ_c ||μ_c − μ_G||²
+    Σ_B (between-class scatter, p×p):
+        Let M_c ∈ R^{C×p} be the matrix of centered class means (μ_c − μ_G).
+            Σ_B = M_c^T M_c / C
+        Σ_B has rank ≤ C−1 (for CIFAR-10: rank ≤ 9 out of p=512 dimensions),
+        so its pseudoinverse is used instead of a plain inverse.
 
-    NC1 → 0 as within-class variability collapses.
-    NC1 is large (>> 1) at early training when features are approximately random.
+    Tr(Σ_W Σ_B^†) is computed as np.sum(Σ_W * Σ_B^†), which equals the
+    Frobenius inner product <Σ_W, Σ_B^†>_F = Tr(Σ_W^T Σ_B^†) = Tr(Σ_W Σ_B^†)
+    because both matrices are symmetric.  This avoids materialising the full
+    matrix product and is O(p²) instead of O(p³).
 
     Returns:
-        nc1:       trace(Σ_W) / trace(Σ_B)   (positive float)
-        log10_nc1: log10(nc1)                 (can be negative at deep collapse)
+        nc1_papyan:       float ≥ 0
+        log10_nc1_papyan: log10(max(nc1_papyan, eps)),  eps = 1e-12
     """
-    epsilon = 1e-10
-    features_f64 = features.astype(np.float64)
-    n_total = features_f64.shape[0]
+    eps = 1e-12
+    H = features.astype(np.float64)     # (N, p)
+    N = H.shape[0]
 
-    # ── Within-class scatter (trace only) ────────────────────────────────
-    within_class_sum_of_squared_norms = 0.0
-    for class_label in range(n_classes):
-        class_mask = (labels == class_label)
-        class_features = features_f64[class_mask]          # (n_c, n_features)
-        class_mean = class_means[class_label]              # (n_features,)
+    # ── Within-class scatter Σ_W ─────────────────────────────────────────
+    # Subtract each example's class mean in a single vectorised pass.
+    X_centered = np.empty_like(H)
+    for c in range(n_classes):
+        mask = (labels == c)
+        X_centered[mask] = H[mask] - class_means[c]   # broadcasting (n_c, p)
 
-        deviations_from_class_mean = class_features - class_mean   # (n_c, n_features)
-        squared_norms = np.sum(deviations_from_class_mean ** 2)    # scalar
-        within_class_sum_of_squared_norms += float(squared_norms)
+    Sigma_W = (X_centered.T @ X_centered) / N          # (p, p), symmetric PSD
 
-    trace_Sw = within_class_sum_of_squared_norms / n_total
+    # ── Between-class scatter Σ_B ────────────────────────────────────────
+    M_c = (class_means - global_mean).astype(np.float64)   # (C, p) centered means
+    Sigma_B = (M_c.T @ M_c) / n_classes                    # (p, p), rank ≤ C−1
 
-    # ── Between-class scatter (trace only) ───────────────────────────────
-    between_class_sum_of_squared_norms = 0.0
-    for class_label in range(n_classes):
-        centered_class_mean = class_means[class_label] - global_mean   # (n_features,)
-        squared_norm = float(np.dot(centered_class_mean, centered_class_mean))
-        between_class_sum_of_squared_norms += squared_norm
+    # ── Moore–Penrose pseudoinverse of Σ_B ───────────────────────────────
+    Sigma_B_pinv = matrix_pinv(Sigma_B)     # (p, p); backend logged at startup
 
-    trace_Sb = between_class_sum_of_squared_norms / n_classes
+    # ── NC1 = Tr(Σ_W Σ_B^†) / C  via Frobenius inner product ────────────
+    # Both Σ_W and Σ_B^† are symmetric, so Tr(A B) = <A, B>_F = sum(A * B).
+    nc1_papyan = float(np.sum(Sigma_W * Sigma_B_pinv)) / n_classes
 
-    logger.info(f"  NC1: trace(Sw)={trace_Sw:.6f}  trace(Sb)={trace_Sb:.6f}")
+    log10_nc1_papyan = float(np.log10(max(nc1_papyan, eps)))
 
-    if trace_Sb < epsilon:
-        logger.warning(
-            f"  NC1: trace(Sb) is near-zero ({trace_Sb:.2e}). "
-            "All class means may coincide with the global mean. "
-            "NC1 is unreliable; returning large sentinel value."
-        )
-
-    nc1 = trace_Sw / (trace_Sb + epsilon)
-    log10_nc1 = float(np.log10(nc1 + epsilon))
-
-    logger.info(f"  NC1={nc1:.6f}  log10(NC1)={log10_nc1:.4f}")
-    return float(nc1), log10_nc1
+    logger.info(
+        f"  NC1: Tr(Sw)={float(np.trace(Sigma_W)):.6f}"
+        f"  Tr(Sb)={float(np.trace(Sigma_B)):.6f}"
+        f"  nc1_papyan={nc1_papyan:.6f}"
+        f"  log10={log10_nc1_papyan:.4f}"
+    )
+    return float(nc1_papyan), log10_nc1_papyan
 
 
 # ---------------------------------------------------------------------------
-# NC2: ETF deviation of normalized centered class means
+# NC2 — Simplex ETF deviation:  ‖G − G_target‖_F / ‖G_target‖_F
 # ---------------------------------------------------------------------------
 
 def compute_nc2(
@@ -413,118 +513,101 @@ def compute_nc2(
     logger: logging.Logger,
 ) -> float:
     """
-    Compute NC2 = RMS deviation of off-diagonal cosine similarities from −1/(C−1).
+    NC2 = ‖G − G_target‖_F / ‖G_target‖_F
 
-    For a perfect simplex ETF with C vectors:
-      <ĥ_c, ĥ_c'> = −1/(C−1)  for all c ≠ c'
+    G ∈ R^{C×C} is the Gram matrix of the unit-normalized centered class means:
+        G = Ĥ Ĥ^T,   G[c, c'] = ĥ_c · ĥ_{c'}
 
-    NC2 measures how far the actual class-mean geometry is from this ideal.
+    G_target is the Gram matrix of an ideal C-class simplex ETF:
+        G_target = C/(C−1) · I_C − 1/(C−1) · 11^T
+    Its diagonal entries are 1 and its off-diagonal entries are −1/(C−1).
+
+    Normalising by ‖G_target‖_F makes NC2 dimensionless and comparable across
+    different values of C.
+
     NC2 → 0 at full Neural Collapse.
-
-    Steps:
-      1. Compute the gram matrix G = Ĥ Ĥ^T  (G[c,c'] = cosine similarity)
-      2. For each off-diagonal pair (c ≠ c'):
-             deviation = G[c, c'] − (−1/(C−1))
-      3. NC2 = sqrt(mean of squared deviations over all off-diagonal pairs)
-
-    Returns:
-        nc2_etf_deviation: float ≥ 0
     """
-    # Step 1: Gram matrix of normalized centered class means
-    gram_matrix = normalized_centered_class_means @ normalized_centered_class_means.T
-    # gram_matrix shape: (n_classes, n_classes)
-    # gram_matrix[c, c'] = cosine similarity between ĥ_c and ĥ_c'
+    C = n_classes
 
-    # Step 2: Ideal off-diagonal cosine similarity for a C-simplex ETF
-    ideal_off_diagonal_value = -1.0 / (n_classes - 1)
+    # Gram matrix of normalized centered class means (C×C)
+    G = normalized_centered_class_means @ normalized_centered_class_means.T
 
-    # Step 3: Accumulate squared deviations over all off-diagonal pairs
-    total_squared_deviation = 0.0
-    n_off_diagonal_pairs = 0
+    # Ideal simplex ETF Gram matrix
+    G_target = (C / (C - 1)) * np.eye(C) - (1.0 / (C - 1)) * np.ones((C, C))
+    # Diagonal: C/(C-1) - 1/(C-1) = 1.  Off-diagonal: -1/(C-1).
 
-    for c in range(n_classes):
-        for c_prime in range(n_classes):
-            if c == c_prime:
-                continue  # skip diagonal (self-similarity = 1 by construction)
+    norm_G_target = float(np.linalg.norm(G_target, "fro"))
+    if norm_G_target < 1e-12:
+        logger.warning("  NC2: ‖G_target‖_F is near-zero; returning 0.")
+        return 0.0
 
-            actual_cosine_similarity = float(gram_matrix[c, c_prime])
-            deviation_from_ideal = actual_cosine_similarity - ideal_off_diagonal_value
-            squared_deviation = deviation_from_ideal ** 2
-
-            total_squared_deviation += squared_deviation
-            n_off_diagonal_pairs += 1
-
-    mean_squared_deviation = total_squared_deviation / n_off_diagonal_pairs
-    nc2_etf_deviation = float(np.sqrt(mean_squared_deviation))
+    nc2_etf_deviation = float(np.linalg.norm(G - G_target, "fro")) / norm_G_target
 
     logger.info(
-        f"  NC2: ideal_off_diag={ideal_off_diagonal_value:.4f}"
-        f"  n_pairs={n_off_diagonal_pairs}"
+        f"  NC2: ‖G‖_F={float(np.linalg.norm(G, 'fro')):.4f}"
+        f"  ‖G_target‖_F={norm_G_target:.4f}"
         f"  nc2_etf_deviation={nc2_etf_deviation:.6f}"
     )
     return nc2_etf_deviation
 
 
 # ---------------------------------------------------------------------------
-# NC3: Classifier weight / class mean alignment
+# NC3 — Frobenius self-duality:  ‖W_T_norm − M_norm‖_F
 # ---------------------------------------------------------------------------
 
 def compute_nc3(
     fc_weight: np.ndarray,
-    normalized_centered_class_means: np.ndarray,
+    centered_class_means: np.ndarray,
     n_classes: int,
     logger: logging.Logger,
 ) -> float:
     """
-    Compute NC3 = (1/C) Σ_c cos(ŵ_c, ĥ_c).
+    NC3 = ‖W_T_norm − M_norm‖_F
 
-    ŵ_c = row c of fc.weight, unit-normalized.
-    ĥ_c = normalized centered class mean (already computed in NC2).
+    W^T ∈ R^{p×C}    transpose of the FC weight matrix W ∈ R^{C×p}.
+    M_dot ∈ R^{p×C}  centered class means stacked as columns:
+                      M_dot[:, c] = μ_c − μ_G   for c = 0..C−1.
 
-    NC3 → 1 at full Neural Collapse (weights and class means become parallel).
-    NC3 is near 0 at early training when weights and features are both random.
+    Both are normalised globally by their Frobenius norms before comparison:
+        W_T_norm = W^T / max(‖W‖_F, ε)
+        M_norm   = M_dot / max(‖M_dot‖_F, ε)
 
-    Returns:
-        nc3_weight_mean_alignment: float in [−1, 1]
+    NC3 → 0 at full Neural Collapse (the weight matrix and class-mean matrix
+    become proportional, so W_T_norm = M_norm).
+
+    Global Frobenius normalisation captures the full geometric relationship
+    between W and the class means, not just per-class angular alignment.
     """
-    epsilon_norm = 1e-10
+    eps = 1e-12
+    W = fc_weight.astype(np.float64)              # (C, p)
+    W_T = W.T                                      # (p, C)
 
-    # Step 1: Normalize each classifier weight row to unit length
-    normalized_weight_rows = np.zeros_like(fc_weight, dtype=np.float64)
-    for class_label in range(n_classes):
-        weight_row = fc_weight[class_label].astype(np.float64)
-        weight_norm = float(np.linalg.norm(weight_row))
+    # M_dot = centered class means as columns: shape (p, C)
+    M_dot = centered_class_means.astype(np.float64).T   # (p, C)
 
-        if weight_norm < epsilon_norm:
-            logger.warning(
-                f"  NC3: Classifier weight row {class_label} has near-zero norm ({weight_norm:.2e}). "
-                "Alignment for this class is ill-defined."
-            )
-            normalized_weight_rows[class_label] = np.zeros(fc_weight.shape[1])
-        else:
-            normalized_weight_rows[class_label] = weight_row / weight_norm
+    norm_W = float(np.linalg.norm(W, "fro"))
+    norm_M = float(np.linalg.norm(M_dot, "fro"))
 
-    # Step 2: Compute cosine similarity for each class
-    cosine_similarities_per_class = np.zeros(n_classes, dtype=np.float64)
-    for class_label in range(n_classes):
-        normalized_weight = normalized_weight_rows[class_label]     # (n_features,)
-        normalized_mean   = normalized_centered_class_means[class_label]  # (n_features,)
+    if norm_W < eps:
+        logger.warning(f"  NC3: ‖W‖_F near-zero ({norm_W:.2e}); W_T_norm set to zeros.")
+    if norm_M < eps:
+        logger.warning(f"  NC3: ‖M_dot‖_F near-zero ({norm_M:.2e}); M_norm set to zeros.")
 
-        cosine_similarity = float(np.dot(normalized_weight, normalized_mean))
-        cosine_similarities_per_class[class_label] = cosine_similarity
+    W_T_norm = W_T / max(norm_W, eps)
+    M_norm   = M_dot / max(norm_M, eps)
 
-    # Step 3: NC3 is the mean cosine similarity across all classes
-    nc3_weight_mean_alignment = float(cosine_similarities_per_class.mean())
+    nc3_self_duality_frobenius = float(np.linalg.norm(W_T_norm - M_norm, "fro"))
 
     logger.info(
-        f"  NC3: per-class cosines={[round(float(v),4) for v in cosine_similarities_per_class]}"
-        f"  nc3={nc3_weight_mean_alignment:.6f}"
+        f"  NC3: ‖W‖_F={norm_W:.4f}"
+        f"  ‖M_dot‖_F={norm_M:.4f}"
+        f"  nc3_self_duality_frobenius={nc3_self_duality_frobenius:.6f}"
     )
-    return nc3_weight_mean_alignment
+    return nc3_self_duality_frobenius
 
 
 # ---------------------------------------------------------------------------
-# NC4: Nearest-class-mean versus network classifier disagreement
+# NC4 — Nearest-class-center vs network classifier disagreement
 # ---------------------------------------------------------------------------
 
 def compute_nc4(
@@ -537,65 +620,49 @@ def compute_nc4(
     logger: logging.Logger,
 ) -> float:
     """
-    Compute NC4 = fraction of training examples where network prediction
-    disagrees with the nearest-class-mean (NCM) prediction.
+    NC4 = mean(pred_net ≠ pred_ncc)  over all N training examples.
 
-    Network prediction:  ŷ_net = argmax_c  (W[c] · h + b[c])
-    NCM prediction:      ŷ_ncm = argmin_c  ||h − μ_c||²
+    Network prediction:
+        logits[i, c] = W[c] · h_i + b[c]
+        pred_net[i]  = argmax_c logits[i]
 
-    For the distance computation, we use the identity:
-      ||h − μ_c||² = ||h||² − 2(h · μ_c) + ||μ_c||²
-    The ||h||² term is the same for all classes so it does not affect argmin.
-    Therefore: ŷ_ncm = argmin_c (−2(h · μ_c) + ||μ_c||²)
+    Nearest-class-center (NCC) prediction uses the identity
+        ‖h_i − μ_c‖² = ‖h_i‖² − 2(h_i·μ_c) + ‖μ_c‖²
+    The ‖h_i‖² term is identical for all c and does not affect argmin:
+        pred_ncc[i]  = argmin_c (−2 h_i·μ_c + ‖μ_c‖²)
 
-    NC4 → 0 when the network classifier and NCM agree on all training examples
-    (full Neural Collapse).
-
-    Returns:
-        nc4_ncm_disagreement: float in [0, 1]
+    NC4 → 0 when the network classifier and NCC agree on every training example.
     """
-    features_f64 = features.astype(np.float64)
-    fc_weight_f64 = fc_weight.astype(np.float64)
-    fc_bias_f64 = fc_bias.astype(np.float64)
-    class_means_f64 = class_means.astype(np.float64)
+    H   = features.astype(np.float64)     # (N, p)
+    W   = fc_weight.astype(np.float64)    # (C, p)
+    b   = fc_bias.astype(np.float64)      # (C,)
+    Mu  = class_means.astype(np.float64)  # (C, p)  uncentered class means
 
-    n_total = features_f64.shape[0]
+    N = H.shape[0]
 
-    # ── Network predictions (argmax of logits) ────────────────────────────
-    # logits shape: (n_total, n_classes)
-    # logits[i, c] = W[c] · h[i] + b[c]
-    logits = features_f64 @ fc_weight_f64.T   # (n_total, n_classes)
-    logits = logits + fc_bias_f64             # broadcast bias: (n_total, n_classes)
-    network_predictions = np.argmax(logits, axis=1)   # (n_total,)
+    # Network predictions: argmax of logits W h + b
+    logits   = H @ W.T + b                        # (N, C)
+    pred_net = np.argmax(logits, axis=1)           # (N,)
 
-    # ── NCM predictions (argmin of squared Euclidean distance) ───────────
-    # Dot products h_i · μ_c for all i and c simultaneously
-    dot_products = features_f64 @ class_means_f64.T   # (n_total, n_classes)
+    # NCC predictions: argmin of squared-distance proxy
+    dot_products        = H @ Mu.T                 # (N, C)  h_i · μ_c
+    class_mean_sq_norms = np.sum(Mu ** 2, axis=1)  # (C,)    ‖μ_c‖²
+    dist_proxy          = -2.0 * dot_products + class_mean_sq_norms   # (N, C)
+    pred_ncc            = np.argmin(dist_proxy, axis=1)  # (N,)
 
-    # Squared norms of class means: ||μ_c||² for each c
-    class_mean_squared_norms = np.sum(class_means_f64 ** 2, axis=1)   # (n_classes,)
+    n_disagreements      = int(np.sum(pred_net != pred_ncc))
+    nc4_ncc_disagreement = n_disagreements / N
 
-    # Effective distance proxy (drop the shared ||h||² term):
-    #   d²_proxy[i, c] = −2(h_i · μ_c) + ||μ_c||²
-    neg_two_dot_products = -2.0 * dot_products           # (n_total, n_classes)
-    distance_proxy = neg_two_dot_products + class_mean_squared_norms  # broadcast
-    ncm_predictions = np.argmin(distance_proxy, axis=1)  # (n_total,)
-
-    # ── Disagreement fraction ─────────────────────────────────────────────
-    n_disagreements = int(np.sum(network_predictions != ncm_predictions))
-    nc4_ncm_disagreement = n_disagreements / n_total
-
-    # Sanity check: NCM accuracy on training set
-    ncm_train_accuracy = float((ncm_predictions == labels).mean())
-    net_train_accuracy = float((network_predictions == labels).mean())
+    ncc_train_acc = float((pred_ncc == labels).mean())
+    net_train_acc = float((pred_net == labels).mean())
 
     logger.info(
-        f"  NC4: n_disagreements={n_disagreements}/{n_total}"
-        f"  nc4={nc4_ncm_disagreement:.6f}"
-        f"  net_train_acc={net_train_accuracy:.4f}"
-        f"  ncm_train_acc={ncm_train_accuracy:.4f}"
+        f"  NC4: n_disagreements={n_disagreements}/{N}"
+        f"  nc4={nc4_ncc_disagreement:.6f}"
+        f"  net_train_acc={net_train_acc:.4f}"
+        f"  ncc_train_acc={ncc_train_acc:.4f}"
     )
-    return float(nc4_ncm_disagreement)
+    return float(nc4_ncc_disagreement)
 
 
 # ---------------------------------------------------------------------------
@@ -607,12 +674,33 @@ def save_results_csv(
     output_path: str,
     logger: logging.Logger,
 ) -> None:
-    """Save neural_collapse.csv — one row per checkpoint epoch."""
+    """
+    Save neural_collapse.csv — one row per checkpoint epoch.
+
+    Primary canonical columns (new names per Papyan et al. 2020):
+      epoch, nc1_papyan, log10_nc1_papyan, nc2_etf_deviation,
+      nc3_self_duality_frobenius, nc4_ncc_disagreement
+
+    Backward-compatibility alias columns (old names, same values):
+      nc1             = nc1_papyan
+      log10_nc1       = log10_nc1_papyan
+      nc2_etf_deviation  (same name — no alias needed)
+      nc3_weight_mean_alignment = nc3_self_duality_frobenius
+      nc4_ncm_disagreement      = nc4_ncc_disagreement
+
+    Downstream scripts read the alias columns and require no changes.
+    """
     fieldnames = [
         "epoch",
+        # Canonical columns
+        "nc1_papyan",
+        "log10_nc1_papyan",
+        "nc2_etf_deviation",
+        "nc3_self_duality_frobenius",
+        "nc4_ncc_disagreement",
+        # Backward-compatibility aliases
         "nc1",
         "log10_nc1",
-        "nc2_etf_deviation",
         "nc3_weight_mean_alignment",
         "nc4_ncm_disagreement",
     ]
@@ -705,13 +793,14 @@ def main() -> None:
     logger = setup_logging(log_path)
 
     logger.info("=" * 70)
-    logger.info("Neural Collapse Metrics — NC1, NC2, NC3, NC4")
+    logger.info("Neural Collapse Metrics — NC1, NC2, NC3, NC4 (Papyan et al. 2020)")
     logger.info("=" * 70)
     logger.info(f"Config:          {args.config}")
     logger.info(f"Activations dir: {activations_dir}")
     logger.info(f"Checkpoint dir:  {checkpoint_dir}")
     logger.info(f"Results dir:     {results_dir}")
     logger.info(f"Seed:            {seed}")
+    logger.info(f"Pseudoinverse:   {_PINV_BACKEND}.linalg.pinv")
 
     # ------------------------------------------------------------------
     # 4. Reproducibility
@@ -790,6 +879,21 @@ def main() -> None:
         # ── Load classifier weights from checkpoint ────────────────────
         fc_weight, fc_bias = load_classifier_weights(epoch, checkpoint_dir, logger)
 
+        # ── Validate inputs (shapes, class coverage, backend) ─────────
+        try:
+            validate_nc_inputs(
+                features=train_features,
+                labels=train_labels,
+                fc_weight=fc_weight,
+                fc_bias=fc_bias,
+                n_classes=n_classes,
+                logger=logger,
+            )
+        except ValueError as exc:
+            logger.error(f"  Input validation FAILED for epoch {epoch}: {exc}")
+            logger.error("  Skipping NC metrics for this epoch.")
+            continue
+
         # ── Compute class means and global mean ───────────────────────
         class_means, global_mean, class_counts = compute_class_means(
             features=train_features,
@@ -798,7 +902,11 @@ def main() -> None:
             logger=logger,
         )
 
-        # ── Compute normalized centered class means (used in NC2, NC3) ─
+        # ── Raw centered class means (C×p) — used for NC1 and NC3 ─────
+        # M_c[c] = μ_c − μ_G;  M_dot = M_c.T has shape (p, C)
+        centered_class_means = (class_means - global_mean).astype(np.float64)
+
+        # ── Per-row unit-normalized centered means — used for NC2 ──────
         normalized_centered_class_means = compute_centered_normalized_class_means(
             class_means=class_means,
             global_mean=global_mean,
@@ -806,8 +914,8 @@ def main() -> None:
             logger=logger,
         )
 
-        # ── NC1: within-class variability collapse ────────────────────
-        nc1, log10_nc1 = compute_nc1(
+        # ── NC1: Tr(Σ_W Σ_B^†) / C ───────────────────────────────────
+        nc1_papyan, log10_nc1_papyan = compute_nc1(
             features=train_features,
             labels=train_labels,
             class_means=class_means,
@@ -816,23 +924,23 @@ def main() -> None:
             logger=logger,
         )
 
-        # ── NC2: ETF deviation of class means ─────────────────────────
+        # ── NC2: ‖G − G_target‖_F / ‖G_target‖_F ────────────────────
         nc2_etf_deviation = compute_nc2(
             normalized_centered_class_means=normalized_centered_class_means,
             n_classes=n_classes,
             logger=logger,
         )
 
-        # ── NC3: classifier weight / class mean alignment ─────────────
-        nc3_weight_mean_alignment = compute_nc3(
+        # ── NC3: ‖W_T_norm − M_norm‖_F ───────────────────────────────
+        nc3_self_duality_frobenius = compute_nc3(
             fc_weight=fc_weight,
-            normalized_centered_class_means=normalized_centered_class_means,
+            centered_class_means=centered_class_means,
             n_classes=n_classes,
             logger=logger,
         )
 
-        # ── NC4: NCM vs network disagreement on training set ──────────
-        nc4_ncm_disagreement = compute_nc4(
+        # ── NC4: mean(pred_net ≠ pred_ncc) ────────────────────────────
+        nc4_ncc_disagreement = compute_nc4(
             features=train_features,
             labels=train_labels,
             class_means=class_means,
@@ -844,19 +952,25 @@ def main() -> None:
 
         result_row = {
             "epoch": epoch,
-            "nc1": round(nc1, 8),
-            "log10_nc1": round(log10_nc1, 6),
-            "nc2_etf_deviation": round(nc2_etf_deviation, 8),
-            "nc3_weight_mean_alignment": round(nc3_weight_mean_alignment, 8),
-            "nc4_ncm_disagreement": round(nc4_ncm_disagreement, 8),
+            # Canonical columns
+            "nc1_papyan":                 round(nc1_papyan, 8),
+            "log10_nc1_papyan":           round(log10_nc1_papyan, 6),
+            "nc2_etf_deviation":          round(nc2_etf_deviation, 8),
+            "nc3_self_duality_frobenius": round(nc3_self_duality_frobenius, 8),
+            "nc4_ncc_disagreement":       round(nc4_ncc_disagreement, 8),
+            # Backward-compatibility aliases (read by build_master_table / plot scripts)
+            "nc1":                        round(nc1_papyan, 8),
+            "log10_nc1":                  round(log10_nc1_papyan, 6),
+            "nc3_weight_mean_alignment":  round(nc3_self_duality_frobenius, 8),
+            "nc4_ncm_disagreement":       round(nc4_ncc_disagreement, 8),
         }
         all_result_rows.append(result_row)
 
         logger.info(
-            f"  SUMMARY  nc1={nc1:.4f}  log10_nc1={log10_nc1:.3f}"
+            f"  SUMMARY  nc1_papyan={nc1_papyan:.4f}  log10={log10_nc1_papyan:.3f}"
             f"  nc2={nc2_etf_deviation:.4f}"
-            f"  nc3={nc3_weight_mean_alignment:.4f}"
-            f"  nc4={nc4_ncm_disagreement:.4f}"
+            f"  nc3={nc3_self_duality_frobenius:.4f}"
+            f"  nc4={nc4_ncc_disagreement:.4f}"
         )
 
     # ------------------------------------------------------------------

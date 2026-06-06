@@ -95,7 +95,24 @@ python metrics/neural_collapse.py \
 
 Output: `results/neural_collapse.csv`
 
-### Step 5 — Surrogate probes
+### Step 5 — eNTK trajectory
+
+```bash
+python metrics/entk_trajectory.py \
+    --config configs/resnet18_cifar10_200_fullstudy.yaml
+```
+
+Computes the last-layer empirical NTK at every checkpoint from pre-extracted
+`full_train` features (no autograd, no Jacobians).
+
+Output: `results/entk_summary.csv`, `results/entk_subset_indices.json`
+
+Smoke test:
+```bash
+python metrics/entk_trajectory.py --config ... --epochs 0 10 50 100 200
+```
+
+### Step 6 — Surrogate probes
 
 ```bash
 python surrogates/run_probes.py \
@@ -114,7 +131,7 @@ python surrogates/run_probes.py --config ... --epochs 0 10 50 100 200
 python surrogates/run_probes.py --config ... --probes logistic_regression lightgbm
 ```
 
-### Step 6 — Build master table
+### Step 7 — Build master table
 
 ```bash
 python analysis/build_master_table.py \
@@ -124,7 +141,7 @@ python analysis/build_master_table.py \
 Merges all metric CSVs into `results/master_trajectory.csv`.
 Can be run with partial data — missing sources produce NaN columns.
 
-### Step 7 — Plot
+### Step 8 — Plot
 
 ```bash
 python analysis/plot_main_trajectory.py \
@@ -133,7 +150,7 @@ python analysis/plot_main_trajectory.py \
 
 Writes eight figures to `plots/`.
 
-### Step 8 — Archive results before job ends
+### Step 9 — Archive results before job ends
 
 ```bash
 python scripts/archive_run_outputs.py \
@@ -170,6 +187,14 @@ training set.
 **τ fixed across all conditions** — τ=0.02 is the CKA-change stabilization threshold.
 It is never tuned per run. K=5 consecutive checkpoints prevents false triggers from single
 noisy dips.
+
+**Last-layer eNTK, not full-parameter NTK** — The eNTK module computes a closed-form
+kernel from the final linear layer only: K[i,j] = 1[y_i==y_j] × (h_iᵀh_j + bias_flag).
+This does not require autograd or Jacobian-vector products. Cross-class entries are exactly
+zero by construction — a structural property of the last-layer NTK, not numerical noise.
+It is a lightweight training-dynamics diagnostic comparable to CKA, not a substitute for
+the full-parameter NTK. A fixed 500-example stratified subset (50/class) is used throughout;
+indices are saved to `entk_subset_indices.json` and reused across all checkpoints.
 
 ---
 

@@ -138,16 +138,15 @@ surrogates:
 neural_collapse:
   layer: penultimate   # same layer as CKA and surrogates for consistent comparison
 
-# eNTK dynamics (secondary metric; see CLAUDE.md)
-# Uses a fixed stratified subset to keep computation tractable.
+# eNTK dynamics — last-layer empirical NTK (closed form, no autograd).
+# K[i,j] = 1[y_i==y_j] * (h_i^T h_j + bias_flag)
+# A fixed stratified subset is selected once and reused across all checkpoints.
 entk:
-  n_samples: 512       # stratified subset (512 / 10 classes = ~51 per class)
-  compute_freq: 5      # compute every N checkpoint epochs — skip if too slow, halve n_samples
-  metrics:
-    - relative_frobenius_change   # ||K_t - K_{t-1}||_F / ||K_{t-1}||_F
-    - cosine_similarity           # vec(K_t) · vec(K_{t-1}) / (||K_t|| ||K_{t-1}||)
-    - spectral_summary            # top-10 eigenvalues of K_t
-    - class_block_structure       # mean within-class vs between-class kernel values
+  enabled: true
+  n_subset: 500          # stratified subset; 500/10 = 50 per class for CIFAR-10
+  seed: 42               # subset sampling seed (independent of global training seed)
+  save_matrices: false   # if true, save entk_matrix_epoch_XXXX.npy (heavy artifact)
+  output_dir: null       # null = use paths.base/entk for matrix files; override if needed
 
 # Storage paths — all heavy artifacts go under /local/data/gme101/fullstudy_seed42/
 # Heavy artifacts (checkpoints, features, NTK matrices) must NEVER be committed to git.

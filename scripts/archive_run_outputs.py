@@ -58,6 +58,8 @@ ALWAYS_COPY_RESULTS = [
 OPTIONAL_COPY_RESULTS = [
     "probe_results_wide.csv",
     "probe_results_long.csv",
+    "entk_summary.csv",
+    "entk_subset_indices.json",
 ]
 
 FORBIDDEN_EXTENSIONS = {".pt", ".npy", ".npz", ".pkl", ".h5", ".hdf5"}
