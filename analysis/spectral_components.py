@@ -365,7 +365,6 @@ def build_probe(seed: int):
         LogisticRegression(
             max_iter=1000,
             solver="lbfgs",
-            multi_class="auto",
             n_jobs=-1,
             random_state=seed,
         ),

@@ -1,0 +1,7 @@
+comparison,comparison_type,mean_final_cka,std_final_cka,n
+within LR=0.05 across seeds,within_lr_cross_seed,0.9644887782720739,0.0007282107074703237,10
+within LR=0.10 across seeds,within_lr_cross_seed,0.9599699916349118,0.0032759276585487447,10
+within LR=0.20 across seeds,within_lr_cross_seed,0.9496070074028309,0.00243938784029195,10
+"LR=0.05 vs LR=0.10, seed-matched",cross_lr_seed_matched,0.9611519707068166,0.002919819851940127,5
+"LR=0.05 vs LR=0.20, seed-matched",cross_lr_seed_matched,0.9479367510087074,0.0027216107101840368,5
+"LR=0.10 vs LR=0.20, seed-matched",cross_lr_seed_matched,0.9513433175567775,0.003500281723488263,5
