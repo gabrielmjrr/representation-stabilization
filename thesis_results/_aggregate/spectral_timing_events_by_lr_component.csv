@@ -1,0 +1,10 @@
+LR,Component,Mean epoch (95% of final),Std epoch,n
+0.05,full,65.0,11.8,5
+0.05,main,31.2,9.5,5
+0.05,residual,3.2,2.5,5
+0.10,full,108.0,9.8,5
+0.10,main,82.0,7.5,5
+0.10,residual,2.2,2.4,5
+0.20,full,138.0,7.5,5
+0.20,main,126.0,4.9,5
+0.20,residual,1.0,0.0,5

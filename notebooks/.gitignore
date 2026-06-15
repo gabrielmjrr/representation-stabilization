@@ -1,1 +1,3 @@
 .generated/
+_run_dashboard.py
+__pycache__/
