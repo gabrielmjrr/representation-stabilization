@@ -31,10 +31,10 @@ import numpy as np
 import pandas as pd
 
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
-from src.metrics import spectral as sp
-from src.metrics import similarity as sim
-from src.surrogates import probes_extended as pe
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))  # repo root
+from metrics import spectral as sp
+from metrics import similarity as sim
+from surrogates import probes_extended as pe
 
 LR_MAP = {"005": 0.05, "010": 0.10, "020": 0.20}
 DEFAULT_KS = [1, 2, 4, 8, 16, 32, 39, 52, 64, 128, 256, 512]

@@ -109,7 +109,9 @@ def fisher_ratio_per_component(Phi: np.ndarray, y: np.ndarray, V: np.ndarray, k:
     profile would refute it. Also the cheap bridge to neural-collapse class geometry.
     Returns an array of length k (Fisher ratio per component, component order = V order).
     """
-    Z = project_topk(Phi, V, k, mean=mean)            # (n, k)
+    k = min(int(k), V.shape[1])
+    Z = project_topk(Phi, V, k, mean=mean)            # (n, k_eff)
+    k = Z.shape[1]
     classes = np.unique(y)
     grand = Z.mean(axis=0)                              # (k,)
     between = np.zeros(k)
