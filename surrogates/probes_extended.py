@@ -20,6 +20,9 @@ import numpy as np
 from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import log_loss
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+warnings.filterwarnings('ignore', category=ConvergenceWarning)
 
 
 def _standardize(X_train, X_test):
@@ -38,7 +41,7 @@ def _margin_from_decision(scores: np.ndarray, y: np.ndarray) -> float:
 
 
 def fit_probe(X_train, y_train, X_test, y_test, C: float = 1.0,
-              max_iter: int = 1000, standardize: bool = True) -> dict:
+              max_iter: int = 3000, standardize: bool = True) -> dict:
     """Logistic-regression probe. Returns acc, NLL, and mean margin on the test set.
 
     Standardization is ON by default and is recorded -- note that standardizing breaks
