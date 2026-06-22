@@ -1,0 +1,16 @@
+run,lr,seed,probe_src,final_acc,t_suff,t_stab_cka,t_svcca,t_sublock,gap_cka,gap_svcca,gap_lock_vs_cka
+final_lr005_seed0,0.05,0,logistic_regression,0.9523,140.0,160.0,160.0,150.0,20.0,20.0,10.0
+final_lr005_seed1,0.05,1,logistic_regression,0.9514,140.0,160.0,170.0,160.0,20.0,30.0,0.0
+final_lr005_seed2,0.05,2,logistic_regression,0.9545,130.0,160.0,160.0,150.0,30.0,30.0,10.0
+final_lr005_seed3,0.05,3,logistic_regression,0.9536,140.0,150.0,170.0,150.0,10.0,30.0,0.0
+final_lr005_seed42,0.05,42,logistic_regression,0.9525,140.0,150.0,160.0,150.0,10.0,20.0,0.0
+final_lr010_seed0,0.1,0,logistic_regression,0.9574,160.0,170.0,180.0,170.0,10.0,20.0,0.0
+final_lr010_seed1,0.1,1,logistic_regression,0.9533,150.0,170.0,180.0,150.0,20.0,30.0,20.0
+final_lr010_seed2,0.1,2,logistic_regression,0.9562,150.0,170.0,180.0,160.0,20.0,30.0,10.0
+final_lr010_seed3,0.1,3,logistic_regression,0.9545,160.0,170.0,180.0,160.0,10.0,20.0,10.0
+final_lr010_seed42,0.1,42,logistic_regression,0.9551,160.0,170.0,180.0,160.0,10.0,20.0,10.0
+final_lr020_seed0,0.2,0,logistic_regression,0.9524,160.0,180.0,180.0,170.0,20.0,20.0,10.0
+final_lr020_seed1,0.2,1,logistic_regression,0.9503,170.0,180.0,180.0,170.0,10.0,10.0,10.0
+final_lr020_seed2,0.2,2,logistic_regression,0.9512,170.0,180.0,180.0,170.0,10.0,10.0,10.0
+final_lr020_seed3,0.2,3,logistic_regression,0.9483,170.0,180.0,180.0,170.0,10.0,10.0,10.0
+final_lr020_seed42,0.2,42,logistic_regression,0.9494,160.0,180.0,180.0,170.0,20.0,20.0,10.0

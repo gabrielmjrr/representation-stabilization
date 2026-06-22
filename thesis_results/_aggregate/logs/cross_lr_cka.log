@@ -1,0 +1,575 @@
+2026-06-12 10:41:45  INFO  ============================================================
+2026-06-12 10:41:45  INFO  cross_lr_cka.py  start
+2026-06-12 10:41:45  INFO    base_dir         = /local/data/gme101
+2026-06-12 10:41:45  INFO    split            = full_test
+2026-06-12 10:41:45  INFO    skip_heatmaps    = False
+2026-06-12 10:41:45  INFO    overwrite        = True
+2026-06-12 10:41:45  INFO    save_per_seed    = False
+2026-06-12 10:41:45  INFO  ============================================================
+2026-06-12 10:41:45  INFO  Epoch filter: [0, 100, 200]
+2026-06-12 10:41:45  INFO  Discovered 15 run(s).
+2026-06-12 10:41:45  INFO  Available LRs:   [0.05, 0.1, 0.2]
+2026-06-12 10:41:45  INFO  Available seeds: [0, 1, 2, 3, 42]
+2026-06-12 10:41:45  INFO  LR pairs:        [(0.05, 0.1), (0.05, 0.2), (0.1, 0.2)]
+2026-06-12 10:41:45  INFO  --- Seed 0 ---
+2026-06-12 10:41:45  INFO    Loading: final_lr005_seed0
+2026-06-12 10:41:45  INFO    final_lr005_seed0: loaded 3 epochs from full_test
+2026-06-12 10:41:45  INFO    Loading: final_lr010_seed0
+2026-06-12 10:41:45  INFO    final_lr010_seed0: loaded 3 epochs from full_test
+2026-06-12 10:41:45  INFO    Loading: final_lr020_seed0
+2026-06-12 10:41:45  INFO    final_lr020_seed0: loaded 3 epochs from full_test
+2026-06-12 10:41:45  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=0
+2026-06-12 10:41:46  INFO      heatmap CKA: 9/9  ep(200,200)=0.9630
+2026-06-12 10:41:46  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed0.csv
+2026-06-12 10:41:46  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=0
+2026-06-12 10:41:46  INFO      heatmap CKA: 9/9  ep(200,200)=0.9511
+2026-06-12 10:41:46  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed0.csv
+2026-06-12 10:41:46  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=0
+2026-06-12 10:41:47  INFO      heatmap CKA: 9/9  ep(200,200)=0.9562
+2026-06-12 10:41:47  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed0.csv
+2026-06-12 10:41:47  INFO  --- Seed 1 ---
+2026-06-12 10:41:47  INFO    Loading: final_lr005_seed1
+2026-06-12 10:41:47  INFO    final_lr005_seed1: loaded 3 epochs from full_test
+2026-06-12 10:41:47  INFO    Loading: final_lr010_seed1
+2026-06-12 10:41:47  INFO    final_lr010_seed1: loaded 3 epochs from full_test
+2026-06-12 10:41:47  INFO    Loading: final_lr020_seed1
+2026-06-12 10:41:47  INFO    final_lr020_seed1: loaded 3 epochs from full_test
+2026-06-12 10:41:47  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=1
+2026-06-12 10:41:47  INFO      heatmap CKA: 9/9  ep(200,200)=0.9563
+2026-06-12 10:41:47  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed1.csv
+2026-06-12 10:41:47  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=1
+2026-06-12 10:41:47  INFO      heatmap CKA: 9/9  ep(200,200)=0.9474
+2026-06-12 10:41:47  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed1.csv
+2026-06-12 10:41:47  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=1
+2026-06-12 10:41:48  INFO      heatmap CKA: 9/9  ep(200,200)=0.9476
+2026-06-12 10:41:48  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed1.csv
+2026-06-12 10:41:48  INFO  --- Seed 2 ---
+2026-06-12 10:41:48  INFO    Loading: final_lr005_seed2
+2026-06-12 10:41:48  INFO    final_lr005_seed2: loaded 3 epochs from full_test
+2026-06-12 10:41:48  INFO    Loading: final_lr010_seed2
+2026-06-12 10:41:48  INFO    final_lr010_seed2: loaded 3 epochs from full_test
+2026-06-12 10:41:48  INFO    Loading: final_lr020_seed2
+2026-06-12 10:41:48  INFO    final_lr020_seed2: loaded 3 epochs from full_test
+2026-06-12 10:41:48  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=2
+2026-06-12 10:41:48  INFO      heatmap CKA: 9/9  ep(200,200)=0.9632
+2026-06-12 10:41:48  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed2.csv
+2026-06-12 10:41:48  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=2
+2026-06-12 10:41:49  INFO      heatmap CKA: 9/9  ep(200,200)=0.9493
+2026-06-12 10:41:49  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed2.csv
+2026-06-12 10:41:49  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=2
+2026-06-12 10:41:49  INFO      heatmap CKA: 9/9  ep(200,200)=0.9531
+2026-06-12 10:41:49  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed2.csv
+2026-06-12 10:41:49  INFO  --- Seed 3 ---
+2026-06-12 10:41:49  INFO    Loading: final_lr005_seed3
+2026-06-12 10:41:49  INFO    final_lr005_seed3: loaded 3 epochs from full_test
+2026-06-12 10:41:49  INFO    Loading: final_lr010_seed3
+2026-06-12 10:41:49  INFO    final_lr010_seed3: loaded 3 epochs from full_test
+2026-06-12 10:41:49  INFO    Loading: final_lr020_seed3
+2026-06-12 10:41:49  INFO    final_lr020_seed3: loaded 3 epochs from full_test
+2026-06-12 10:41:49  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=3
+2026-06-12 10:41:50  INFO      heatmap CKA: 9/9  ep(200,200)=0.9606
+2026-06-12 10:41:50  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed3.csv
+2026-06-12 10:41:50  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=3
+2026-06-12 10:41:50  INFO      heatmap CKA: 9/9  ep(200,200)=0.9438
+2026-06-12 10:41:50  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed3.csv
+2026-06-12 10:41:50  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=3
+2026-06-12 10:41:50  INFO      heatmap CKA: 9/9  ep(200,200)=0.9484
+2026-06-12 10:41:50  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed3.csv
+2026-06-12 10:41:50  INFO  --- Seed 42 ---
+2026-06-12 10:41:50  INFO    Loading: final_lr005_seed42
+2026-06-12 10:41:50  INFO    final_lr005_seed42: loaded 3 epochs from full_test
+2026-06-12 10:41:50  INFO    Loading: final_lr010_seed42
+2026-06-12 10:41:50  INFO    final_lr010_seed42: loaded 3 epochs from full_test
+2026-06-12 10:41:50  INFO    Loading: final_lr020_seed42
+2026-06-12 10:41:50  INFO    final_lr020_seed42: loaded 3 epochs from full_test
+2026-06-12 10:41:50  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=42
+2026-06-12 10:41:51  INFO      heatmap CKA: 9/9  ep(200,200)=0.9627
+2026-06-12 10:41:51  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed42.csv
+2026-06-12 10:41:51  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=42
+2026-06-12 10:41:51  INFO      heatmap CKA: 9/9  ep(200,200)=0.9481
+2026-06-12 10:41:51  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed42.csv
+2026-06-12 10:41:51  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=42
+2026-06-12 10:41:52  INFO      heatmap CKA: 9/9  ep(200,200)=0.9515
+2026-06-12 10:41:52  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed42.csv
+2026-06-12 10:41:52  INFO  [same_epoch_long]: saved 45 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_same_epoch_long.csv
+2026-06-12 10:41:52  INFO  [same_epoch_summary]: saved 9 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_same_epoch_summary.csv
+2026-06-12 10:41:52  INFO  [heatmap_summary]: saved 15 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_heatmap_summary.csv
+2026-06-12 10:41:52  INFO  [cross_lr_final_summary]: saved 3 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_final_summary.csv
+2026-06-12 10:41:52  INFO  Building mean heatmaps across seeds...
+2026-06-12 10:41:52  INFO    Mean heatmap LR=0.05 vs LR=0.10: 5 seed(s), shape (3, 3)
+2026-06-12 10:41:52  INFO    Mean heatmap LR=0.05 vs LR=0.20: 5 seed(s), shape (3, 3)
+2026-06-12 10:41:52  INFO    Mean heatmap LR=0.10 vs LR=0.20: 5 seed(s), shape (3, 3)
+2026-06-12 10:41:52  INFO  Saved mean heatmap: heatmap_lr005_vs_lr010_mean.csv
+2026-06-12 10:41:52  INFO  Saved mean heatmap: heatmap_lr005_vs_lr020_mean.csv
+2026-06-12 10:41:52  INFO  Saved mean heatmap: heatmap_lr010_vs_lr020_mean.csv
+2026-06-12 10:41:52  INFO  Computing final-epoch all-run CKA matrix...
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr005_seed0
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr005_seed1
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr005_seed2
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr005_seed3
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr005_seed42
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr010_seed0
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr010_seed1
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr010_seed2
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr010_seed3
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr010_seed42
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr020_seed0
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr020_seed1
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr020_seed2
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr020_seed3
+2026-06-12 10:41:52  INFO    Loaded final epoch for final_lr020_seed42
+2026-06-12 10:41:52  INFO    final matrix: 20/120  final_lr005_seed1 vs final_lr010_seed0  CKA=0.9598
+2026-06-12 10:41:53  INFO    final matrix: 40/120  final_lr005_seed2 vs final_lr020_seed2  CKA=0.9493
+2026-06-12 10:41:54  INFO    final matrix: 60/120  final_lr005_seed42 vs final_lr010_seed42  CKA=0.9627
+2026-06-12 10:41:55  INFO    final matrix: 80/120  final_lr010_seed1 vs final_lr020_seed0  CKA=0.9493
+2026-06-12 10:41:55  INFO    final matrix: 100/120  final_lr010_seed42 vs final_lr010_seed42  CKA=1.0000
+2026-06-12 10:41:56  INFO    final matrix: 120/120  final_lr020_seed42 vs final_lr020_seed42  CKA=1.0000
+2026-06-12 10:41:56  INFO  Saved: thesis_results/_aggregate/cross_lr_cka/final_epoch_cka_matrix.csv
+2026-06-12 10:41:56  INFO  [final_long]: saved 120 rows  ->  thesis_results/_aggregate/cross_lr_cka/final_epoch_cka_long.csv
+2026-06-12 10:41:56  INFO  [within_lr_summary]: saved 3 rows  ->  thesis_results/_aggregate/cross_lr_cka/within_lr_cross_seed_final_summary.csv
+2026-06-12 10:41:56  INFO  [combined_summary]: saved 6 rows  ->  thesis_results/_aggregate/cross_lr_cka/combined_final_similarity_summary.csv
+2026-06-12 10:41:56  INFO  Creating plots...
+2026-06-12 10:41:56  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/cross_lr_cka_same_epoch_trajectory.png
+2026-06-12 10:41:56  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/final_epoch_all_runs_cka_matrix.png
+2026-06-12 10:41:57  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/final_similarity_summary_bar.png
+2026-06-12 10:41:57  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr005_vs_lr010.png
+2026-06-12 10:41:57  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr005_vs_lr020.png
+2026-06-12 10:41:57  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr010_vs_lr020.png
+2026-06-12 10:41:57  INFO  cross_lr_cka.py  done.
+2026-06-12 10:42:18  INFO  ============================================================
+2026-06-12 10:42:18  INFO  cross_lr_cka.py  start
+2026-06-12 10:42:18  INFO    base_dir         = /local/data/gme101
+2026-06-12 10:42:18  INFO    split            = full_test
+2026-06-12 10:42:18  INFO    skip_heatmaps    = False
+2026-06-12 10:42:18  INFO    overwrite        = True
+2026-06-12 10:42:18  INFO    save_per_seed    = False
+2026-06-12 10:42:18  INFO  ============================================================
+2026-06-12 10:42:18  INFO  Discovered 15 run(s).
+2026-06-12 10:42:18  INFO  Available LRs:   [0.05, 0.1, 0.2]
+2026-06-12 10:42:18  INFO  Available seeds: [0, 1, 2, 3, 42]
+2026-06-12 10:42:18  INFO  LR pairs:        [(0.05, 0.1), (0.05, 0.2), (0.1, 0.2)]
+2026-06-12 10:42:18  INFO  --- Seed 0 ---
+2026-06-12 10:42:18  INFO    Loading: final_lr005_seed0
+2026-06-12 10:42:18  INFO    final_lr005_seed0: loaded 45 epochs from full_test
+2026-06-12 10:42:18  INFO    Loading: final_lr010_seed0
+2026-06-12 10:42:19  INFO    final_lr010_seed0: loaded 45 epochs from full_test
+2026-06-12 10:42:19  INFO    Loading: final_lr020_seed0
+2026-06-12 10:42:19  INFO    final_lr020_seed0: loaded 45 epochs from full_test
+2026-06-12 10:42:19  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=0
+2026-06-12 10:42:23  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6774
+2026-06-12 10:42:27  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7207
+2026-06-12 10:42:31  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7696
+2026-06-12 10:42:36  INFO      heatmap CKA: 400/2025  ep(8,150)=0.6834
+2026-06-12 10:42:40  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7238
+2026-06-12 10:42:44  INFO      heatmap CKA: 600/2025  ep(13,14)=0.8299
+2026-06-12 10:42:48  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7688
+2026-06-12 10:42:53  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8286
+2026-06-12 10:42:57  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7590
+2026-06-12 10:43:01  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7852
+2026-06-12 10:43:05  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.8248
+2026-06-12 10:43:10  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8183
+2026-06-12 10:43:14  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7979
+2026-06-12 10:43:18  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6467
+2026-06-12 10:43:23  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7818
+2026-06-12 10:43:27  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7340
+2026-06-12 10:43:31  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.8186
+2026-06-12 10:43:36  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9242
+2026-06-12 10:43:40  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6498
+2026-06-12 10:43:44  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6988
+2026-06-12 10:43:45  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9630
+2026-06-12 10:43:45  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed0.csv
+2026-06-12 10:43:45  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=0
+2026-06-12 10:43:49  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6948
+2026-06-12 10:43:53  INFO      heatmap CKA: 200/2025  ep(4,19)=0.6560
+2026-06-12 10:43:57  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7827
+2026-06-12 10:44:01  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7618
+2026-06-12 10:44:05  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6716
+2026-06-12 10:44:09  INFO      heatmap CKA: 600/2025  ep(13,14)=0.8230
+2026-06-12 10:44:14  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7027
+2026-06-12 10:44:18  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8178
+2026-06-12 10:44:22  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7642
+2026-06-12 10:44:26  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7336
+2026-06-12 10:44:31  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7760
+2026-06-12 10:44:35  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7964
+2026-06-12 10:44:39  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8407
+2026-06-12 10:44:44  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.5588
+2026-06-12 10:44:48  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7116
+2026-06-12 10:44:53  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.6212
+2026-06-12 10:44:57  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7205
+2026-06-12 10:45:01  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9208
+2026-06-12 10:45:06  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.5910
+2026-06-12 10:45:10  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6232
+2026-06-12 10:45:11  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9511
+2026-06-12 10:45:11  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed0.csv
+2026-06-12 10:45:11  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=0
+2026-06-12 10:45:15  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6471
+2026-06-12 10:45:20  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7125
+2026-06-12 10:45:24  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7624
+2026-06-12 10:45:28  INFO      heatmap CKA: 400/2025  ep(8,150)=0.6809
+2026-06-12 10:45:32  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6994
+2026-06-12 10:45:36  INFO      heatmap CKA: 600/2025  ep(13,14)=0.8386
+2026-06-12 10:45:41  INFO      heatmap CKA: 700/2025  ep(15,28)=0.6902
+2026-06-12 10:45:45  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7547
+2026-06-12 10:45:49  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7101
+2026-06-12 10:45:53  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7212
+2026-06-12 10:45:58  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7234
+2026-06-12 10:46:02  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7819
+2026-06-12 10:46:06  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7782
+2026-06-12 10:46:11  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6443
+2026-06-12 10:46:15  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7628
+2026-06-12 10:46:19  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.6583
+2026-06-12 10:46:24  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7489
+2026-06-12 10:46:28  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.8821
+2026-06-12 10:46:32  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.5947
+2026-06-12 10:46:37  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6271
+2026-06-12 10:46:38  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9562
+2026-06-12 10:46:38  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed0.csv
+2026-06-12 10:46:38  INFO  --- Seed 1 ---
+2026-06-12 10:46:38  INFO    Loading: final_lr005_seed1
+2026-06-12 10:46:38  INFO    final_lr005_seed1: loaded 45 epochs from full_test
+2026-06-12 10:46:38  INFO    Loading: final_lr010_seed1
+2026-06-12 10:46:38  INFO    final_lr010_seed1: loaded 45 epochs from full_test
+2026-06-12 10:46:38  INFO    Loading: final_lr020_seed1
+2026-06-12 10:46:39  INFO    final_lr020_seed1: loaded 45 epochs from full_test
+2026-06-12 10:46:39  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=1
+2026-06-12 10:46:43  INFO      heatmap CKA: 100/2025  ep(2,9)=0.7477
+2026-06-12 10:46:47  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7982
+2026-06-12 10:46:51  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7341
+2026-06-12 10:46:56  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7045
+2026-06-12 10:47:00  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7718
+2026-06-12 10:47:04  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7762
+2026-06-12 10:47:09  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8545
+2026-06-12 10:47:13  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8393
+2026-06-12 10:47:17  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7784
+2026-06-12 10:47:21  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7954
+2026-06-12 10:47:26  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.8085
+2026-06-12 10:47:30  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8364
+2026-06-12 10:47:35  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8174
+2026-06-12 10:47:39  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6674
+2026-06-12 10:47:43  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7286
+2026-06-12 10:47:47  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7248
+2026-06-12 10:47:51  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7886
+2026-06-12 10:47:55  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9209
+2026-06-12 10:48:00  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6663
+2026-06-12 10:48:04  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.7051
+2026-06-12 10:48:05  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9563
+2026-06-12 10:48:05  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed1.csv
+2026-06-12 10:48:05  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=1
+2026-06-12 10:48:09  INFO      heatmap CKA: 100/2025  ep(2,9)=0.7512
+2026-06-12 10:48:13  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7709
+2026-06-12 10:48:17  INFO      heatmap CKA: 300/2025  ep(6,50)=0.8028
+2026-06-12 10:48:22  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7265
+2026-06-12 10:48:26  INFO      heatmap CKA: 500/2025  ep(11,4)=0.5728
+2026-06-12 10:48:30  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7685
+2026-06-12 10:48:35  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7923
+2026-06-12 10:48:39  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8455
+2026-06-12 10:48:43  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7650
+2026-06-12 10:48:47  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7578
+2026-06-12 10:48:51  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7653
+2026-06-12 10:48:55  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7625
+2026-06-12 10:49:00  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8291
+2026-06-12 10:49:04  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.5360
+2026-06-12 10:49:08  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7039
+2026-06-12 10:49:12  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.6985
+2026-06-12 10:49:16  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7400
+2026-06-12 10:49:20  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9166
+2026-06-12 10:49:25  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6224
+2026-06-12 10:49:29  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6569
+2026-06-12 10:49:30  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9474
+2026-06-12 10:49:30  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed1.csv
+2026-06-12 10:49:30  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=1
+2026-06-12 10:49:34  INFO      heatmap CKA: 100/2025  ep(2,9)=0.7411
+2026-06-12 10:49:39  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7414
+2026-06-12 10:49:43  INFO      heatmap CKA: 300/2025  ep(6,50)=0.8010
+2026-06-12 10:49:47  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7153
+2026-06-12 10:49:51  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6265
+2026-06-12 10:49:56  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7773
+2026-06-12 10:50:00  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7698
+2026-06-12 10:50:04  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8187
+2026-06-12 10:50:08  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7120
+2026-06-12 10:50:12  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7407
+2026-06-12 10:50:16  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.8026
+2026-06-12 10:50:21  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.6958
+2026-06-12 10:50:25  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7710
+2026-06-12 10:50:29  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.5835
+2026-06-12 10:50:33  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7379
+2026-06-12 10:50:37  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7606
+2026-06-12 10:50:41  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7787
+2026-06-12 10:50:45  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.8802
+2026-06-12 10:50:49  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6442
+2026-06-12 10:50:53  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6758
+2026-06-12 10:50:54  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9476
+2026-06-12 10:50:54  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed1.csv
+2026-06-12 10:50:54  INFO  --- Seed 2 ---
+2026-06-12 10:50:54  INFO    Loading: final_lr005_seed2
+2026-06-12 10:50:55  INFO    final_lr005_seed2: loaded 45 epochs from full_test
+2026-06-12 10:50:55  INFO    Loading: final_lr010_seed2
+2026-06-12 10:50:55  INFO    final_lr010_seed2: loaded 45 epochs from full_test
+2026-06-12 10:50:55  INFO    Loading: final_lr020_seed2
+2026-06-12 10:50:55  INFO    final_lr020_seed2: loaded 45 epochs from full_test
+2026-06-12 10:50:55  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=2
+2026-06-12 10:50:59  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6940
+2026-06-12 10:51:03  INFO      heatmap CKA: 200/2025  ep(4,19)=0.6332
+2026-06-12 10:51:07  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7834
+2026-06-12 10:51:11  INFO      heatmap CKA: 400/2025  ep(8,150)=0.6696
+2026-06-12 10:51:15  INFO      heatmap CKA: 500/2025  ep(11,4)=0.8059
+2026-06-12 10:51:19  INFO      heatmap CKA: 600/2025  ep(13,14)=0.8311
+2026-06-12 10:51:23  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8213
+2026-06-12 10:51:27  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7927
+2026-06-12 10:51:31  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7669
+2026-06-12 10:51:35  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7438
+2026-06-12 10:51:39  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.8251
+2026-06-12 10:51:43  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8345
+2026-06-12 10:51:47  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7943
+2026-06-12 10:51:51  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.7176
+2026-06-12 10:51:55  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7197
+2026-06-12 10:51:59  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7540
+2026-06-12 10:52:03  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.8042
+2026-06-12 10:52:07  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9247
+2026-06-12 10:52:11  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6436
+2026-06-12 10:52:16  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.7286
+2026-06-12 10:52:17  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9632
+2026-06-12 10:52:17  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed2.csv
+2026-06-12 10:52:17  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=2
+2026-06-12 10:52:21  INFO      heatmap CKA: 100/2025  ep(2,9)=0.7051
+2026-06-12 10:52:25  INFO      heatmap CKA: 200/2025  ep(4,19)=0.6649
+2026-06-12 10:52:29  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7974
+2026-06-12 10:52:33  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7454
+2026-06-12 10:52:38  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6926
+2026-06-12 10:52:42  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7483
+2026-06-12 10:52:46  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8178
+2026-06-12 10:52:50  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7928
+2026-06-12 10:52:54  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7648
+2026-06-12 10:52:58  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7512
+2026-06-12 10:53:02  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7888
+2026-06-12 10:53:07  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7787
+2026-06-12 10:53:11  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8362
+2026-06-12 10:53:15  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6250
+2026-06-12 10:53:19  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.6112
+2026-06-12 10:53:24  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7082
+2026-06-12 10:53:28  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7348
+2026-06-12 10:53:32  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9216
+2026-06-12 10:53:36  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6076
+2026-06-12 10:53:40  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6458
+2026-06-12 10:53:41  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9493
+2026-06-12 10:53:41  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed2.csv
+2026-06-12 10:53:41  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=2
+2026-06-12 10:53:45  INFO      heatmap CKA: 100/2025  ep(2,9)=0.7259
+2026-06-12 10:53:49  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7604
+2026-06-12 10:53:53  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7929
+2026-06-12 10:53:57  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7404
+2026-06-12 10:54:02  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6943
+2026-06-12 10:54:06  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7414
+2026-06-12 10:54:10  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7431
+2026-06-12 10:54:14  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7690
+2026-06-12 10:54:19  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7329
+2026-06-12 10:54:23  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7516
+2026-06-12 10:54:27  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7987
+2026-06-12 10:54:32  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8050
+2026-06-12 10:54:36  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8137
+2026-06-12 10:54:40  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6545
+2026-06-12 10:54:44  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7191
+2026-06-12 10:54:49  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7726
+2026-06-12 10:54:53  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7541
+2026-06-12 10:54:57  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.8901
+2026-06-12 10:55:01  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6191
+2026-06-12 10:55:05  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6571
+2026-06-12 10:55:06  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9531
+2026-06-12 10:55:06  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed2.csv
+2026-06-12 10:55:06  INFO  --- Seed 3 ---
+2026-06-12 10:55:06  INFO    Loading: final_lr005_seed3
+2026-06-12 10:55:06  INFO    final_lr005_seed3: loaded 45 epochs from full_test
+2026-06-12 10:55:06  INFO    Loading: final_lr010_seed3
+2026-06-12 10:55:07  INFO    final_lr010_seed3: loaded 45 epochs from full_test
+2026-06-12 10:55:07  INFO    Loading: final_lr020_seed3
+2026-06-12 10:55:07  INFO    final_lr020_seed3: loaded 45 epochs from full_test
+2026-06-12 10:55:07  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=3
+2026-06-12 10:55:11  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6724
+2026-06-12 10:55:15  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7277
+2026-06-12 10:55:19  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7969
+2026-06-12 10:55:23  INFO      heatmap CKA: 400/2025  ep(8,150)=0.6488
+2026-06-12 10:55:27  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7854
+2026-06-12 10:55:31  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7711
+2026-06-12 10:55:35  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8349
+2026-06-12 10:55:39  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8090
+2026-06-12 10:55:43  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7613
+2026-06-12 10:55:48  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7813
+2026-06-12 10:55:52  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7424
+2026-06-12 10:55:56  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8032
+2026-06-12 10:56:00  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7873
+2026-06-12 10:56:04  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6576
+2026-06-12 10:56:09  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7031
+2026-06-12 10:56:13  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7610
+2026-06-12 10:56:17  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.8106
+2026-06-12 10:56:21  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9241
+2026-06-12 10:56:25  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6499
+2026-06-12 10:56:29  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6935
+2026-06-12 10:56:30  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9606
+2026-06-12 10:56:30  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed3.csv
+2026-06-12 10:56:30  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=3
+2026-06-12 10:56:34  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6968
+2026-06-12 10:56:38  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7852
+2026-06-12 10:56:42  INFO      heatmap CKA: 300/2025  ep(6,50)=0.8257
+2026-06-12 10:56:46  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7565
+2026-06-12 10:56:50  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6333
+2026-06-12 10:56:55  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7721
+2026-06-12 10:56:59  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8072
+2026-06-12 10:57:03  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7940
+2026-06-12 10:57:07  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7609
+2026-06-12 10:57:11  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7429
+2026-06-12 10:57:15  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7830
+2026-06-12 10:57:19  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7880
+2026-06-12 10:57:23  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8252
+2026-06-12 10:57:27  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.5158
+2026-06-12 10:57:31  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7109
+2026-06-12 10:57:36  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7208
+2026-06-12 10:57:40  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7327
+2026-06-12 10:57:44  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9145
+2026-06-12 10:57:48  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6178
+2026-06-12 10:57:52  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6520
+2026-06-12 10:57:53  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9438
+2026-06-12 10:57:53  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed3.csv
+2026-06-12 10:57:53  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=3
+2026-06-12 10:57:58  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6167
+2026-06-12 10:58:02  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7447
+2026-06-12 10:58:06  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7908
+2026-06-12 10:58:10  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7466
+2026-06-12 10:58:14  INFO      heatmap CKA: 500/2025  ep(11,4)=0.6610
+2026-06-12 10:58:18  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7596
+2026-06-12 10:58:22  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7893
+2026-06-12 10:58:26  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7821
+2026-06-12 10:58:30  INFO      heatmap CKA: 900/2025  ep(19,200)=0.6923
+2026-06-12 10:58:34  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7457
+2026-06-12 10:58:38  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7665
+2026-06-12 10:58:42  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.8061
+2026-06-12 10:58:46  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7830
+2026-06-12 10:58:50  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.5550
+2026-06-12 10:58:54  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7433
+2026-06-12 10:58:59  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7487
+2026-06-12 10:59:03  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7507
+2026-06-12 10:59:07  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.8802
+2026-06-12 10:59:12  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6181
+2026-06-12 10:59:16  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6567
+2026-06-12 10:59:17  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9484
+2026-06-12 10:59:17  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed3.csv
+2026-06-12 10:59:17  INFO  --- Seed 42 ---
+2026-06-12 10:59:17  INFO    Loading: final_lr005_seed42
+2026-06-12 10:59:17  INFO    final_lr005_seed42: loaded 45 epochs from full_test
+2026-06-12 10:59:17  INFO    Loading: final_lr010_seed42
+2026-06-12 10:59:17  INFO    final_lr010_seed42: loaded 45 epochs from full_test
+2026-06-12 10:59:17  INFO    Loading: final_lr020_seed42
+2026-06-12 10:59:18  INFO    final_lr020_seed42: loaded 45 epochs from full_test
+2026-06-12 10:59:18  INFO    Computing heatmap: LR=0.05 vs LR=0.10  seed=42
+2026-06-12 10:59:22  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6911
+2026-06-12 10:59:26  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7570
+2026-06-12 10:59:30  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7533
+2026-06-12 10:59:34  INFO      heatmap CKA: 400/2025  ep(8,150)=0.6980
+2026-06-12 10:59:38  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7202
+2026-06-12 10:59:42  INFO      heatmap CKA: 600/2025  ep(13,14)=0.8548
+2026-06-12 10:59:46  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8301
+2026-06-12 10:59:50  INFO      heatmap CKA: 800/2025  ep(17,100)=0.8065
+2026-06-12 10:59:54  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7374
+2026-06-12 10:59:58  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.8173
+2026-06-12 11:00:02  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.8239
+2026-06-12 11:00:06  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7586
+2026-06-12 11:00:10  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8110
+2026-06-12 11:00:14  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6370
+2026-06-12 11:00:18  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7277
+2026-06-12 11:00:22  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7857
+2026-06-12 11:00:26  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7820
+2026-06-12 11:00:30  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9295
+2026-06-12 11:00:34  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6878
+2026-06-12 11:00:38  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.7200
+2026-06-12 11:00:39  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9627
+2026-06-12 11:00:39  INFO    Saved heatmap: heatmap_lr005_vs_lr010_seed42.csv
+2026-06-12 11:00:39  INFO    Computing heatmap: LR=0.05 vs LR=0.20  seed=42
+2026-06-12 11:00:43  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6821
+2026-06-12 11:00:48  INFO      heatmap CKA: 200/2025  ep(4,19)=0.7624
+2026-06-12 11:00:52  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7598
+2026-06-12 11:00:56  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7522
+2026-06-12 11:01:00  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7265
+2026-06-12 11:01:04  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7716
+2026-06-12 11:01:08  INFO      heatmap CKA: 700/2025  ep(15,28)=0.8094
+2026-06-12 11:01:13  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7867
+2026-06-12 11:01:17  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7312
+2026-06-12 11:01:21  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7809
+2026-06-12 11:01:26  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7507
+2026-06-12 11:01:30  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7099
+2026-06-12 11:01:34  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.8101
+2026-06-12 11:01:38  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6322
+2026-06-12 11:01:42  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.6620
+2026-06-12 11:01:46  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7333
+2026-06-12 11:01:50  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7015
+2026-06-12 11:01:54  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.9224
+2026-06-12 11:01:58  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6270
+2026-06-12 11:02:02  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6437
+2026-06-12 11:02:03  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9481
+2026-06-12 11:02:03  INFO    Saved heatmap: heatmap_lr005_vs_lr020_seed42.csv
+2026-06-12 11:02:03  INFO    Computing heatmap: LR=0.10 vs LR=0.20  seed=42
+2026-06-12 11:02:07  INFO      heatmap CKA: 100/2025  ep(2,9)=0.6325
+2026-06-12 11:02:11  INFO      heatmap CKA: 200/2025  ep(4,19)=0.6752
+2026-06-12 11:02:15  INFO      heatmap CKA: 300/2025  ep(6,50)=0.7549
+2026-06-12 11:02:19  INFO      heatmap CKA: 400/2025  ep(8,150)=0.7148
+2026-06-12 11:02:23  INFO      heatmap CKA: 500/2025  ep(11,4)=0.7401
+2026-06-12 11:02:27  INFO      heatmap CKA: 600/2025  ep(13,14)=0.7802
+2026-06-12 11:02:31  INFO      heatmap CKA: 700/2025  ep(15,28)=0.7726
+2026-06-12 11:02:34  INFO      heatmap CKA: 800/2025  ep(17,100)=0.7919
+2026-06-12 11:02:38  INFO      heatmap CKA: 900/2025  ep(19,200)=0.7236
+2026-06-12 11:02:42  INFO      heatmap CKA: 1000/2025  ep(24,9)=0.7863
+2026-06-12 11:02:47  INFO      heatmap CKA: 1100/2025  ep(28,19)=0.7744
+2026-06-12 11:02:51  INFO      heatmap CKA: 1200/2025  ep(35,50)=0.7206
+2026-06-12 11:02:55  INFO      heatmap CKA: 1300/2025  ep(45,150)=0.7811
+2026-06-12 11:02:59  INFO      heatmap CKA: 1400/2025  ep(70,4)=0.6691
+2026-06-12 11:03:03  INFO      heatmap CKA: 1500/2025  ep(90,14)=0.7221
+2026-06-12 11:03:07  INFO      heatmap CKA: 1600/2025  ep(110,28)=0.7607
+2026-06-12 11:03:11  INFO      heatmap CKA: 1700/2025  ep(130,100)=0.7420
+2026-06-12 11:03:15  INFO      heatmap CKA: 1800/2025  ep(150,200)=0.8926
+2026-06-12 11:03:19  INFO      heatmap CKA: 1900/2025  ep(180,9)=0.6334
+2026-06-12 11:03:23  INFO      heatmap CKA: 2000/2025  ep(200,19)=0.6519
+2026-06-12 11:03:24  INFO      heatmap CKA: 2025/2025  ep(200,200)=0.9515
+2026-06-12 11:03:24  INFO    Saved heatmap: heatmap_lr010_vs_lr020_seed42.csv
+2026-06-12 11:03:24  INFO  [same_epoch_long]: saved 675 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_same_epoch_long.csv
+2026-06-12 11:03:24  INFO  [same_epoch_summary]: saved 135 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_same_epoch_summary.csv
+2026-06-12 11:03:24  INFO  [heatmap_summary]: saved 15 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_heatmap_summary.csv
+2026-06-12 11:03:24  INFO  [cross_lr_final_summary]: saved 3 rows  ->  thesis_results/_aggregate/cross_lr_cka/cross_lr_cka_final_summary.csv
+2026-06-12 11:03:24  INFO  Building mean heatmaps across seeds...
+2026-06-12 11:03:24  INFO    Mean heatmap LR=0.05 vs LR=0.10: 5 seed(s), shape (45, 45)
+2026-06-12 11:03:24  INFO    Mean heatmap LR=0.05 vs LR=0.20: 5 seed(s), shape (45, 45)
+2026-06-12 11:03:24  INFO    Mean heatmap LR=0.10 vs LR=0.20: 5 seed(s), shape (45, 45)
+2026-06-12 11:03:24  INFO  Saved mean heatmap: heatmap_lr005_vs_lr010_mean.csv
+2026-06-12 11:03:24  INFO  Saved mean heatmap: heatmap_lr005_vs_lr020_mean.csv
+2026-06-12 11:03:24  INFO  Saved mean heatmap: heatmap_lr010_vs_lr020_mean.csv
+2026-06-12 11:03:24  INFO  Computing final-epoch all-run CKA matrix...
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr005_seed0
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr005_seed1
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr005_seed2
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr005_seed3
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr005_seed42
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr010_seed0
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr010_seed1
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr010_seed2
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr010_seed3
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr010_seed42
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr020_seed0
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr020_seed1
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr020_seed2
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr020_seed3
+2026-06-12 11:03:24  INFO    Loaded final epoch for final_lr020_seed42
+2026-06-12 11:03:25  INFO    final matrix: 20/120  final_lr005_seed1 vs final_lr010_seed0  CKA=0.9598
+2026-06-12 11:03:25  INFO    final matrix: 40/120  final_lr005_seed2 vs final_lr020_seed2  CKA=0.9493
+2026-06-12 11:03:26  INFO    final matrix: 60/120  final_lr005_seed42 vs final_lr010_seed42  CKA=0.9627
+2026-06-12 11:03:27  INFO    final matrix: 80/120  final_lr010_seed1 vs final_lr020_seed0  CKA=0.9493
+2026-06-12 11:03:28  INFO    final matrix: 100/120  final_lr010_seed42 vs final_lr010_seed42  CKA=1.0000
+2026-06-12 11:03:28  INFO    final matrix: 120/120  final_lr020_seed42 vs final_lr020_seed42  CKA=1.0000
+2026-06-12 11:03:28  INFO  Saved: thesis_results/_aggregate/cross_lr_cka/final_epoch_cka_matrix.csv
+2026-06-12 11:03:28  INFO  [final_long]: saved 120 rows  ->  thesis_results/_aggregate/cross_lr_cka/final_epoch_cka_long.csv
+2026-06-12 11:03:28  INFO  [within_lr_summary]: saved 3 rows  ->  thesis_results/_aggregate/cross_lr_cka/within_lr_cross_seed_final_summary.csv
+2026-06-12 11:03:28  INFO  [combined_summary]: saved 6 rows  ->  thesis_results/_aggregate/cross_lr_cka/combined_final_similarity_summary.csv
+2026-06-12 11:03:28  INFO  Creating plots...
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/cross_lr_cka_same_epoch_trajectory.png
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/final_epoch_all_runs_cka_matrix.png
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/final_similarity_summary_bar.png
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr005_vs_lr010.png
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr005_vs_lr020.png
+2026-06-12 11:03:29  INFO  Saved: thesis_results/_aggregate/plots/cross_lr_cka/mean_heatmap_lr010_vs_lr020.png
+2026-06-12 11:03:29  INFO  cross_lr_cka.py  done.
