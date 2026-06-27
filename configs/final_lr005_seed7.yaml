@@ -1,0 +1,168 @@
+# LR-sensitivity run: lr=0.05, seed=7. Identical to fullstudy except lr and output paths.
+# Measures: CKA (local, to-final, mean-future), surrogate probes,
+#            Neural Collapse (NC1–NC4), and eNTK dynamics.
+# All hyperparameters live here. No magic numbers in scripts.
+
+model: resnet18
+dataset: cifar10
+
+# Optimizer — SGD by design (see CLAUDE.md: Sharon & Dar 2024 note on Adam artifacts)
+optimizer: sgd
+lr: 0.05
+momentum: 0.9
+weight_decay: 5.0e-4
+
+# LR schedule — cosine annealing over 200 epochs
+lr_scheduler: cosine
+lr_warmup_epochs: 0
+
+# Training duration
+epochs: 200
+batch_size: 128
+seed: 7
+
+# Explicit checkpoint epochs.
+# Dense early sampling captures rapid phase transitions; sparser later sampling
+# covers the terminal phase without excessive storage cost.
+checkpoint_epochs:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 22
+  - 24
+  - 26
+  - 28
+  - 30
+  - 35
+  - 40
+  - 45
+  - 50
+  - 60
+  - 70
+  - 80
+  - 90
+  - 100
+  - 110
+  - 120
+  - 130
+  # ----- every-5: 135→200 (matches densified old runs) -----
+  - 135
+  - 140
+  - 145
+  - 150
+  - 155
+  - 160
+  - 165
+  - 170
+  - 175
+  - 180
+  - 185
+  - 190
+  - 195
+  - 200
+
+# Stabilization detection (tau recorded for reference; not used as a trigger here)
+tau: 0.02    # similarity-change threshold (fixed across all conditions)
+K: 5         # consecutive checkpoints that must satisfy tau before declaring t*
+
+# CKA computation
+# Three metrics are derived per checkpoint:
+#   local_cka_change  = 1 - CKA(t, previous_checkpoint)
+#   cka_to_final      = CKA(t, final_epoch)
+#   mean_future_cka   = average CKA(t, t') over all future stored checkpoints
+cka:
+  # Requested held-out subset size. Balanced CIFAR-10 sampling uses
+  # floor(2048 / 10) * 10 = 2040 actual examples, same examples every checkpoint.
+  n_samples: 2048
+  # Unbiased HSIC estimator is used for this sample size (Kornblith et al. 2019)
+
+# DRS computation is deprecated in this experiment (see CLAUDE.md: Deprecated Components).
+# Config retained for backwards compatibility; do not build new pipeline code around it.
+drs:
+  n_planes: 500
+  n_points_per_plane: 2500
+  probe_epochs: 10
+  probe_lr: 1.0e-4
+  compute_freq: 10
+
+# Activation extraction
+extraction:
+  # Requested size; class-balanced extraction gives 2040 actual examples.
+  n_samples: 2048
+  layer: penultimate      # penultimate layer (before final FC); see CLAUDE.md rationale
+
+# Surrogate classifiers trained on frozen penultimate representations
+# Fitted at every stored checkpoint (probe_fitting: all_checkpoints)
+surrogates:
+  probe_fitting: all_checkpoints   # fit surrogates at every checkpoint epoch
+  logistic_regression:
+    C: 1.0          # inverse regularization strength; sklearn default
+    max_iter: 1000  # L-BFGS solver iterations
+    solver: lbfgs
+  linear_svm:
+    C: 1.0
+    max_iter: 1000
+    n_train_subset: 10000  # stratified subset; full 50k is too slow per checkpoint
+  rbf_svm:
+    C: 1.0
+    gamma: scale    # gamma = 1 / (n_features * X.var()); sklearn default
+    max_iter: -1    # no iteration limit for RBF SVM
+    n_train_subset: 10000  # stratified subset; full 50k makes kernel matrix intractable
+  random_forest:
+    n_estimators: 200
+    max_features: sqrt   # sqrt(512) ≈ 22 features per split; standard for classification
+    n_jobs: -1
+  lightgbm:
+    n_estimators: 100
+    num_leaves: 31
+    learning_rate: 0.1
+    n_jobs: -1
+    # max_n_estimators: 50  # uncomment to hard-cap if LightGBM runs long
+
+# Neural Collapse metrics (Papyan et al. 2020)
+# Computed from penultimate-layer train representations at each checkpoint.
+#   NC1: within-class variability collapse (trace ratio Sw/Sb)
+#   NC2: class-mean alignment to simplex ETF (equiangular tight frame)
+#   NC3: classifier weight alignment to class means
+#   NC4: agreement between nearest-class-center and argmax classifier
+neural_collapse:
+  layer: penultimate   # same layer as CKA and surrogates for consistent comparison
+
+# eNTK dynamics — last-layer empirical NTK (closed form, no autograd).
+# K[i,j] = 1[y_i==y_j] * (h_i^T h_j + bias_flag)
+# A fixed stratified subset is selected once and reused across all checkpoints.
+entk:
+  enabled: true
+  n_subset: 500          # stratified subset; 500/10 = 50 per class for CIFAR-10
+  seed: 42               # subset sampling seed (independent of global training seed)
+  save_matrices: false   # if true, save entk_matrix_epoch_XXXX.npy (heavy artifact)
+  output_dir: null       # null = use paths.base/entk for matrix files; override if needed
+
+# Storage paths — all heavy artifacts go under /local/data/gme101/final_lr005_seed7/
+# Heavy artifacts (checkpoints, features, NTK matrices) must NEVER be committed to git.
+paths:
+  base: /local/data/gme101/final_lr005_seed7
+  checkpoints: /local/data/gme101/final_lr005_seed7/checkpoints
+  activations: /local/data/gme101/final_lr005_seed7/activations
+  results: /local/data/gme101/final_lr005_seed7/results
+  plots: /local/data/gme101/final_lr005_seed7/plots
+  logs: /local/data/gme101/final_lr005_seed7/logs
+  manifests: /local/data/gme101/final_lr005_seed7/manifests
