@@ -21,3 +21,4 @@ manifests/*.pkl
 plots/*.png
 plots/*.pdf
 logs/*.log
+.ipynb_checkpoints/
